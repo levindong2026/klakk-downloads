@@ -8,10 +8,10 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 | OS | 動作環境 | インストーラー |
 | --- | --- | --- |
-| Windows | Windows 10 / 11、ARM64またはIntel/AMD x64。32ビット版Windowsには非対応 | [Windows版をダウンロード](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-Setup.exe) |
-| Mac | macOS 14以降、AppleシリコンまたはIntel Mac | [Mac版DMGをダウンロード](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-23.dmg) |
+| Windows | Windows 10 / 11、ARM64またはIntel/AMD x64。32ビット版Windowsには非対応 | [Windows版をダウンロード](https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup.exe) |
+| Mac | macOS 14以降、AppleシリコンまたはIntel Mac | [Mac版DMGをダウンロード](https://downloads.tryklakk.com/Klakk-1.4.1-23.dmg) |
 
-[リリースとSHA-256チェックサム](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1) · [公式サイトのダウンロード案内](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
+[SHA-256チェックサム](SHA256SUMS.txt) · [公式サイトのダウンロード案内](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
 全機能を**3日間無料**で試せます。継続利用は**OSごとにUS$4.49の買い切り**で、適用される税金は決済時に処理されます。Mac版とWindows版は別購入です。直接ダウンロード版はCreem、Mac App Store版はAppleの購入手続きを利用します。
 
