@@ -1,0 +1,2 @@
+7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454  Klakk-1.4.1-Windows-Setup.exe
+23c6b838f4e17e2ccddba1eb91927d0fe714403abcc512fca0545a013f5dfa51  Klakk-1.4.1-23.dmg
