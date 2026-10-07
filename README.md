@@ -8,10 +8,10 @@ Official downloads maintained by the Klakk developer. Klakk plays keyboard sound
 
 | Platform | Requirements | Installer |
 | --- | --- | --- |
-| Windows | Windows 10 or 11, ARM64 or Intel/AMD x64; 32-bit Windows is unsupported | [Download Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-Setup.exe) |
-| Mac | macOS 14 or later, Apple silicon or Intel | [Download Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-23.dmg) |
+| Windows | Windows 10 or 11, ARM64 or Intel/AMD x64; 32-bit Windows is unsupported | [Download Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup.exe) |
+| Mac | macOS 14 or later, Apple silicon or Intel | [Download Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.1-23.dmg) |
 
-[All release files and SHA-256 checksums](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1). Prefer the main website? [Choose a download](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
+[SHA-256 checksums](SHA256SUMS.txt). Prefer the main website? [Choose a download](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
 The full-featured trial lasts **3 days**. Continued use costs **US$4.49 once per platform**, with applicable tax handled at checkout. Mac and Windows are separate purchases. The direct-download editions use Creem checkout; the Mac App Store edition uses Apple's purchase flow.
 
