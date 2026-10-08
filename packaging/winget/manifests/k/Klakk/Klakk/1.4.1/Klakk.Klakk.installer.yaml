@@ -5,7 +5,7 @@ InstallerType: inno
 Scope: user
 ProductCode: '{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
 AppsAndFeaturesEntries:
-  - DisplayName: Klakk 1.4.1
+  - DisplayName: Klakk version 1.4.1
     Publisher: Klakk
     DisplayVersion: 1.4.1
     ProductCode: '{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'

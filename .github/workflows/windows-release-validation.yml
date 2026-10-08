@@ -37,7 +37,7 @@ jobs:
           $registryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
           $entry = Get-ItemProperty $registryPath
           Write-Host "Registry metadata: $($entry.DisplayName), $($entry.DisplayVersion), $($entry.Publisher)"
-          if ($entry.DisplayName -ne 'Klakk 1.4.1' -or $entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'Installed metadata does not match manifest' }
+          if ($entry.DisplayName -ne 'Klakk version 1.4.1' -or $entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'Installed metadata does not match manifest' }
           $app = Join-Path $installRoot 'Klakk.Windows.exe'
           if (-not (Test-Path $app)) { throw 'Installed application missing' }
           # Read PE machine type to verify that the universal installer selected the native build.
