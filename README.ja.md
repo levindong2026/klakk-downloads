@@ -13,6 +13,8 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 [SHA-256チェックサム](SHA256SUMS.txt) · [公式サイトのダウンロード案内](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
+通常の配布先に接続できない場合は、[公式GitHubリリース](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1)から入手できます：[Windowsインストーラー](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-Setup.exe) · [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-23.dmg)。両方の配布先でファイルとチェックサムは同一です。
+
 全機能を**3日間無料**で試せます。継続利用は**OSごとにUS$4.49の買い切り**で、適用される税金は決済時に処理されます。Mac版とWindows版は別購入です。直接ダウンロード版はCreem、Mac App Store版はAppleの購入手続きを利用します。
 
 ## Windowsでのインストール

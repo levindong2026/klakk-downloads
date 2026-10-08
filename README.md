@@ -13,6 +13,8 @@ Official downloads maintained by the Klakk developer. Klakk plays keyboard sound
 
 [SHA-256 checksums](SHA256SUMS.txt). Prefer the main website? [Choose a download](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
+If the main download host is unavailable, use the [official GitHub release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1): [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-Setup.exe) · [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-23.dmg). Both hosts provide the same files and checksums.
+
 The full-featured trial lasts **3 days**. Continued use costs **US$4.49 once per platform**, with applicable tax handled at checkout. Mac and Windows are separate purchases. The direct-download editions use Creem checkout; the Mac App Store edition uses Apple's purchase flow.
 
 ## Install on Windows
