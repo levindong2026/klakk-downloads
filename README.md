@@ -37,6 +37,8 @@ The DMG contains Klakk 1.4.1, build 23, signed with Developer ID and notarized b
 
 [Mac installation and troubleshooting](https://tryklakk.com/en/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
+Already use Homebrew? The [Klakk-maintained Mac tap](https://github.com/levindong2026/homebrew-klakk) installs the same signed and notarized website edition. It passed installation checks on Apple silicon and Intel Macs. This is a publisher-maintained tap, separate from Homebrew's official cask catalog.
+
 ## Compare the 14 included sound packs
 
 Both platforms include:
