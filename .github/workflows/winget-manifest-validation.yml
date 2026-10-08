@@ -1,0 +1,74 @@
+name: Validate candidate with WinGet
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  winget:
+    name: WinGet on ${{ matrix.architecture }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            architecture: X64
+          - runner: windows-11-arm
+            architecture: Arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - name: Install Microsoft's stable WinGet client
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Install-PackageProvider -Name NuGet -Scope CurrentUser -Force | Out-Null
+          Install-Module -Name Microsoft.WinGet.Client -Repository PSGallery -Scope CurrentUser -Force
+          Import-Module Microsoft.WinGet.Client
+          Get-Module Microsoft.WinGet.Client | Select-Object Name, Version
+          Repair-WinGetPackageManager -AllUsers
+      - name: Validate and install the exact submitted manifest
+        shell: pwsh
+        env:
+          EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $architecture = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
+          if ($architecture -ne $env:EXPECTED_ARCHITECTURE) { throw "Unexpected runner architecture: $architecture" }
+          $package = Get-AppxPackage -Name Microsoft.DesktopAppInstaller | Select-Object -First 1
+          if (-not $package) { throw 'Microsoft App Installer registration missing' }
+          $winget = Join-Path $package.InstallLocation 'winget.exe'
+          & $winget --version
+          if ($LASTEXITCODE -ne 0) { throw 'WinGet client unavailable' }
+          $manifestRoot = Join-Path $env:RUNNER_TEMP 'klakk-manifest'
+          New-Item -ItemType Directory -Path $manifestRoot | Out-Null
+          $files = @{
+            'Klakk.Klakk.installer.yaml' = '951D4BF80732B37F0DB455288B82509C5EAB4A1244C7C5B15353FDBFF10AA14F'
+            'Klakk.Klakk.locale.en-US.yaml' = '1735F045594E0F4BD23AB4F525D8C2E9550AB3D99029E436DFBD3C3A42977B55'
+            'Klakk.Klakk.yaml' = 'E3E3D29B28FB14362665281A579BC9A5828CE0F2ADC6A4C6F75C1EF15C331630'
+          }
+          foreach ($name in $files.Keys) {
+            $destination = Join-Path $manifestRoot $name
+            $url = "https://raw.githubusercontent.com/levindong2026/winget-pkgs/97a679383c23250e65aba2e3d1219b4b9668a2cf/manifests/k/Klakk/Klakk/1.4.1/$name"
+            Invoke-WebRequest $url -OutFile $destination
+            if ((Get-FileHash $destination -Algorithm SHA256).Hash -ne $files[$name]) { throw "Submitted manifest hash mismatch: $name" }
+          }
+          & $winget validate --manifest $manifestRoot
+          if ($LASTEXITCODE -ne 0) { throw 'WinGet manifest validation failed' }
+          # LocalManifestFiles is enabled only on this disposable hosted test runner.
+          & $winget settings --enable LocalManifestFiles
+          if ($LASTEXITCODE -ne 0) { throw 'Could not enable local manifest testing' }
+          # This test uses the community source, without accepting Microsoft Store source agreements.
+          & $winget source remove msstore
+          if ($LASTEXITCODE -ne 0) { throw 'Could not remove the unused Microsoft Store source' }
+          $installRoot = Join-Path $env:RUNNER_TEMP 'klakk-winget-install'
+          & $winget install --manifest $manifestRoot --scope user --silent --location $installRoot --disable-interactivity
+          if ($LASTEXITCODE -ne 0) { throw "WinGet installation failed: $LASTEXITCODE" }
+          $app = Join-Path $installRoot 'Klakk.Windows.exe'
+          if (-not (Test-Path $app)) { throw 'WinGet did not install the application' }
+          $entry = Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
+          if ($entry.DisplayName -ne 'Klakk version 1.4.1' -or $entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'WinGet installed metadata mismatch' }
+          Write-Host "Installed through WinGet: $($entry.DisplayName), $($entry.DisplayVersion), $($entry.Publisher), $architecture"
+          & $winget uninstall --name 'Klakk version 1.4.1' --exact --silent --disable-interactivity
+          if ($LASTEXITCODE -ne 0 -or (Test-Path $app)) { throw 'WinGet uninstall failed' }
+          Write-Host 'WinGet validate, install and uninstall passed for the exact submitted candidate.'
+          Write-Host 'The app was not launched. These QA downloads/installations are not customer growth.'
