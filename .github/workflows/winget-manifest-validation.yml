@@ -21,8 +21,8 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          Install-PackageProvider -Name NuGet -Scope CurrentUser -Force | Out-Null
-          Install-Module -Name Microsoft.WinGet.Client -Repository PSGallery -Scope CurrentUser -Force
+          # PSResourceGet avoids the legacy NuGet provider bootstrap endpoint.
+          Install-PSResource -Name Microsoft.WinGet.Client -Repository PSGallery -Scope CurrentUser -TrustRepository
           Import-Module Microsoft.WinGet.Client
           Get-Module Microsoft.WinGet.Client | Select-Object Name, Version
           Repair-WinGetPackageManager -AllUsers
