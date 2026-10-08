@@ -74,4 +74,6 @@ shasum -a 256 Klakk-1.4.1-23.dmg
 
 [Support](https://tryklakk.com/en/support/) · [Terms](https://tryklakk.com/en/terms/) · [Windows privacy](https://tryklakk.com/en/windows/privacy/)
 
-This repository contains public download documentation, not the application source. GitHub's automatically generated “Source code” ZIP and tar.gz files contain that documentation. To install Klakk, choose the `.exe` or `.dmg` release asset instead. Klakk remains subject to its product terms; publishing installers here does not grant an open-source license.
+This repository contains public download documentation, candidate package manifests and installer validation workflows. The application source remains private. GitHub's automatically generated “Source code” ZIP and tar.gz files contain repository files, not an installable app. To install Klakk, choose the `.exe` or `.dmg` release asset instead. Klakk remains subject to its product terms; publishing installers here does not grant an open-source license.
+
+The files in `packaging/winget/` are a candidate submission for the Windows Package Manager community repository. Their presence here does not mean Klakk is available through WinGet. The manually triggered Windows validation workflow checks the published installer on x64 and ARM64; these QA operations are not customer downloads or installations.

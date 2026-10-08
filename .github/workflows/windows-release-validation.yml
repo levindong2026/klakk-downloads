@@ -1,0 +1,61 @@
+name: Validate published Windows installer
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  install:
+    name: Published installer on ${{ matrix.architecture }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            architecture: X64
+          - runner: windows-11-arm
+            architecture: Arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 12
+    steps:
+      - name: Download, verify, install and check the published package
+        shell: pwsh
+        env:
+          EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $architecture = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
+          if ($architecture -ne $env:EXPECTED_ARCHITECTURE) { throw "Unexpected runner architecture: $architecture" }
+          $setup = Join-Path $env:RUNNER_TEMP 'Klakk-1.4.1-Windows-Setup.exe'
+          Invoke-WebRequest 'https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup.exe' -OutFile $setup
+          if ((Get-Item $setup).Length -ne 202233968) { throw 'Installer size mismatch' }
+          $expected = '7A598CC3D3EA7236F377D7281A68A25A799C4F1772DE9CE2A857D4C7658DF454'
+          if ((Get-FileHash $setup -Algorithm SHA256).Hash -ne $expected) { throw 'Installer SHA-256 mismatch' }
+          $installRoot = Join-Path $env:RUNNER_TEMP 'klakk-install-check'
+          $arguments = "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP- /NOICONS `"/DIR=$installRoot`""
+          $install = Start-Process $setup -ArgumentList $arguments -Wait -PassThru
+          if ($install.ExitCode -ne 0) { throw "Silent installation failed: $($install.ExitCode)" }
+          $registryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
+          $entry = Get-ItemProperty $registryPath
+          Write-Host "Registry metadata: $($entry.DisplayName), $($entry.DisplayVersion), $($entry.Publisher)"
+          if ($entry.DisplayName -ne 'Klakk 1.4.1' -or $entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'Installed metadata does not match manifest' }
+          $app = Join-Path $installRoot 'Klakk.Windows.exe'
+          if (-not (Test-Path $app)) { throw 'Installed application missing' }
+          # Read PE machine type to verify that the universal installer selected the native build.
+          $bytes = [IO.File]::ReadAllBytes($app)
+          $pe = [BitConverter]::ToInt32($bytes, 0x3c)
+          $machine = [BitConverter]::ToUInt16($bytes, $pe + 4)
+          $expectedMachine = if ($architecture -eq 'Arm64') { 0xaa64 } else { 0x8664 }
+          if ($machine -ne $expectedMachine) { throw 'Installed executable architecture mismatch' }
+          $packs = @(Get-ChildItem (Join-Path $installRoot 'SoundPacks') -Recurse -Filter config.json).Count
+          if ($packs -ne 14) { throw "Installed sound pack count: $packs" }
+          # The application's smoke-test mode disables usage telemetry and does not buy or activate a license.
+          $errorLog = Join-Path $env:RUNNER_TEMP 'klakk-smoke-stderr.txt'
+          $smoke = Start-Process $app -ArgumentList '--smoke-test' -Wait -PassThru -RedirectStandardError $errorLog
+          if (Test-Path $errorLog) { Get-Content $errorLog }
+          if ($smoke.ExitCode -ne 0) { throw "Installed app startup failed: $($smoke.ExitCode)" }
+          $uninstaller = @(Get-ChildItem $installRoot -Filter 'unins*.exe')
+          if ($uninstaller.Count -ne 1) { throw 'Uninstaller missing or ambiguous' }
+          $uninstall = Start-Process $uninstaller[0].FullName -ArgumentList '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART' -Wait -PassThru
+          if ($uninstall.ExitCode -ne 0 -or (Test-Path $app)) { throw 'Uninstall failed' }
+          Write-Host "Verified ${architecture}: formal installer hash, silent installation, registry metadata, native PE, 14 sound packs, startup and uninstall."
+          Write-Host 'These are QA operations, not customer downloads or installations. No physical audio latency was measured.'
