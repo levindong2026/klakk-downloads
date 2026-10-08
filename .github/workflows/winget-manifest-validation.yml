@@ -21,13 +21,56 @@ jobs:
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
         run: |
           $ErrorActionPreference = 'Stop'
           # PSResourceGet avoids the legacy NuGet provider bootstrap endpoint.
           Install-PSResource -Name Microsoft.WinGet.Client -Repository PSGallery -Scope CurrentUser -TrustRepository
           Import-Module Microsoft.WinGet.Client
           Get-Module Microsoft.WinGet.Client | Select-Object Name, Version
-          Repair-WinGetPackageManager -Version '1.29.380' -Force
+          if ($env:EXPECTED_ARCHITECTURE -eq 'Arm64') {
+            # Use Microsoft's signed release bundle and dependencies directly. The
+            # ARM runner does not include App Installer, and the repair helper's
+            # returned 'Not Found' before Klakk was invoked on this image.
+            $bootstrap = Join-Path $env:RUNNER_TEMP 'winget-bootstrap'
+            New-Item -ItemType Directory -Path $bootstrap | Out-Null
+            $assets = @{
+              'DesktopAppInstaller_Dependencies.zip' = 'BA875AFE9D190F61218985AC0292A99D1DB710BF93E13C68944CA9D89F0D82D1'
+              'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle' = '65DEA9C01CE08EE7B763366B27C0E651F97DB857C11CA9B9C301826C10092F2E'
+            }
+            foreach ($name in $assets.Keys) {
+              $destination = Join-Path $bootstrap $name
+              Invoke-WebRequest "https://github.com/microsoft/winget-cli/releases/download/v1.29.380/$name" -OutFile $destination
+              if ((Get-FileHash $destination -Algorithm SHA256).Hash -ne $assets[$name]) { throw "Microsoft release hash mismatch: $name" }
+            }
+            Expand-Archive (Join-Path $bootstrap 'DesktopAppInstaller_Dependencies.zip') (Join-Path $bootstrap 'dependencies')
+            $deployment = @'
+          param([string]$Root)
+          $ErrorActionPreference = 'Stop'
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $packages = @(Get-ChildItem (Join-Path $Root 'dependencies\arm64') -Filter '*.appx')
+          if ($packages.Count -lt 3) { throw 'Official ARM64 frameworks missing' }
+          foreach ($package in $packages) {
+            $archive = [IO.Compression.ZipFile]::OpenRead($package.FullName)
+            try {
+              $reader = New-Object IO.StreamReader($archive.GetEntry('AppxManifest.xml').Open())
+              try { [xml]$manifest = $reader.ReadToEnd() } finally { $reader.Dispose() }
+            } finally { $archive.Dispose() }
+            $identity = $manifest.Package.Identity
+            if ($identity.ProcessorArchitecture -ne 'arm64') { throw 'Unexpected framework architecture' }
+            $existing = Get-AppxPackage -Name $identity.Name | Where-Object { $_.Architecture -eq 'Arm64' -and [version]$_.Version -ge [version]$identity.Version }
+            if (-not $existing) { Add-AppxPackage -Path $package.FullName -ErrorAction Stop }
+            Write-Host "Verified framework: $($identity.Name) $($identity.Version)"
+          }
+          Add-AppxPackage -Path (Join-Path $Root 'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle') -ErrorAction Stop
+          '@
+            $deploymentPath = Join-Path $bootstrap 'deploy.ps1'
+            Set-Content -Path $deploymentPath -Value $deployment
+            & powershell.exe -NoProfile -NonInteractive -File $deploymentPath -Root $bootstrap
+            if ($LASTEXITCODE -ne 0) { throw 'Official App Installer deployment failed' }
+          } else {
+            Repair-WinGetPackageManager -Version '1.29.380' -Force
+          }
           (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Links') | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Validate and install the exact submitted manifest
         shell: pwsh
@@ -69,8 +112,18 @@ jobs:
           & $winget source remove msstore
           if ($LASTEXITCODE -ne 0) { throw 'Could not remove the unused Microsoft Store source' }
           $installRoot = Join-Path $env:RUNNER_TEMP 'klakk-winget-install'
-          & $winget install --manifest $manifestRoot --scope user --silent --location $installRoot --disable-interactivity
-          if ($LASTEXITCODE -ne 0) { throw "WinGet installation failed: $LASTEXITCODE" }
+          $installerLog = Join-Path $env:RUNNER_TEMP 'klakk-inno-install.log'
+          $stdout = Join-Path $env:RUNNER_TEMP 'klakk-winget-stdout.log'
+          $stderr = Join-Path $env:RUNNER_TEMP 'klakk-winget-stderr.log'
+          $arguments = "install --manifest `"$manifestRoot`" --scope user --silent --location `"$installRoot`" --disable-interactivity --verbose-logs --log `"$installerLog`""
+          $installation = Start-Process $winget -ArgumentList $arguments -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+          if (-not $installation.WaitForExit(480000)) {
+            if (Test-Path $installerLog) { Get-Content $installerLog -Tail 80 }
+            throw 'WinGet installation exceeded eight minutes; diagnostic logs retained'
+          }
+          Get-Content $stdout
+          Get-Content $stderr
+          if ($installation.ExitCode -ne 0) { throw "WinGet installation failed: $($installation.ExitCode)" }
           $app = Join-Path $installRoot 'Klakk.Windows.exe'
           if (-not (Test-Path $app)) { throw 'WinGet did not install the application' }
           $entry = Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
@@ -80,3 +133,13 @@ jobs:
           if ($LASTEXITCODE -ne 0 -or (Test-Path $app)) { throw 'WinGet uninstall failed' }
           Write-Host 'WinGet validate, install and uninstall passed for the exact submitted candidate.'
           Write-Host 'The app was not launched. These QA downloads/installations are not customer growth.'
+      - name: Retain installer diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: winget-diagnostics-${{ matrix.architecture }}
+          path: |
+            ${{ runner.temp }}/klakk-*.log
+            ${{ runner.temp }}/klakk-manifest/*.yaml
+          retention-days: 7
+          if-no-files-found: ignore
