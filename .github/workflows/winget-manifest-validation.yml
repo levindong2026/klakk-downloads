@@ -89,6 +89,7 @@ jobs:
             $winget = Join-Path $package.InstallLocation 'winget.exe'
           }
           & $winget --version
+          & $winget --info
           if ($LASTEXITCODE -ne 0) { throw 'WinGet client unavailable' }
           $manifestRoot = Join-Path $env:RUNNER_TEMP 'klakk-manifest'
           New-Item -ItemType Directory -Path $manifestRoot | Out-Null
@@ -117,9 +118,9 @@ jobs:
           $stderr = Join-Path $env:RUNNER_TEMP 'klakk-winget-stderr.log'
           $arguments = "install --manifest `"$manifestRoot`" --scope user --silent --location `"$installRoot`" --disable-interactivity --verbose-logs --log `"$installerLog`""
           $installation = Start-Process $winget -ArgumentList $arguments -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
-          if (-not $installation.WaitForExit(480000)) {
+          if (-not $installation.WaitForExit(180000)) {
             if (Test-Path $installerLog) { Get-Content $installerLog -Tail 80 }
-            throw 'WinGet installation exceeded eight minutes; diagnostic logs retained'
+            throw 'WinGet installation exceeded the three-minute diagnostic window; logs retained'
           }
           Get-Content $stdout
           Get-Content $stderr
@@ -133,6 +134,22 @@ jobs:
           if ($LASTEXITCODE -ne 0 -or (Test-Path $app)) { throw 'WinGet uninstall failed' }
           Write-Host 'WinGet validate, install and uninstall passed for the exact submitted candidate.'
           Write-Host 'The app was not launched. These QA downloads/installations are not customer growth.'
+      - name: Collect WinGet process and diagnostic logs
+        if: always()
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $diagnostics = Join-Path $env:RUNNER_TEMP 'winget-client-diagnostics'
+          New-Item -ItemType Directory -Path $diagnostics -Force | Out-Null
+          Get-CimInstance Win32_Process | Where-Object { $_.Name -like '*winget*' -or $_.Name -like '*Klakk*' -or $_.CommandLine -like '*Klakk-1.4.1-Windows-Setup*' } | Select-Object Name, ProcessId, ParentProcessId, CommandLine | ConvertTo-Json -Depth 3 | Set-Content (Join-Path $diagnostics 'installer-processes.json')
+          $roots = @(
+            (Join-Path $env:LOCALAPPDATA 'Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir'),
+            (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\DiagOutputDir')
+          )
+          foreach ($root in $roots) {
+            if (Test-Path $root) { Get-ChildItem $root -Filter '*.log' | Copy-Item -Destination $diagnostics }
+          }
+          Write-Host "Diagnostic files: $(@(Get-ChildItem $diagnostics).Count)"
       - name: Retain installer diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -141,5 +158,6 @@ jobs:
           path: |
             ${{ runner.temp }}/klakk-*.log
             ${{ runner.temp }}/klakk-manifest/*.yaml
+            ${{ runner.temp }}/winget-client-diagnostics/
           retention-days: 7
           if-no-files-found: ignore
