@@ -1,3 +1,4 @@
 *.exe
 *.dmg
+*.nupkg
 .DS_Store

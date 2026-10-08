@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>klakk</id>
+    <version>1.4.1</version>
+    <title>Klakk (Install)</title>
+    <authors>Klakk</authors>
+    <owners>Levin</owners>
+    <projectUrl>https://tryklakk.com/en/windows/</projectUrl>
+    <packageSourceUrl>https://github.com/levindong2026/klakk-downloads/tree/main/packaging/chocolatey/klakk</packageSourceUrl>
+    <docsUrl>https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/</docsUrl>
+    <bugTrackerUrl>https://tryklakk.com/en/support/</bugTrackerUrl>
+    <licenseUrl>https://tryklakk.com/en/terms/</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://tryklakk.com/assets/images/app-logo.png</iconUrl>
+    <copyright>Copyright 2026 Klakk</copyright>
+    <tags>klakk keyboard keyboard-sounds typing audio trial</tags>
+    <summary>Play keyboard sounds while typing in Windows desktop apps.</summary>
+    <description><![CDATA[
+Klakk adds keyboard sound effects while you type in Windows desktop applications. Choose from 14 included sound packs, adjust the volume and select your audio output. It plays added audio; it does not reduce your keyboard's physical noise or change the feel of its keys.
+
+### Trial and purchase
+
+This is proprietary trial software, maintained here by its developer. The full-featured trial lasts 3 days from first launch. Continued use requires purchasing and activating a Windows license: US$4.49 once, plus applicable taxes at checkout. Mac and Mac App Store licenses are separate purchases. Installing this package does not purchase or activate a license.
+
+### Requirements and installation
+
+Windows 10 or 11 on Intel/AMD x64 or ARM64. 32-bit Windows is unsupported. The official universal installer selects the native app architecture and includes its runtime. Installation is for the Windows account running Chocolatey, under that account's Local AppData; it is not a machine-wide installation. Run installation and removal as the same Windows account.
+
+The current Klakk 1.4.1 installer is unsigned. This package downloads it from the official Klakk download host and checks its pinned SHA-256 before unattended installation. Silent installation does not launch Klakk. Open it yourself, enable playback in General, and choose a sound pack, volume and Output Device in Audio.
+
+Typing text and raw key codes are not uploaded. The direct edition sends usage and trial/licensing communications; see the [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
+
+[Preview the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=chocolatey&utm_medium=referral&utm_campaign=windows_distribution) or follow the [Windows setup and no-sound guide](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/?utm_source=chocolatey&utm_medium=referral&utm_campaign=windows_distribution).
+    ]]></description>
+    <releaseNotes>Official installer and release notes: https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\*.ps1" target="tools" />
+  </files>
+</package>

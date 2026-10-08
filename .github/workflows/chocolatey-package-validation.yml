@@ -1,0 +1,123 @@
+name: Validate Chocolatey candidate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chocolatey:
+    name: Chocolatey on ${{ matrix.architecture }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            architecture: X64
+          - runner: windows-11-arm
+            architecture: Arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - name: Check out public packaging files
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Locate Chocolatey or install the official CLI MSI
+        shell: pwsh
+        env:
+          EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $architecture = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
+          if ($architecture -ne $env:EXPECTED_ARCHITECTURE) { throw "Unexpected runner architecture: $architecture" }
+          if (-not (Get-Command choco.exe -ErrorAction SilentlyContinue)) {
+            $msi = Join-Path $env:RUNNER_TEMP 'chocolatey-2.7.4.0.msi'
+            Invoke-WebRequest 'https://github.com/chocolatey/choco/releases/download/2.7.4/chocolatey-2.7.4.0.msi' -OutFile $msi
+            if ((Get-FileHash $msi -Algorithm SHA256).Hash -ne 'F39EFEBDC012525A7057F573F136F63AF91A496EFDDD1DB4C7910D657A5AC407') { throw 'Official Chocolatey MSI checksum mismatch' }
+            $msiLog = Join-Path $env:RUNNER_TEMP 'chocolatey-bootstrap.log'
+            $arguments = "/i `"$msi`" /qn /norestart /l*v `"$msiLog`""
+            $installation = Start-Process msiexec.exe -ArgumentList $arguments -Wait -PassThru
+            if ($installation.ExitCode -notin @(0, 3010)) { throw "Official Chocolatey MSI failed: $($installation.ExitCode)" }
+            $env:PATH += ';C:\ProgramData\chocolatey\bin'
+          }
+          $command = Get-Command choco.exe -ErrorAction Stop
+          $command.Source | Out-File (Join-Path $env:RUNNER_TEMP 'choco-path.txt')
+          & $command.Source --version
+          if ($LASTEXITCODE -ne 0) { throw 'Chocolatey CLI unavailable' }
+      - name: Build and inspect the candidate package
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $choco = Get-Content (Join-Path $env:RUNNER_TEMP 'choco-path.txt')
+          $packageRoot = Join-Path $env:GITHUB_WORKSPACE 'packaging\chocolatey\klakk'
+          $output = Join-Path $env:RUNNER_TEMP 'klakk-chocolatey-package'
+          New-Item -ItemType Directory -Path $output | Out-Null
+          foreach ($script in Get-ChildItem (Join-Path $packageRoot 'tools') -Filter '*.ps1') {
+            $tokens = $null
+            $errors = $null
+            [Management.Automation.Language.Parser]::ParseFile($script.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count -gt 0) { throw "PowerShell parsing failed: $($script.Name): $errors" }
+          }
+          & $choco pack (Join-Path $packageRoot 'klakk.nuspec') --output-directory $output
+          if ($LASTEXITCODE -ne 0) { throw 'Chocolatey pack failed' }
+          $package = Join-Path $output 'klakk.1.4.1.nupkg'
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $archive = [IO.Compression.ZipFile]::OpenRead($package)
+          try {
+            $paths = @($archive.Entries | ForEach-Object { $_.FullName.Replace('\', '/') })
+            if (@($paths | Where-Object { $_ -match '\.(exe|dll|dmg|cs|swift|pdb)$' }).Count -gt 0) { throw 'Unexpected binary or app source in package' }
+            foreach ($name in @('chocolateyInstall.ps1', 'chocolateyUninstall.ps1')) {
+              $entry = @($archive.Entries | Where-Object { $_.FullName.Replace('\', '/') -eq "tools/$name" })
+              if ($entry.Count -ne 1) { throw "Package script missing: $name" }
+              $reader = [IO.StreamReader]::new($entry[0].Open())
+              try { $packaged = $reader.ReadToEnd() } finally { $reader.Dispose() }
+              if ($packaged -ne [IO.File]::ReadAllText((Join-Path $packageRoot "tools\$name"))) { throw "Packaged script differs from candidate: $name" }
+            }
+          } finally { $archive.Dispose() }
+          Get-FileHash $package -Algorithm SHA256
+      - name: Install through Chocolatey and verify the native app without launching it
+        shell: pwsh
+        env:
+          EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $choco = Get-Content (Join-Path $env:RUNNER_TEMP 'choco-path.txt')
+          $source = Join-Path $env:RUNNER_TEMP 'klakk-chocolatey-package'
+          & $choco install klakk --version 1.4.1 --source $source --yes --no-progress --limit-output
+          if ($LASTEXITCODE -ne 0) { throw 'Chocolatey installation failed' }
+          $registryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
+          $entry = Get-ItemProperty $registryPath
+          if ($entry.DisplayName -ne 'Klakk version 1.4.1' -or $entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'Installed metadata mismatch' }
+          $app = Join-Path $env:LOCALAPPDATA 'Programs\Klakk\Klakk.Windows.exe'
+          if (-not (Test-Path $app)) { throw 'Per-user installation missing' }
+          $bytes = [IO.File]::ReadAllBytes($app)
+          $pe = [BitConverter]::ToInt32($bytes, 0x3c)
+          $machine = [BitConverter]::ToUInt16($bytes, $pe + 4)
+          $expectedMachine = if ($env:EXPECTED_ARCHITECTURE -eq 'Arm64') { 0xaa64 } else { 0x8664 }
+          if ($machine -ne $expectedMachine) { throw 'Universal installer selected the wrong executable architecture' }
+          $packs = @(Get-ChildItem (Join-Path $env:LOCALAPPDATA 'Programs\Klakk\SoundPacks') -Recurse -Filter config.json).Count
+          if ($packs -ne 14) { throw "Unexpected sound pack count: $packs" }
+          if (Get-Process -Name 'Klakk.Windows' -ErrorAction SilentlyContinue) { throw 'Silent installation unexpectedly launched the app' }
+          Write-Host "Verified $($env:EXPECTED_ARCHITECTURE): Chocolatey installation, registry 1.4.1, native PE and 14 bundled sound packs. App not launched."
+      - name: Uninstall with the package script and verify removal
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $choco = Get-Content (Join-Path $env:RUNNER_TEMP 'choco-path.txt')
+          # Disabling the automatic fallback on this disposable runner proves that
+          # the candidate's explicit uninstall script removes the actual app.
+          & $choco uninstall klakk --yes --no-progress --limit-output --skip-autouninstaller
+          if ($LASTEXITCODE -ne 0) { throw 'Chocolatey uninstall failed' }
+          $app = Join-Path $env:LOCALAPPDATA 'Programs\Klakk\Klakk.Windows.exe'
+          $registryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
+          if ((Test-Path $app) -or (Test-Path $registryPath)) { throw 'Native application or registry entry remains after uninstall' }
+          Write-Host 'Explicit Chocolatey uninstall removed the app and its install registration.'
+          Write-Host 'These are QA operations, not customer downloads or installations. No app first run, license activation or payment occurred.'
+      - name: Retain candidate package and diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: chocolatey-candidate-${{ matrix.architecture }}
+          path: |
+            ${{ runner.temp }}/klakk-chocolatey-package/*.nupkg
+            ${{ runner.temp }}/chocolatey-bootstrap.log
+            C:/ProgramData/chocolatey/logs/chocolatey.log
+          retention-days: 7
+          if-no-files-found: warn
