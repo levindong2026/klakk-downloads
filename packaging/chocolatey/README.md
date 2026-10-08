@@ -20,6 +20,8 @@ The uninstall command disables Chocolatey's automatic fallback for this test so 
 
 The manual [candidate validation workflow](../../.github/workflows/chocolatey-package-validation.yml) builds and inspects the package, then tests installation and explicit uninstall on native x64 and ARM64 Windows runners. No upload to the community repository is performed by the workflow. Build success and installation tests do not establish community approval, real users or completed customer downloads.
 
+On 2026-10-08, [run 37859312707](https://github.com/levindong2026/klakk-downloads/actions/runs/37859312707) passed on both architectures with Chocolatey CLI 2.7.4. It verified the package contents, official installer checksum, per-user registry version 1.4.1, native executable architecture, 14 sound packs, no running app after silent installation, and removal through the explicit uninstall script. The tested package was retained as a workflow artifact. This was hosted-runner QA, not a physical playback test or community approval.
+
 ## Submission requirements
 
 Chocolatey's official [package rules](https://docs.chocolatey.org/en-us/create/create-packages/) allow trial software when the description explains its activation and trial conditions. [Moderation](https://docs.chocolatey.org/en-us/community-repository/moderation/) still applies. Check both approved packages and the moderation queue for duplicates before submission. Submission requires a publisher account and its API key; keep that key out of repository files, logs and screenshots.
