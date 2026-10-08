@@ -27,7 +27,7 @@ jobs:
           Install-PSResource -Name Microsoft.WinGet.Client -Repository PSGallery -Scope CurrentUser -TrustRepository
           Import-Module Microsoft.WinGet.Client
           Get-Module Microsoft.WinGet.Client | Select-Object Name, Version
-          Repair-WinGetPackageManager -Version '1.29.380' -Force -AllUsers
+          Repair-WinGetPackageManager -Version '1.29.380' -Force
           (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Links') | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Validate and install the exact submitted manifest
         shell: pwsh
