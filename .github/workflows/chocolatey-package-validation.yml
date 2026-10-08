@@ -110,14 +110,21 @@ jobs:
           if ((Test-Path $app) -or (Test-Path $registryPath)) { throw 'Native application or registry entry remains after uninstall' }
           Write-Host 'Explicit Chocolatey uninstall removed the app and its install registration.'
           Write-Host 'These are QA operations, not customer downloads or installations. No app first run, license activation or payment occurred.'
+      - name: Gather diagnostics beside the candidate package
+        if: always()
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $output = Join-Path $env:RUNNER_TEMP 'klakk-chocolatey-package'
+          New-Item -ItemType Directory -Path $output -Force | Out-Null
+          foreach ($log in @((Join-Path $env:RUNNER_TEMP 'chocolatey-bootstrap.log'), 'C:\ProgramData\chocolatey\logs\chocolatey.log')) {
+            if (Test-Path $log) { Copy-Item $log -Destination $output }
+          }
       - name: Retain candidate package and diagnostics
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: chocolatey-candidate-${{ matrix.architecture }}
-          path: |
-            ${{ runner.temp }}/klakk-chocolatey-package/*.nupkg
-            ${{ runner.temp }}/chocolatey-bootstrap.log
-            C:/ProgramData/chocolatey/logs/chocolatey.log
+          path: ${{ runner.temp }}/klakk-chocolatey-package/
           retention-days: 7
           if-no-files-found: warn
