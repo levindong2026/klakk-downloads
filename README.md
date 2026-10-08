@@ -4,6 +4,8 @@ Official downloads maintained by the Klakk developer. Klakk plays keyboard sound
 
 [日本語](README.ja.md) · [Website](https://tryklakk.com/en/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [Try the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
+Installed but silent? Use the [Windows and Mac no-sound checklist](guides/klakk-no-sound.md) to check playback, output, permissions and trial activation.
+
 ## Download Klakk 1.4.1
 
 | Platform | Requirements | Installer |
@@ -21,8 +23,8 @@ The full-featured trial lasts **3 days**. Continued use costs **US$4.49 once per
 
 1. Download `Klakk-1.4.1-Windows-Setup.exe`. One installer chooses the native ARM64 or x64 version automatically and includes its runtime.
 2. The current Windows installer is **unsigned**. Review any Windows security warning and decide whether you trust the download before running it. The checksums below let you compare the file with this release; they do not substitute for publisher signing.
-3. Run the installer, open Klakk, choose a sound pack and set a comfortable volume.
-4. Type in another app to check playback. If you hear nothing, check playback is enabled, app/system volume and your audio output.
+3. Run the installer and open Klakk. In **General**, turn on **Enable Klakk**. In **Audio**, choose a sound pack, set a comfortable volume and select your **Output Device**. **System Default** uses the Windows default output.
+4. Type in another app to check playback. If you hear nothing, use the [no-sound checklist](guides/klakk-no-sound.md#windows-check-playback-and-the-selected-output), including the Windows volume mixer and trial or purchased status.
 
 [Windows setup and troubleshooting](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
@@ -62,15 +64,21 @@ Both platforms include:
 
 On Windows, use PowerShell:
 
+Open it in the folder where you saved the installer. This command reads the file and prints its hash; it does not run the installer.
+
 ```powershell
 Get-FileHash .\Klakk-1.4.1-Windows-Setup.exe -Algorithm SHA256
 ```
 
 On Mac, use Terminal:
 
+Run this in the folder where you saved the DMG, or replace the filename with its full path.
+
 ```sh
 shasum -a 256 Klakk-1.4.1-23.dmg
 ```
+
+Compare the entire result with the value in the table. Uppercase and lowercase hexadecimal letters represent the same hash. If it differs, obtain the file again from the official release before running it. A matching checksum does not replace publisher signing. See Microsoft's [Get-FileHash documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash).
 
 ## Support and repository contents
 
