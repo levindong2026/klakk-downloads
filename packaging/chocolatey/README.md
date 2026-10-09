@@ -1,6 +1,6 @@
 # Klakk Chocolatey candidate
 
-This is a developer-maintained candidate package for the Windows direct edition, version 1.4.1. It has **not been submitted to or approved by the Chocolatey Community Repository**. Do not advertise `choco install klakk` as a working community installation command until an approved public package is verified.
+This is a developer-maintained candidate package for the Windows direct edition, version 1.4.1. It was submitted to the Chocolatey Community Repository on **2026-10-09**. Automated validation, installation verification and package scanning have passed. It is **ready for human review and remains unlisted until a moderator approves it**. Do not advertise `choco install klakk` as a working community installation command until an approved public package is verified.
 
 The package contains metadata and two PowerShell installer scripts. It downloads the official universal installer from `downloads.tryklakk.com` and verifies its pinned SHA-256. It does not contain the application source or installer binary.
 

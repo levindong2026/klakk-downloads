@@ -4,6 +4,8 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 [English](README.md) · [公式サイト](https://tryklakk.com/ja/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
+動画で聴きたい方は、[44秒の英語版サウンドプレビュー](https://www.youtube.com/watch?v=rkSXD7r3Dy4)をご覧ください。Gateron Red、Cherry MX Blue、Banana Split Stock の編集された音サンプルを紹介します。14種類すべての音はブラウザのデモで試せます。
+
 インストール後に音が出ない場合は、[Windows・Mac の確認手順](guides/klakk-no-sound.ja.md)で、有効化、出力先、権限、試用・ライセンス状態を確認できます。
 
 ## Klakk 1.4.1をダウンロード

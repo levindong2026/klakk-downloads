@@ -4,6 +4,8 @@ Official downloads maintained by the Klakk developer. Klakk plays keyboard sound
 
 [日本語](README.ja.md) · [Website](https://tryklakk.com/en/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [Try the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
+Prefer a short video? [Watch the 44-second English sound preview](https://www.youtube.com/watch?v=rkSXD7r3Dy4) for edited samples of Gateron Red, Cherry MX Blue and Banana Split Stock. The browser demo lets you try all 14 sound packs.
+
 Installed but silent? Use the [Windows and Mac no-sound checklist](guides/klakk-no-sound.md) to check playback, output, permissions and trial activation.
 
 ## Download Klakk 1.4.1
@@ -88,4 +90,4 @@ This repository contains public download documentation, candidate package manife
 
 The files in `packaging/winget/` are a [candidate submission](https://github.com/microsoft/winget-pkgs/pull/448522) for the Windows Package Manager community repository. Their presence here does not mean Klakk is available through WinGet. Direct execution of the published installer passed on native x64 and ARM64 Windows. WinGet 1.29.380 validated the candidate manifests and installer hash on both architectures, but the install command timed out before installation could be confirmed. The separate unattended-runner timeout remains unresolved. Microsoft’s official validation for [submission #448522](https://github.com/microsoft/winget-pkgs/pull/448522) subsequently passed all ten checks, including Installation Validation and Installer Metadata Validation. The CLA check has also passed, and the submission is ready for moderator review. It has not been merged into the catalog. These QA operations are not customer downloads or installations.
 
-The [Chocolatey candidate](packaging/chocolatey/README.md) for Windows 1.4.1 passed build, installation and explicit uninstall on native x64 and ARM64 Windows using Chocolatey CLI 2.7.4. It has not been submitted to or approved by the Chocolatey Community Repository. Its presence here does not make `choco install klakk` a working community installation command.
+The [Chocolatey candidate](packaging/chocolatey/README.md) for Windows 1.4.1 passed build, installation and explicit uninstall on native x64 and ARM64 Windows using Chocolatey CLI 2.7.4. It was submitted to the Chocolatey Community Repository on 2026-10-09. Automated validation, installation verification and package scanning have passed; it is ready for human review and remains unlisted until moderator approval. Its presence here does not make `choco install klakk` a working community installation command.
