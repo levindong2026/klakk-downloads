@@ -13,11 +13,13 @@ $scoop = Join-Path $env:SCOOP 'shims\scoop.ps1'
 if (-not (Test-Path $scoop)) { throw 'Scoop bootstrap failed' }
 
 function Run-Scoop {
-    param([string[]] $Arguments, [switch] $ExpectFailure)
-    & pwsh -NoProfile -File $scoop @Arguments
+    param([string[]] $Arguments, [switch] $ExpectFailure, [string] $ExpectedMessage)
+    $output = @(& pwsh -NoProfile -File $scoop @Arguments 2>&1)
     $code = $LASTEXITCODE
+    $output | Write-Output
     if ($ExpectFailure) {
         if ($code -eq 0) { throw "Scoop unexpectedly accepted: $Arguments" }
+        if (-not $ExpectedMessage -or ($output -join "`n") -notmatch [regex]::Escape($ExpectedMessage)) { throw "Scoop failed for a different reason: $Arguments" }
     } elseif ($code -ne 0) { throw "Scoop failed ($code): $Arguments" }
 }
 
@@ -43,7 +45,7 @@ $shortcut = Join-Path ([Environment]::GetFolderPath('StartMenu')) 'Programs\Scoo
 # An unrelated registration must be left intact by the actual install command.
 New-Item $key -Force | Out-Null
 New-ItemProperty $key -Name UninstallString -Value "`"$outside\unins000.exe`"" -Force | Out-Null
-Run-Scoop -Arguments @('install', 'klakk/klakk') -ExpectFailure
+Run-Scoop -Arguments @('install', 'klakk/klakk') -ExpectFailure -ExpectedMessage 'Another Klakk installation is registered'
 if ((Get-ItemProperty $key).UninstallString -ne "`"$outside\unins000.exe`"" -or (Test-Path $app) -or (Test-Path $shortcut)) { throw 'Install ownership guard failed' }
 Remove-Item $key -Force
 
@@ -78,7 +80,7 @@ Assert-Installed
 # The actual uninstall command must refuse a registration now owned elsewhere.
 $registered = (Get-ItemProperty $key).UninstallString
 Set-ItemProperty $key -Name UninstallString -Value "`"$outside\unins000.exe`""
-Run-Scoop -Arguments @('uninstall', 'klakk') -ExpectFailure
+Run-Scoop -Arguments @('uninstall', 'klakk') -ExpectFailure -ExpectedMessage 'The registered Klakk belongs to another installation'
 if ((Get-ItemProperty $key).UninstallString -ne "`"$outside\unins000.exe`"" -or -not (Test-Path $app) -or -not (Test-Path $shortcut)) { throw 'Uninstall ownership guard failed' }
 Set-ItemProperty $key -Name UninstallString -Value $registered
 
