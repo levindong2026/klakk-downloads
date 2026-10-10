@@ -2,6 +2,8 @@
 
 This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the same official Windows 1.4.1 installer used on the website. It supports native x64 and ARM64 on Windows 10/11; 32-bit Windows and Scoop global installation are unsupported.
 
+Find this bucket in [Scoop’s public app search](https://scoop.sh/#/apps?q=Klakk&o=false), with **All buckets** selected. To install, add the publisher bucket using the commands below.
+
 The current Windows installer is **unsigned**. Scoop compares its SHA-256 with the publisher’s release checksum. This verifies the file against that release; it does not supply a publisher signature. Review the [published download and checksum](../../README.md#verify-the-download) before choosing to install.
 
 ## Install using an existing Scoop installation
