@@ -38,7 +38,7 @@ try {
     $destination = Join-Path $payload $relative
     New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($destination)) | Out-Null
     Copy-Item -LiteralPath $file.FullName -Destination $destination
-    [ordered]@{ path = $relative.Replace('\', '/'); bytes = $file.Length; sha256 = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+    [ordered]@{ path = $relative.Replace('\', '/'); bytes = $file.Length; sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
   }
   $exe = [IO.File]::ReadAllBytes((Join-Path $payload 'Klakk.Windows.exe'))
   $pe = [BitConverter]::ToInt32($exe, 0x3c)
