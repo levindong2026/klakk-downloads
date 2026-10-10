@@ -21,10 +21,16 @@ function Run-Scoop {
     } elseif ($code -ne 0) { throw "Scoop failed ($code): $Arguments" }
 }
 
-# Clone the checked-out candidate, so the commands use the exact PR manifest.
-Run-Scoop -Arguments @('bucket', 'add', 'klakk', $env:GITHUB_WORKSPACE)
+# Use the real public repository URL, then select the exact candidate for QA.
+Run-Scoop -Arguments @('update')
+Run-Scoop -Arguments @('bucket', 'add', 'klakk', 'https://github.com/levindong2026/klakk-downloads')
 $candidate = (& git -C $env:GITHUB_WORKSPACE rev-parse HEAD).Trim()
-$bucketCommit = (& git -C (Join-Path $env:SCOOP 'buckets\klakk') rev-parse HEAD).Trim()
+$bucketPath = Join-Path $env:SCOOP 'buckets\klakk'
+& git -C $bucketPath fetch origin $candidate --depth=1
+if ($LASTEXITCODE -ne 0) { throw 'Candidate fetch failed' }
+& git -C $bucketPath checkout --detach $candidate
+if ($LASTEXITCODE -ne 0) { throw 'Candidate checkout failed' }
+$bucketCommit = (& git -C $bucketPath rev-parse HEAD).Trim()
 if ($candidate -ne $bucketCommit) { throw 'Scoop tested a different candidate' }
 Write-Host "Candidate commit: $candidate"
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
