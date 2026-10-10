@@ -5,6 +5,12 @@ if ($native -ne $env:EXPECTED_ARCHITECTURE) { throw "Unexpected runner: $native"
 $schema = Join-Path $env:RUNNER_TEMP 'scoop-schema.json'
 Invoke-WebRequest 'https://raw.githubusercontent.com/ScoopInstaller/Scoop/e6aa3b366bdee8ed138c1e0f7b85192ebdd35d0f/schema.json' -OutFile $schema
 if (-not (Get-Content './bucket/klakk.json' -Raw | Test-Json -SchemaFile $schema)) { throw 'Official Scoop manifest schema failed' }
+$manifest = Get-Content './bucket/klakk.json' -Raw | ConvertFrom-Json
+$architectureKey = if ($native -eq 'Arm64') { 'arm64' } else { '64bit' }
+$releaseArchitecture = if ($native -eq 'Arm64') { 'arm64' } else { 'x64' }
+$expectedDownloadUrl = "https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-$releaseArchitecture-Setup.exe"
+if ($manifest.architecture.$architectureKey.url -ne $expectedDownloadUrl) { throw 'Scoop did not select the native release asset' }
+$expectedDownloadBytes = if ($native -eq 'Arm64') { 99090001 } else { 105364092 }
 $env:SCOOP = Join-Path $env:RUNNER_TEMP 'Klakk Scoop QA'
 $bootstrap = Join-Path $env:RUNNER_TEMP 'scoop-install.ps1'
 Invoke-WebRequest 'https://raw.githubusercontent.com/ScoopInstaller/Install/1e2f334083d609986d8c8bc9e31ae8e87c39fab4/install.ps1' -OutFile $bootstrap
@@ -76,6 +82,9 @@ function Assert-Installed {
 
 Run-Scoop -Arguments @('install', 'klakk/klakk')
 Assert-Installed
+$cachedInstallers = @(Get-ChildItem (Join-Path $env:SCOOP 'cache') -File -Filter 'klakk#1.4.1#*.exe')
+if ($cachedInstallers.Count -ne 1 -or $cachedInstallers[0].Length -ne $expectedDownloadBytes) { throw 'Scoop downloaded an unexpected installer size' }
+Write-Host "Verified native download: $expectedDownloadUrl ($expectedDownloadBytes bytes)."
 
 # The actual uninstall command must refuse a registration now owned elsewhere.
 $registered = (Get-ItemProperty $key).UninstallString
