@@ -8,6 +8,8 @@ Prefer a short video? [Watch the 44-second English sound preview](https://www.yo
 
 Installed but silent? Use the [Windows and Mac no-sound checklist](guides/klakk-no-sound.md) to check playback, output, permissions and trial activation.
 
+Recording with OBS? Use the [playback, capture and recording-track checklist](guides/keyboard-sounds-obs.md) to find where keyboard sounds stop.
+
 ## Download Klakk 1.4.1
 
 | Platform | Requirements | Installer |
