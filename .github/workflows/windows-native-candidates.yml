@@ -1,0 +1,94 @@
+name: Validate smaller Windows installer candidates
+on:
+  push:
+    branches: [codex/windows-small-installers]
+    paths: ['packaging/windows-native/**', '.github/workflows/windows-native-candidates.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  extract:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {runner: windows-latest, architecture: X64, suffix: x64}
+          - {runner: windows-11-arm, architecture: Arm64, suffix: arm64}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse scripts and copy the formal native payload without app startup
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Get-ChildItem packaging/windows-native -Filter '*.ps1' | ForEach-Object {
+            $tokens = $null; $errors = $null
+            [Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count) { throw ($errors | Out-String) }
+          }
+          ./packaging/windows-native/Extract-FormalPayload.ps1 -ExpectedArchitecture '${{ matrix.architecture }}' -OutputDirectory '${{ runner.temp }}/native-source'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: formal-payload-${{ matrix.suffix }}
+          path: ${{ runner.temp }}/native-source
+          retention-days: 7
+  compile:
+    needs: extract
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: formal-payload-*
+          path: sources
+      - name: Build packaging-only candidates and record integrity
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $compiler = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6\ISCC.exe'
+          if (-not (Test-Path $compiler)) { throw 'Expected the runner-provided Inno compiler' }
+          $output = Join-Path $env:RUNNER_TEMP 'native-candidates'
+          New-Item -ItemType Directory $output | Out-Null
+          $installers = foreach ($arch in @('x64', 'arm64')) {
+            $source = (Resolve-Path "sources/formal-payload-$arch").Path
+            & $compiler "/DNativeArch=$arch" "/DPayloadRoot=$source\payload" "/DOutputRoot=$output" packaging/windows-native/installer.iss | Out-Host
+            if ($LASTEXITCODE -ne 0) { throw "Compiler failed for $arch" }
+            Copy-Item "$source/payload-manifest.json" "$output/$arch-payload-manifest.json"
+            $file = Get-Item "$output/Klakk-1.4.1-Windows-$arch-Setup.exe"
+            [ordered]@{ name = $file.Name; bytes = $file.Length; sha256 = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+          }
+          if (@($installers).Count -ne 2 -or @($installers | Where-Object { $_.name -notmatch '^Klakk-1\.4\.1-Windows-(x64|arm64)-Setup\.exe$' -or $_.sha256 -notmatch '^[a-f0-9]{64}$' -or $_.bytes -le 0 }).Count -ne 0) {
+            throw 'Build metadata must contain exactly two complete installer records, without compiler log output'
+          }
+          [ordered]@{ compiler_version = (Get-Item $compiler).VersionInfo.FileVersion; installers = @($installers); publicly_released = $false } | ConvertTo-Json -Depth 8 | Set-Content "$output/build-integrity.json" -Encoding utf8
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-installer-candidates
+          path: ${{ runner.temp }}/native-candidates
+          retention-days: 7
+  verify:
+    needs: compile
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {runner: windows-latest, architecture: X64, suffix: x64}
+          - {runner: windows-11-arm, architecture: Arm64, suffix: arm64}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-installer-candidates
+          path: candidates
+      - name: Native install, byte identity, wrong-architecture refusal, reinstall and uninstall
+        shell: pwsh
+        run: ./packaging/windows-native/Test-NativeInstaller.ps1 -ExpectedArchitecture '${{ matrix.architecture }}' -CandidateDirectory './candidates' -ReportFile '${{ runner.temp }}/native-qa-${{ matrix.suffix }}.json'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-qa-${{ matrix.suffix }}
+          path: ${{ runner.temp }}/native-qa-${{ matrix.suffix }}.json
+          retention-days: 7
