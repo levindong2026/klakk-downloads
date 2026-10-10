@@ -53,11 +53,14 @@ jobs:
           New-Item -ItemType Directory $output | Out-Null
           $installers = foreach ($arch in @('x64', 'arm64')) {
             $source = (Resolve-Path "sources/formal-payload-$arch").Path
-            & $compiler "/DNativeArch=$arch" "/DPayloadRoot=$source\payload" "/DOutputRoot=$output" packaging/windows-native/installer.iss
+            & $compiler "/DNativeArch=$arch" "/DPayloadRoot=$source\payload" "/DOutputRoot=$output" packaging/windows-native/installer.iss | Out-Host
             if ($LASTEXITCODE -ne 0) { throw "Compiler failed for $arch" }
             Copy-Item "$source/payload-manifest.json" "$output/$arch-payload-manifest.json"
             $file = Get-Item "$output/Klakk-1.4.1-Windows-$arch-Setup.exe"
             [ordered]@{ name = $file.Name; bytes = $file.Length; sha256 = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+          }
+          if (@($installers).Count -ne 2 -or @($installers | Where-Object { $_.name -notmatch '^Klakk-1\.4\.1-Windows-(x64|arm64)-Setup\.exe$' -or $_.sha256 -notmatch '^[a-f0-9]{64}$' -or $_.bytes -le 0 }).Count -ne 0) {
+            throw 'Build metadata must contain exactly two complete installer records, without compiler log output'
           }
           [ordered]@{ compiler_version = (Get-Item $compiler).VersionInfo.FileVersion; installers = @($installers); publicly_released = $false } | ConvertTo-Json -Depth 8 | Set-Content "$output/build-integrity.json" -Encoding utf8
       - uses: actions/upload-artifact@v4

@@ -14,6 +14,9 @@ $candidate = Join-Path $CandidateDirectory "Klakk-1.4.1-Windows-$arch-Setup.exe"
 $wrongCandidate = Join-Path $CandidateDirectory "Klakk-1.4.1-Windows-$wrongArch-Setup.exe"
 $manifest = Get-Content (Join-Path $CandidateDirectory "$arch-payload-manifest.json") -Raw | ConvertFrom-Json
 $build = Get-Content (Join-Path $CandidateDirectory 'build-integrity.json') -Raw | ConvertFrom-Json
+if (@($build.installers).Count -ne 2 -or @($build.installers | Where-Object { $_.name -notmatch '^Klakk-1\.4\.1-Windows-(x64|arm64)-Setup\.exe$' -or $_.sha256 -notmatch '^[a-f0-9]{64}$' -or $_.bytes -le 0 }).Count -ne 0) {
+  throw 'Invalid build metadata: expected exactly two complete installer records'
+}
 foreach ($file in @($build.installers)) {
   $path = Join-Path $CandidateDirectory $file.name
   if ((Get-Item $path).Length -ne $file.bytes -or (Get-FileHash $path -Algorithm SHA256).Hash.ToLowerInvariant() -ne $file.sha256) {
