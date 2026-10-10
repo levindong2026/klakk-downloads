@@ -19,6 +19,24 @@ Installed but silent? Use the [Windows and Mac no-sound checklist](guides/klakk-
 
 If the main download host is unavailable, use the [official GitHub release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1): [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-Setup.exe) · [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-23.dmg). Both hosts provide the same files and checksums.
 
+<details>
+<summary>Smaller Windows downloads if you know your processor type</summary>
+
+For **64-bit Windows 10/11**, check **Settings → System → About → System type**. If unsure, choose the universal Windows Setup above; it selects the native architecture automatically.
+
+| Processor | Optional 1.4.1 installer | Download size |
+| --- | --- | ---: |
+| Intel / AMD x64 | [Download x64 Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-x64-Setup.exe) | 105.4 MB |
+| ARM64 | [Download ARM64 Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-arm64-Setup.exe) | 99.1 MB |
+
+Each carries the same **Klakk 1.4.1 application, runtime and 14 sound packs** for one processor type. They require a smaller download than the 202.2 MB universal installer; the installed app files are unchanged. These Windows installers remain **unsigned**.
+
+Use the [separate native-installer checksum file](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/SHA256SUMS-windows-native.txt) for these two files. The [native runner validation](https://github.com/levindong2026/klakk-downloads/actions/runs/38068672800) checked all 382 payload files, installation, reinstallation, wrong-architecture refusal and uninstall. Klakk was not launched during QA; the checks establish packaging integrity, not customer installations or performance.
+
+[Windows requirements and setup](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=native_installer_options_en).
+
+</details>
+
 The full-featured trial lasts **3 days**. Continued use costs **US$4.49 once per platform**, with applicable tax handled at checkout. Mac and Windows are separate purchases. The direct-download editions use Creem checkout; the Mac App Store edition uses Apple's purchase flow.
 
 ## Install on Windows
@@ -65,6 +83,8 @@ Both platforms include:
 | --- | ---: | --- |
 | `Klakk-1.4.1-Windows-Setup.exe` | 202233968 | `7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454` |
 | `Klakk-1.4.1-23.dmg` | 37897140 | `23c6b838f4e17e2ccddba1eb91927d0fe714403abcc512fca0545a013f5dfa51` |
+| `Klakk-1.4.1-Windows-x64-Setup.exe` | 105364092 | `78cab2a64966ffa8d1c30e5d341980d2858e090ecd5f950a0faeea9ef163eb10` |
+| `Klakk-1.4.1-Windows-arm64-Setup.exe` | 99090001 | `60bc18171d8b11988ea170b58fe5e038d8f7f6c1132e83b98a7d2f413b333a78` |
 
 On Windows, use PowerShell:
 
@@ -73,6 +93,8 @@ Open it in the folder where you saved the installer. This command reads the file
 ```powershell
 Get-FileHash .\Klakk-1.4.1-Windows-Setup.exe -Algorithm SHA256
 ```
+
+For an optional x64 or ARM64 installer, replace the filename with the file you saved and compare its result with the matching row above.
 
 On Mac, use Terminal:
 

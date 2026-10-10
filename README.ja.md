@@ -19,6 +19,24 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 通常の配布先に接続できない場合は、[公式GitHubリリース](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1)から入手できます：[Windowsインストーラー](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-Setup.exe) · [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-23.dmg)。両方の配布先でファイルとチェックサムは同一です。
 
+<details>
+<summary>CPUの種類が分かる場合の小さいWindows配布ファイル</summary>
+
+**Windows 10/11の64ビット版**で、「設定 → システム → バージョン情報」の「システムの種類」を確認してください。不明な場合は、上の通常のWindowsインストーラーがPCに合う版を自動で選びます。
+
+| CPU | 1.4.1の配布ファイル | ダウンロードサイズ |
+| --- | --- | ---: |
+| Intel / AMD x64 | [x64版をダウンロード](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-x64-Setup.exe) | 105.4 MB |
+| ARM64 | [ARM64版をダウンロード](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/Klakk-1.4.1-Windows-arm64-Setup.exe) | 99.1 MB |
+
+CPU別に同じ**Klakk 1.4.1のアプリ、実行環境、14音源**を含みます。通常版の202.2 MBより配布ファイルが小さく、インストールされるアプリのファイルは同じです。Windows版は引き続き**未署名**です。
+
+この2ファイルには[専用チェックサム](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/SHA256SUMS-windows-native.txt)を使います。[ネイティブrunnerでの検証](https://github.com/levindong2026/klakk-downloads/actions/runs/38068672800)では382ファイルの一致、導入、再導入、異なるCPUでの拒否、削除を確認しました。アプリは起動しておらず、配布の整合性を確認するQAです。利用者のインストール数や性能の証明ではありません。
+
+[Windows版の動作環境と設定](https://tryklakk.com/ja/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=native_installer_options_ja)
+
+</details>
+
 全機能を**3日間無料**で試せます。継続利用は**OSごとにUS$4.49の買い切り**で、適用される税金は決済時に処理されます。Mac版とWindows版は別購入です。直接ダウンロード版はCreem、Mac App Store版はAppleの購入手続きを利用します。
 
 ## Windowsでのインストール
@@ -52,6 +70,8 @@ DMGにはDeveloper ID署名とAppleの公証を受けたKlakk 1.4.1（ビルド2
 ## ファイルの確認とサポート
 
 ファイルサイズ、SHA-256、確認用コマンドは[英語版のチェックサム表](README.md#verify-the-download)またはリリースの`SHA256SUMS.txt`に記載しています。
+
+CPU別のx64・ARM64配布ファイルは、別の[SHA256SUMS-windows-native.txt](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/SHA256SUMS-windows-native.txt)と照合してください。確認用コマンドのファイル名も、保存した配布ファイルに置き換えます。
 
 [サポート](https://tryklakk.com/ja/support/) · [利用規約](https://tryklakk.com/ja/terms/) · [Windows版のプライバシー](https://tryklakk.com/ja/windows/privacy/)
 
