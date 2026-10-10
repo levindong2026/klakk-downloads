@@ -30,6 +30,8 @@ The full-featured trial lasts **3 days**. Continued use costs **US$4.49 once per
 
 [Windows setup and troubleshooting](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
+Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) installs website version 1.4.1 with native x64 and ARM64 support. Installation, same-version reinstall and uninstall passed on both architectures. This custom source is separate from Scoop’s main and Extras catalogs.
+
 ## Install on Mac
 
 1. Download and open `Klakk-1.4.1-23.dmg`.

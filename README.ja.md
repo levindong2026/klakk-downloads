@@ -30,6 +30,8 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 [Windows版のセットアップガイド](https://tryklakk.com/ja/blog/windows-keyboard-sounds-arm64-x64-setup/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
+Scoopをすでに利用している場合は、[Klakk開発者が管理するWindowsバケット](packaging/scoop/README.ja.md)から公式サイト版1.4.1を導入できます。ネイティブx64・ARM64で導入、同じ版の再導入と削除を検証済みです。Scoopのmain・Extras公式カタログへの収録とは別の独自配布元です。
+
 ## Macでのインストール
 
 1. `Klakk-1.4.1-23.dmg`をダウンロードして開きます。
@@ -53,4 +55,4 @@ DMGにはDeveloper ID署名とAppleの公証を受けたKlakk 1.4.1（ビルド2
 
 [サポート](https://tryklakk.com/ja/support/) · [利用規約](https://tryklakk.com/ja/terms/) · [Windows版のプライバシー](https://tryklakk.com/ja/windows/privacy/)
 
-このリポジトリには公開ダウンロード案内を置いています。アプリのソースコードは含みません。GitHubが自動生成する「Source code」のZIP・tar.gzには案内文のみが入ります。インストールには`.exe`または`.dmg`を選んでください。公開配布によってアプリがオープンソースになるわけではなく、製品の利用規約が適用されます。
+このリポジトリには公開ダウンロード案内を置いています。アプリのソースコードは含みません。GitHubが自動生成する「Source code」のZIP・tar.gzには配布案内、マニフェストと検証スクリプトが入ります。インストールには`.exe`または`.dmg`を選んでください。公開配布によってアプリがオープンソースになるわけではなく、製品の利用規約が適用されます。
