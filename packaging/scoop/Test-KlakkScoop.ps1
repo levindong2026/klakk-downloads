@@ -82,7 +82,7 @@ Assert-Installed
 Run-Scoop -Arguments @('uninstall', 'klakk')
 if ((Test-Path $app) -or (Test-Path $key) -or (Test-Path $shortcut)) { throw 'Scoop uninstall left registered application files or shortcut' }
 if (-not (Test-Path $marker)) { throw 'Scoop uninstall removed retained app data' }
-Write-Host "Verified $native: Scoop native install, 14 packs, Start shortcut, protected foreign install/uninstall, forced reinstall and cleanup."
+Write-Host "Verified ${native}: Scoop native install, 14 packs, Start shortcut, protected foreign install/uninstall, forced reinstall and cleanup."
 Write-Host 'No application was started. No purchase, first-run event or audio-latency measurement was performed. These are QA downloads, not customer growth.'
 @"
 ## Klakk publisher Scoop bucket — $native
