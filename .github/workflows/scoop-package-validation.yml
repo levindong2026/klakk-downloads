@@ -1,0 +1,32 @@
+name: Validate publisher Scoop bucket
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - bucket/klakk.json
+      - packaging/scoop/Test-KlakkScoop.ps1
+      - .github/workflows/scoop-package-validation.yml
+permissions:
+  contents: read
+jobs:
+  install:
+    name: Scoop on ${{ matrix.architecture }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            architecture: X64
+          - runner: windows-11-arm
+            architecture: Arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Verify actual Scoop install, reinstall, ownership guards and uninstall
+        shell: pwsh
+        env:
+          EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+        run: ./packaging/scoop/Test-KlakkScoop.ps1
