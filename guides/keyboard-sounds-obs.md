@@ -1,5 +1,7 @@
 # Keyboard sounds missing from OBS: playback, capture, and recording tracks
 
+[日本語](keyboard-sounds-obs.ja.md)
+
 Check whether the keyboard app produces sound first, whether OBS receives that sound second, and whether the saved recording contains it third. Each check points to a different part of the setup.
 
 Updated **2026-10-10**. Maintained by **Levin, developer of Klakk**, with AI assistance. The OBS instructions below come from the linked official documentation; this is a diagnosis checklist, not a report of testing every keyboard app with OBS.
