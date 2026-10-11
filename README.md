@@ -92,7 +92,7 @@ Check the saved file against the row for the installer you chose. Compare its by
 
 On Windows, use PowerShell:
 
-Open it in the folder where you saved the installer. This command reads the file and prints its hash; it does not run the installer.
+Open it in the folder where you saved the installer. These commands read the file and print its byte count and hash; they do not run the installer.
 
 ```powershell
 (Get-Item -LiteralPath '.\Klakk-1.4.1-Windows-Setup.exe').Length
@@ -103,7 +103,7 @@ The first command prints the byte count. The second prints the complete hash. Fo
 
 On Mac, use Terminal:
 
-Run this in the folder where you saved the DMG, or replace the filename with its full path.
+Run these commands in the folder where you saved the DMG, or replace the filename with its full path.
 
 ```sh
 stat -f '%z' 'Klakk-1.4.1-23.dmg'
