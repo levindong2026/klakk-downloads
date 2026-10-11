@@ -83,6 +83,8 @@ Both platforms include:
 
 Check the saved file against the row for the installer you chose. Compare its byte count and the entire SHA-256 value before opening it. A completed download or a matching filename alone does not perform this comparison.
 
+Before opening a Windows installer, use the [source, signature and security-alert checklist](docs/windows-download-verification.md) alongside the file comparison below.
+
 | File | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `Klakk-1.4.1-Windows-Setup.exe` | 202233968 | `7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454` |
