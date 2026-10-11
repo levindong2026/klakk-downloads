@@ -81,6 +81,8 @@ Both platforms include:
 
 ## Verify the download
 
+Check the saved file against the row for the installer you chose. Compare its byte count and the entire SHA-256 value before opening it. A completed download or a matching filename alone does not perform this comparison.
+
 | File | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `Klakk-1.4.1-Windows-Setup.exe` | 202233968 | `7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454` |
@@ -93,20 +95,22 @@ On Windows, use PowerShell:
 Open it in the folder where you saved the installer. This command reads the file and prints its hash; it does not run the installer.
 
 ```powershell
-Get-FileHash .\Klakk-1.4.1-Windows-Setup.exe -Algorithm SHA256
+(Get-Item -LiteralPath '.\Klakk-1.4.1-Windows-Setup.exe').Length
+Get-FileHash -LiteralPath '.\Klakk-1.4.1-Windows-Setup.exe' -Algorithm SHA256 | Format-List Algorithm,Hash
 ```
 
-For an optional x64 or ARM64 installer, replace the filename with the file you saved and compare its result with the matching row above.
+The first command prints the byte count. The second prints the complete hash. For an optional x64 or ARM64 installer, or a file your browser renamed, replace the filename with the file you saved and compare its result with the matching row above. Renaming a file does not change its hash.
 
 On Mac, use Terminal:
 
 Run this in the folder where you saved the DMG, or replace the filename with its full path.
 
 ```sh
-shasum -a 256 Klakk-1.4.1-23.dmg
+stat -f '%z' 'Klakk-1.4.1-23.dmg'
+shasum -a 256 'Klakk-1.4.1-23.dmg'
 ```
 
-Compare the entire result with the value in the table. Uppercase and lowercase hexadecimal letters represent the same hash. If it differs, obtain the file again from the official release before running it. A matching checksum does not replace publisher signing. See Microsoft's [Get-FileHash documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash).
+The first Mac command prints the byte count; the second prints the SHA-256 and filename. Compare the byte count and the entire hash with the matching row in the table. Uppercase and lowercase hexadecimal letters represent the same hash. If it differs, obtain the file again from the official release before running it. A matching checksum does not replace publisher signing. See Microsoft's [Get-FileHash documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1). These verification instructions are maintained by Levin, the Klakk developer, with AI-assisted writing.
 
 ## Support and repository contents
 

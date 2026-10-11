@@ -69,9 +69,42 @@ DMGにはDeveloper ID署名とAppleの公証を受けたKlakk 1.4.1（ビルド2
 
 ## ファイルの確認とサポート
 
-ファイルサイズ、SHA-256、確認用コマンドは[英語版のチェックサム表](README.md#verify-the-download)またはリリースの`SHA256SUMS.txt`に記載しています。
+保存したファイルを、選んだインストーラーの行と照合します。開く前に、バイト数とSHA-256の全桁を確認してください。ダウンロード完了の表示やファイル名の一致だけでは、この照合はできません。以下はKlakk開発者のLevinが管理する確認手順で、文章作成にはAIを補助的に使用しています。
 
-CPU別のx64・ARM64配布ファイルは、別の[SHA256SUMS-windows-native.txt](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/SHA256SUMS-windows-native.txt)と照合してください。確認用コマンドのファイル名も、保存した配布ファイルに置き換えます。
+### Klakk 1.4.1の公式ファイル
+
+| ファイル | バイト数 | SHA-256 |
+| --- | ---: | --- |
+| `Klakk-1.4.1-Windows-Setup.exe` | 202233968 | `7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454` |
+| `Klakk-1.4.1-23.dmg` | 37897140 | `23c6b838f4e17e2ccddba1eb91927d0fe714403abcc512fca0545a013f5dfa51` |
+| `Klakk-1.4.1-Windows-x64-Setup.exe` | 105364092 | `78cab2a64966ffa8d1c30e5d341980d2858e090ecd5f950a0faeea9ef163eb10` |
+| `Klakk-1.4.1-Windows-arm64-Setup.exe` | 99090001 | `60bc18171d8b11988ea170b58fe5e038d8f7f6c1132e83b98a7d2f413b333a78` |
+
+2026年10月11日に[公式1.4.1リリース](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1)の公開ファイルと照合した値です。Windows共通版はCPUを自動選択します。x64・ARM64専用版を選んだ場合は、それぞれの行で確認します。Mac公式サイト版は1.4.1（build 23）です。この表はMac App Store版の配布ファイルを示すものではありません。
+
+### Windows：PowerShellで確認
+
+保存先のフォルダーでPowerShellを開き、次のコマンドを使います。どちらもファイルを読み取るだけで、インストーラーは実行しません。
+
+```powershell
+(Get-Item -LiteralPath '.\Klakk-1.4.1-Windows-Setup.exe').Length
+Get-FileHash -LiteralPath '.\Klakk-1.4.1-Windows-Setup.exe' -Algorithm SHA256 | Format-List Algorithm,Hash
+```
+
+1行目にバイト数、2行目にアルゴリズムとSHA-256の全桁が表示されます。x64版・ARM64版を選んだ場合や、ブラウザがファイル名を変更した場合は、2か所のファイル名を実際に保存した名前に置き換え、対応する行と比べてください。ファイル名を変えても、内容が同じならハッシュ値は変わりません。
+
+### Mac：ターミナルで確認
+
+DMGを保存したフォルダーで実行します。別の場所から確認する場合は、ファイル名を実際のフルパスに置き換えてください。
+
+```sh
+stat -f '%z' 'Klakk-1.4.1-23.dmg'
+shasum -a 256 'Klakk-1.4.1-23.dmg'
+```
+
+1行目にバイト数、2行目にSHA-256とファイル名が表示されます。ハッシュの英字は大文字・小文字を区別せず、全桁を照合します。バイト数またはSHA-256が一致しないときは、開く前に選んだ版とファイル名を確認し、[公式リリース](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1)から取り直してください。チェックサムの一致は、開発者署名の代わりにはなりません。現在のWindowsインストーラーは未署名です。
+
+[MicrosoftのGet-FileHash説明](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1) · [共通Windows版とMac版のSHA256SUMS.txt](SHA256SUMS.txt) · [x64・ARM64専用版のSHA256SUMS-windows-native.txt](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1/SHA256SUMS-windows-native.txt)
 
 [サポート](https://tryklakk.com/ja/support/) · [利用規約](https://tryklakk.com/ja/terms/) · [Windows版のプライバシー](https://tryklakk.com/ja/windows/privacy/)
 
