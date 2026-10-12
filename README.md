@@ -10,7 +10,22 @@ Installed but silent? Use the [Windows and Mac no-sound checklist](guides/klakk-
 
 Recording with OBS? Use the [playback, capture and recording-track checklist](guides/keyboard-sounds-obs.md) to find where keyboard sounds stop.
 
-## Download Klakk 1.4.1
+## Current website revision — 2026-10-11.1
+
+The Mac and Windows website editions are still **1.4.1** (Mac build **23**). Use these revision-specific files for the latest direct-download update: default launch at login for fresh installations, a dismissible trial reminder with an Unlock action, and Restore Purchase beside Check activation. Existing startup-off choices are preserved. The trial is still three days from first launch; US$4.49 once per platform plus applicable tax, with separate platform and App Store licenses.
+
+| Platform | Current file |
+| --- | --- |
+| Windows automatic x64/ARM64 | [Download Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup-r20261011.1.exe) |
+| Windows x64, smaller installer | [Download x64 Setup](https://downloads.tryklakk.com/Klakk-1.4.1-Windows-x64-Setup-r20261011.1.exe) |
+| Windows ARM64, smaller installer | [Download ARM64 Setup](https://downloads.tryklakk.com/Klakk-1.4.1-Windows-arm64-Setup-r20261011.1.exe) |
+| Mac, Apple silicon or Intel | [Download Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.1-23-r20261011.1.dmg) |
+
+[Current GitHub mirror and exact SHA-256 checksums](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1). Windows installers remain unsigned. The Mac application is notarized and stapled; its signed DMG container is not separately notarized. The installed app requires macOS14+ or Windows10/11 on x64/ARM64.
+
+The older files below, their checksums and package-manager pins remain unchanged. They are earlier 1.4.1 files, not this internal revision. Website sound previews and all 14 included packs remain available.
+
+## Earlier 1.4.1 files and installation reference
 
 | Platform | Requirements | Installer |
 | --- | --- | --- |

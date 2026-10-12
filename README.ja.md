@@ -1,5 +1,13 @@
 # Klakk — Windows・Mac向けキーボード音アプリ
 
+## 現在の公式サイト版リビジョン — 2026-10-11.1
+
+Mac・Windowsとも公開バージョンは**1.4.1**、Macのbuildは**23**のままです。最新の直ダウンロード更新は[この公式リリース](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1)から取得できます。新規インストールのログイン時自動起動、閉じられる試用案内、購入画面の「購入を復元」文字リンクを更新しました。以前オフにした自動起動の選択は保持されます。
+
+[Windows自動選択インストーラー](https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup-r20261011.1.exe) · [Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.1-23-r20261011.1.dmg)。小さいx64/ARM64版とSHA-256は上記リリースにあります。Windows版は未署名です。Macアプリ本体は公証・staple済みですが、署名付きDMGの外側は別途公証していません。
+
+試用は初回起動から3日間、継続利用は各プラットフォームUS$4.49買い切り＋該当税です。公式サイトMac版、Windows版、App Store版は別ライセンスです。以下の旧ファイル、チェックサム、パッケージ管理ツールの固定ファイルは以前の1.4.1のまま保持しています。
+
 Klakk開発者が管理する公式ダウンロードページです。普段のキーボードで文字を入力すると、Klakkが打鍵音を再生します。キーの感触や、キーボード自体が出す物理的な音は変わりません。
 
 [English](README.md) · [公式サイト](https://tryklakk.com/ja/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
