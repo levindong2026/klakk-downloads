@@ -24,13 +24,52 @@ concurrency:
   group: windows-trial-upgrade-${{ inputs.asset_id }}
   cancel-in-progress: false
 jobs:
+  receive:
+    if: github.repository == 'levindong2026/klakk-downloads' && github.event.repository.private == false
+    runs-on: windows-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # Draft visibility requires push access; this job only receives/verifies bytes.
+    env:
+      GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+      INPUT_RELEASE_ID: ${{ inputs.release_id }}
+      INPUT_ASSET_ID: ${{ inputs.asset_id }}
+      INPUT_ASSET_SHA256: ${{ inputs.asset_sha256 }}
+      INPUT_SOURCE_SET_SHA256: ${{ inputs.source_set_sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Parse the draft receiver before any authenticated request
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $tokens = $null; $errors = $null
+          [Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'packaging/windows-trial-upgrade/Receive-Candidate.ps1').Path, [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors.Count) { throw ($errors | Out-String) }
+      - name: Receive and SHA-lock the specified unpublished compiled candidate
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ./packaging/windows-trial-upgrade/Receive-Candidate.ps1 -ReleaseId $env:INPUT_RELEASE_ID -AssetId $env:INPUT_ASSET_ID -ExpectedSha256 $env:INPUT_ASSET_SHA256 -ExpectedSourceSetSha256 $env:INPUT_SOURCE_SET_SHA256 -OutputDirectory "$env:RUNNER_TEMP/received"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trial-upgrade-validated-payload
+          path: |
+            ${{ runner.temp }}/received/candidate.zip
+            ${{ runner.temp }}/received/candidate-receipt.json
+          retention-days: 1
+          if-no-files-found: error
   compile:
+    needs: receive
     if: github.repository == 'levindong2026/klakk-downloads' && github.event.repository.private == false
     runs-on: windows-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     env:
       GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
-      GH_TOKEN: ${{ github.token }}
       INPUT_RELEASE_ID: ${{ inputs.release_id }}
       INPUT_ASSET_ID: ${{ inputs.asset_id }}
       INPUT_ASSET_SHA256: ${{ inputs.asset_sha256 }}
@@ -48,10 +87,14 @@ jobs:
             [Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors) | Out-Null
             if ($errors.Count) { throw ($errors | Out-String) }
           }
-      - name: Download and SHA-lock the specified unpublished compiled candidate
+      - uses: actions/download-artifact@v4
+        with:
+          name: trial-upgrade-validated-payload
+          path: ${{ runner.temp }}/validated-payload
+      - name: Revalidate every candidate byte without a write token
         shell: pwsh
         run: |
-          ./packaging/windows-trial-upgrade/Receive-Candidate.ps1 -ReleaseId $env:INPUT_RELEASE_ID -AssetId $env:INPUT_ASSET_ID -ExpectedSha256 $env:INPUT_ASSET_SHA256 -ExpectedSourceSetSha256 $env:INPUT_SOURCE_SET_SHA256 -OutputDirectory "$env:RUNNER_TEMP/received"
+          ./packaging/windows-trial-upgrade/Receive-Candidate.ps1 -ReleaseId $env:INPUT_RELEASE_ID -AssetId $env:INPUT_ASSET_ID -ExpectedSha256 $env:INPUT_ASSET_SHA256 -ExpectedSourceSetSha256 $env:INPUT_SOURCE_SET_SHA256 -LocalZipPath "$env:RUNNER_TEMP/validated-payload/candidate.zip" -LocalReceiptPath "$env:RUNNER_TEMP/validated-payload/candidate-receipt.json" -OutputDirectory "$env:RUNNER_TEMP/received"
       - name: Compile universal and native architecture-specific revision-distinct installers
         shell: pwsh
         run: |
@@ -72,9 +115,10 @@ jobs:
           - {runner: windows-11-arm, architecture: Arm64, suffix: arm64}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 25
+    permissions:
+      contents: read
     env:
       GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
-      GH_TOKEN: ${{ github.token }}
       INPUT_RELEASE_ID: ${{ inputs.release_id }}
       INPUT_ASSET_ID: ${{ inputs.asset_id }}
       INPUT_ASSET_SHA256: ${{ inputs.asset_sha256 }}
@@ -83,10 +127,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Revalidate exact compiled payload bytes on the native host
+      - uses: actions/download-artifact@v4
+        with:
+          name: trial-upgrade-validated-payload
+          path: ${{ runner.temp }}/validated-payload
+      - name: Revalidate exact compiled payload bytes on the native read-only host
         shell: pwsh
         run: |
-          ./packaging/windows-trial-upgrade/Receive-Candidate.ps1 -ReleaseId $env:INPUT_RELEASE_ID -AssetId $env:INPUT_ASSET_ID -ExpectedSha256 $env:INPUT_ASSET_SHA256 -ExpectedSourceSetSha256 $env:INPUT_SOURCE_SET_SHA256 -OutputDirectory "$env:RUNNER_TEMP/received"
+          ./packaging/windows-trial-upgrade/Receive-Candidate.ps1 -ReleaseId $env:INPUT_RELEASE_ID -AssetId $env:INPUT_ASSET_ID -ExpectedSha256 $env:INPUT_ASSET_SHA256 -ExpectedSourceSetSha256 $env:INPUT_SOURCE_SET_SHA256 -LocalZipPath "$env:RUNNER_TEMP/validated-payload/candidate.zip" -LocalReceiptPath "$env:RUNNER_TEMP/validated-payload/candidate-receipt.json" -OutputDirectory "$env:RUNNER_TEMP/received"
       - uses: actions/download-artifact@v4
         with:
           name: trial-upgrade-installer-candidates
