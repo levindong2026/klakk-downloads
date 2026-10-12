@@ -1,0 +1,128 @@
+name: Validate Windows trial upgrade compiled candidates
+on:
+  workflow_dispatch:
+    inputs:
+      release_id:
+        description: Existing unpublished draft release ID (no creation or publishing)
+        required: true
+        type: string
+      asset_id:
+        description: Actual uploaded compiled-only candidate ZIP asset ID
+        required: true
+        type: string
+      asset_sha256:
+        description: Externally locked exact candidate ZIP SHA-256
+        required: true
+        type: string
+      source_set_sha256:
+        description: Independently approved private source-set lock (digest only)
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: windows-trial-upgrade-${{ inputs.asset_id }}
+  cancel-in-progress: false
+jobs:
+  compile:
+    if: github.repository == 'levindong2026/klakk-downloads' && github.event.repository.private == false
+    runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+      GH_TOKEN: ${{ github.token }}
+      INPUT_RELEASE_ID: ${{ inputs.release_id }}
+      INPUT_ASSET_ID: ${{ inputs.asset_id }}
+      INPUT_ASSET_SHA256: ${{ inputs.asset_sha256 }}
+      INPUT_SOURCE_SET_SHA256: ${{ inputs.source_set_sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Parse only packaging/test harness scripts
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Get-ChildItem packaging/windows-trial-upgrade -Filter '*.ps1' | ForEach-Object {
+            $tokens = $null; $errors = $null
+            [Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count) { throw ($errors | Out-String) }
+          }
+      - name: Download and SHA-lock the specified unpublished compiled candidate
+        shell: pwsh
+        run: |
+          ./packaging/windows-trial-upgrade/Receive-Candidate.ps1 -ReleaseId $env:INPUT_RELEASE_ID -AssetId $env:INPUT_ASSET_ID -ExpectedSha256 $env:INPUT_ASSET_SHA256 -ExpectedSourceSetSha256 $env:INPUT_SOURCE_SET_SHA256 -OutputDirectory "$env:RUNNER_TEMP/received"
+      - name: Compile universal and native architecture-specific revision-distinct installers
+        shell: pwsh
+        run: |
+          ./packaging/windows-trial-upgrade/Compile-Candidate.ps1 -BundleDirectory "$env:RUNNER_TEMP/received/bundle" -OutputDirectory "$env:RUNNER_TEMP/installers"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trial-upgrade-installer-candidates
+          path: ${{ runner.temp }}/installers
+          retention-days: 3
+          if-no-files-found: error
+  verify:
+    needs: compile
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {runner: windows-latest, architecture: X64, suffix: x64}
+          - {runner: windows-11-arm, architecture: Arm64, suffix: arm64}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    env:
+      GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+      GH_TOKEN: ${{ github.token }}
+      INPUT_RELEASE_ID: ${{ inputs.release_id }}
+      INPUT_ASSET_ID: ${{ inputs.asset_id }}
+      INPUT_ASSET_SHA256: ${{ inputs.asset_sha256 }}
+      INPUT_SOURCE_SET_SHA256: ${{ inputs.source_set_sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Revalidate exact compiled payload bytes on the native host
+        shell: pwsh
+        run: |
+          ./packaging/windows-trial-upgrade/Receive-Candidate.ps1 -ReleaseId $env:INPUT_RELEASE_ID -AssetId $env:INPUT_ASSET_ID -ExpectedSha256 $env:INPUT_ASSET_SHA256 -ExpectedSourceSetSha256 $env:INPUT_SOURCE_SET_SHA256 -OutputDirectory "$env:RUNNER_TEMP/received"
+      - uses: actions/download-artifact@v4
+        with:
+          name: trial-upgrade-installer-candidates
+          path: installers
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Require the actual Windows Desktop runtime for framework-dependent QA
+        shell: pwsh
+        run: |
+          $runtimes = @(dotnet --list-runtimes)
+          if ($LASTEXITCODE -ne 0 -or -not @($runtimes | Where-Object { $_ -match '^Microsoft\.WindowsDesktop\.App 10\.' }).Count) {
+            throw 'Official .NET setup did not provide Windows Desktop 10; QA runtime gate unavailable'
+          }
+          $runtimes | Out-Host
+      - name: Native EN JA DE AR marketing tip fixtures and actual paywall
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $qa = "$env:RUNNER_TEMP/received/bundle/qa/win-${{ matrix.suffix }}/Klakk.Windows.exe"
+          foreach ($language in @('en','ja','de','ar')) {
+            ./packaging/windows-trial-upgrade/run-trial-tip-smoke.ps1 -BinaryPath $qa -Language $language -OutputDirectory "$env:RUNNER_TEMP/native-reports/$language"
+          }
+      - name: Native silent installer defaults opt-out preservation reinstall and owned Run cleanup
+        shell: pwsh
+        run: |
+          ./packaging/windows-trial-upgrade/Test-NativeUpgrade.ps1 -ExpectedArchitecture '${{ matrix.architecture }}' -BundleDirectory "$env:RUNNER_TEMP/received/bundle" -InstallerDirectory './installers' -ReportDirectory "$env:RUNNER_TEMP/native-reports/installer"
+      - name: Summarize actual receipts and unknown native gates
+        if: always()
+        shell: pwsh
+        run: |
+          ./packaging/windows-trial-upgrade/Summarize-Receipts.ps1 -ReportDirectory "$env:RUNNER_TEMP/native-reports" -ExpectedArchitecture '${{ matrix.architecture }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trial-upgrade-native-qa-${{ matrix.suffix }}
+          path: ${{ runner.temp }}/native-reports
+          retention-days: 3
+          if-no-files-found: warn
