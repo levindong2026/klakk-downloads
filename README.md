@@ -10,6 +10,8 @@ Installed but silent? Use the [Windows and Mac no-sound checklist](guides/klakk-
 
 Recording with OBS? Use the [playback, capture and recording-track checklist](guides/keyboard-sounds-obs.md) to find where keyboard sounds stop.
 
+Deciding whether to buy? Read [what free apps, optional paid packs and Klakk’s platform license include](docs/keyboard-sounds-worth-paying-for.md), then listen before choosing.
+
 ## Current website revision — 2026-10-11.1
 
 The Mac and Windows website editions are still **1.4.1** (Mac build **23**). Use these revision-specific files for the latest direct-download update: default launch at login for fresh installations, a dismissible trial reminder with an Unlock action, and Restore Purchase beside Check activation. Existing startup-off choices are preserved. The trial is still three days from first launch; US$4.49 once per platform plus applicable tax, with separate platform and App Store licenses.
