@@ -12,7 +12,7 @@ Klakk is proprietary software with a three-day trial from first launch. Continue
 
 Use a disposable Windows test machine with the official free Chocolatey CLI. From `packaging/chocolatey/klakk`:
 
-Current source prepares candidate package **1.4.1.20261016** for website revision **2026-10-11.1**; the application version remains **1.4.1**. This candidate has **not been submitted or approved**. Its clean-install and old-package-upgrade checks on both architectures still require a successful run of the candidate validation workflow. The approved **1.4.1** package described above remains unchanged.
+Current source prepares candidate package **1.4.1.20261016** for website revision **2026-10-11.1**; the application version remains **1.4.1**. This candidate has **not been submitted or approved**. On 2026-10-16, [run 38885819724](https://github.com/levindong2026/klakk-downloads/actions/runs/38885819724) passed clean installation and normal upgrade from the approved 1.4.1 package on native x64 and ARM64 Windows runners with Chocolatey CLI 2.7.4. It checked the current installed executable hashes, native architecture, 14 sound packs, synthetic data preservation, startup registration choices and explicit uninstall; its process observer recorded no Klakk starts. These are hosted-runner packaging tests, not customer downloads or installations. The approved **1.4.1** package described above remains unchanged.
 
 ```powershell
 choco pack .\klakk.nuspec
