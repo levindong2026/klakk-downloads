@@ -117,6 +117,11 @@ jobs:
             startup_off_preserved = $null
             startup_default_registered = $null
             explicit_uninstall_passed = $false
+            uninstall_returned_utc = $null
+            payload_after_uninstall_initial = $null
+            payload_after_uninstall_final = $null
+            payload_wait_ms = $null
+            payload_wait_limit_ms = 30000
             same_windows_identity = $null
             process_trace_subscribed = $false
             klakk_process_starts = $null
@@ -127,6 +132,37 @@ jobs:
           $traceName = 'KlakkChocolateyRevisionProcessStart'
           function Assert-NoRunningApp {
             if (Get-Process -Name 'Klakk.Windows' -ErrorAction SilentlyContinue) { throw 'Klakk unexpectedly running' }
+          }
+          function Get-KlakkStartupValue {
+            # Missing key/value is normal; permission and I/O exceptions still fail.
+            $key = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey('Software\Microsoft\Windows\CurrentVersion\Run', $false)
+            if ($null -eq $key) { return $null }
+            try {
+              return $key.GetValue('Klakk', $null, [Microsoft.Win32.RegistryValueOptions]::DoNotExpandEnvironmentNames)
+            } finally { $key.Dispose() }
+          }
+          function Get-PayloadSnapshot {
+            $files = @()
+            if (Test-Path -LiteralPath $installDirectory -ErrorAction Stop) {
+              try {
+                $files = @(Get-ChildItem -LiteralPath $installDirectory -Recurse -File -Force -ErrorAction Stop | Sort-Object FullName | ForEach-Object {
+                  [ordered]@{
+                    path = [IO.Path]::GetRelativePath($installDirectory, $_.FullName)
+                    bytes = $_.Length
+                    attributes = $_.Attributes.ToString()
+                    last_write_utc = $_.LastWriteTimeUtc.ToString('o')
+                  }
+                })
+              } catch [System.Management.Automation.ItemNotFoundException] {
+                # The directory may disappear between existence check and enumeration.
+                if (Test-Path -LiteralPath $installDirectory -ErrorAction Stop) { throw }
+              }
+            }
+            return [ordered]@{
+              observed_utc = [DateTime]::UtcNow.ToString('o')
+              file_count = $files.Count
+              files = @($files)
+            }
           }
           function Assert-PackageVersion([string] $expected) {
             $listed = @(& $choco list --exact klakk --limit-output)
@@ -162,7 +198,7 @@ jobs:
           }
           try {
             if ($env:QA_SCENARIO -notin @('clean', 'upgrade')) { throw 'Unknown QA scenario' }
-            if ((Test-Path $installDirectory) -or (Test-Path $dataDirectory) -or (Test-Path $registryPath) -or (Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue)) { throw 'Runner is not a clean disposable Klakk installation scope' }
+            if ((Test-Path $installDirectory) -or (Test-Path $dataDirectory) -or (Test-Path $registryPath) -or (Get-KlakkStartupValue)) { throw 'Runner is not a clean disposable Klakk installation scope' }
             Assert-NoRunningApp
             $existing = @(& $choco list --exact klakk --limit-output)
             if ($LASTEXITCODE -ne 0 -or $existing -match '^klakk\|') { throw 'Runner already has a Klakk Chocolatey package' }
@@ -193,20 +229,35 @@ jobs:
               $result.executable_replaced = $true
               Assert-PreservationFixtures
               $result.fixtures_preserved_through_upgrade = $true
-              if (Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue) { throw 'Upgrade changed the pre-existing startup-off fixture' }
+              if (Get-KlakkStartupValue) { throw 'Upgrade changed the pre-existing startup-off fixture' }
               $result.startup_off_preserved = $true
             } else {
               $expectedStartup = '"{0}" --background' -f $app
-              if ((Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue) -ne $expectedStartup) { throw 'Fresh-install startup registration mismatch' }
+              if ((Get-KlakkStartupValue) -ne $expectedStartup) { throw 'Fresh-install startup registration mismatch' }
               $result.startup_default_registered = $true
               New-PreservationFixtures
             }
             # Disable the automatic fallback so the existing explicit script is exercised.
             & $choco uninstall klakk --yes --no-progress --limit-output --skip-autouninstaller
             if ($LASTEXITCODE -ne 0) { throw 'Explicit Chocolatey uninstall failed' }
+            $result.uninstall_returned_utc = [DateTime]::UtcNow.ToString('o')
+            $payloadTimer = [Diagnostics.Stopwatch]::StartNew()
+            $snapshot = Get-PayloadSnapshot
+            $result.payload_after_uninstall_initial = $snapshot
+            $result.payload_after_uninstall_final = $snapshot
+            $result.payload_wait_ms = [int]$payloadTimer.ElapsedMilliseconds
             if ((Test-Path $app) -or (Test-Path $registryPath)) { throw 'Native app or install registration remains' }
-            if ((Test-Path $installDirectory) -and @(Get-ChildItem $installDirectory -Recurse -File).Count -gt 0) { throw 'Installed payload files remain after uninstall' }
-            if (Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue) { throw 'Owned startup registration remains after uninstall' }
+            # Inno deletes its original uninstaller after the first process exits.
+            # Observe eventual complete removal; never delete or ignore leftovers.
+            while ($snapshot.file_count -gt 0 -and $payloadTimer.ElapsedMilliseconds -lt $result.payload_wait_limit_ms) {
+              $remainingMs = $result.payload_wait_limit_ms - [int]$payloadTimer.ElapsedMilliseconds
+              Start-Sleep -Milliseconds ([Math]::Max(1, [Math]::Min(250, $remainingMs)))
+              $snapshot = Get-PayloadSnapshot
+              $result.payload_after_uninstall_final = $snapshot
+              $result.payload_wait_ms = [int]$payloadTimer.ElapsedMilliseconds
+            }
+            if ($snapshot.file_count -gt 0) { throw "Installed payload files remain after uninstall: $($snapshot.file_count); see initial/final payload diagnostics" }
+            if (Get-KlakkStartupValue) { throw 'Owned startup registration remains after uninstall' }
             Assert-PreservationFixtures
             Assert-NoRunningApp
             $result.fixtures_preserved_after_uninstall = $true
@@ -232,7 +283,7 @@ jobs:
               Unregister-Event -SourceIdentifier $traceName -ErrorAction SilentlyContinue
               Get-Event -SourceIdentifier $traceName -ErrorAction SilentlyContinue | Remove-Event -ErrorAction SilentlyContinue
             }
-            $result | ConvertTo-Json -Depth 4 | Set-Content (Join-Path $source 'native-revision-qa.json') -Encoding utf8
+            $result | ConvertTo-Json -Depth 6 | Set-Content (Join-Path $source 'native-revision-qa.json') -Encoding utf8
           }
           if ($failure) { throw $failure }
           Write-Host "Verified $($env:EXPECTED_ARCHITECTURE) $($env:QA_SCENARIO): package $($env:PACKAGE_VERSION), app1.4.1, native PE,14 packs, explicit removal and inert data preservation. No app launched."
