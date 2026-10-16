@@ -12,9 +12,11 @@ Klakk is proprietary software with a three-day trial from first launch. Continue
 
 Use a disposable Windows test machine with the official free Chocolatey CLI. From `packaging/chocolatey/klakk`:
 
+Current source prepares candidate package **1.4.1.20261016** for website revision **2026-10-11.1**; the application version remains **1.4.1**. This candidate has **not been submitted or approved**. Its clean-install and old-package-upgrade checks on both architectures still require a successful run of the candidate validation workflow. The approved **1.4.1** package described above remains unchanged.
+
 ```powershell
 choco pack .\klakk.nuspec
-choco install klakk --version 1.4.1 --source . --yes
+choco install klakk --version 1.4.1.20261016 --source . --yes
 choco uninstall klakk --yes --skip-autouninstaller
 ```
 

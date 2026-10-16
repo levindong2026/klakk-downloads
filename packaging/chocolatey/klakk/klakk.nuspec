@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>klakk</id>
-    <version>1.4.1</version>
+    <version>1.4.1.20261016</version>
     <title>Klakk (Install)</title>
     <authors>Klakk</authors>
     <owners>Levin</owners>
@@ -33,7 +33,7 @@ Typing text and raw key codes are not uploaded. The direct edition sends usage a
 
 [Preview the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=chocolatey&utm_medium=referral&utm_campaign=windows_distribution) or follow the [Windows setup and no-sound guide](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/?utm_source=chocolatey&utm_medium=referral&utm_campaign=windows_distribution).
     ]]></description>
-    <releaseNotes>Official installer and release notes: https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1</releaseNotes>
+    <releaseNotes>Chocolatey package 1.4.1.20261016 updates the pinned official Windows installer to website revision 2026-10-11.1. The installed application and registry product version remain 1.4.1. This is a separate package revision; the approved 1.4.1 package and its original installer remain unchanged. Official installer and release notes: https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1</releaseNotes>
   </metadata>
   <files>
     <file src="tools\*.ps1" target="tools" />

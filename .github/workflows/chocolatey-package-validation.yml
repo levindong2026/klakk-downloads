@@ -5,17 +5,28 @@ permissions:
   contents: read
 jobs:
   chocolatey:
-    name: Chocolatey on ${{ matrix.architecture }}
+    name: Chocolatey ${{ matrix.scenario }} on ${{ matrix.architecture }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - runner: windows-latest
             architecture: X64
+            scenario: clean
           - runner: windows-11-arm
             architecture: Arm64
+            scenario: clean
+          - runner: windows-latest
+            architecture: X64
+            scenario: upgrade
+          - runner: windows-11-arm
+            architecture: Arm64
+            scenario: upgrade
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 15
+    env:
+      PACKAGE_VERSION: "1.4.1.20261016"
+      OLD_PACKAGE_VERSION: "1.4.1"
     steps:
       - name: Check out public packaging files
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -57,7 +68,7 @@ jobs:
           }
           & $choco pack (Join-Path $packageRoot 'klakk.nuspec') --output-directory $output
           if ($LASTEXITCODE -ne 0) { throw 'Chocolatey pack failed' }
-          $package = Join-Path $output 'klakk.1.4.1.nupkg'
+          $package = Join-Path $output ('klakk.{0}.nupkg' -f $env:PACKAGE_VERSION)
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           $archive = [IO.Compression.ZipFile]::OpenRead($package)
           try {
@@ -72,44 +83,160 @@ jobs:
             }
           } finally { $archive.Dispose() }
           Get-FileHash $package -Algorithm SHA256
-      - name: Install through Chocolatey and verify the native app without launching it
+      - name: Verify clean install or old-package upgrade, then explicit removal without launching Klakk
         shell: pwsh
         env:
           EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+          QA_SCENARIO: ${{ matrix.scenario }}
         run: |
           $ErrorActionPreference = 'Stop'
           $choco = Get-Content (Join-Path $env:RUNNER_TEMP 'choco-path.txt')
           $source = Join-Path $env:RUNNER_TEMP 'klakk-chocolatey-package'
-          & $choco install klakk --version 1.4.1 --source $source --yes --no-progress --limit-output
-          if ($LASTEXITCODE -ne 0) { throw 'Chocolatey installation failed' }
+          $installDirectory = Join-Path $env:LOCALAPPDATA 'Programs\Klakk'
+          $app = Join-Path $installDirectory 'Klakk.Windows.exe'
+          $dataDirectory = Join-Path $env:LOCALAPPDATA 'Klakk'
           $registryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
-          $entry = Get-ItemProperty $registryPath
-          if ($entry.DisplayName -ne 'Klakk version 1.4.1' -or $entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'Installed metadata mismatch' }
-          $app = Join-Path $env:LOCALAPPDATA 'Programs\Klakk\Klakk.Windows.exe'
-          if (-not (Test-Path $app)) { throw 'Per-user installation missing' }
-          $bytes = [IO.File]::ReadAllBytes($app)
-          $pe = [BitConverter]::ToInt32($bytes, 0x3c)
-          $machine = [BitConverter]::ToUInt16($bytes, $pe + 4)
+          $startupPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
+          $initialUser = [Security.Principal.WindowsIdentity]::GetCurrent().Name
           $expectedMachine = if ($env:EXPECTED_ARCHITECTURE -eq 'Arm64') { 0xaa64 } else { 0x8664 }
-          if ($machine -ne $expectedMachine) { throw 'Universal installer selected the wrong executable architecture' }
-          $packs = @(Get-ChildItem (Join-Path $env:LOCALAPPDATA 'Programs\Klakk\SoundPacks') -Recurse -Filter config.json).Count
-          if ($packs -ne 14) { throw "Unexpected sound pack count: $packs" }
-          if (Get-Process -Name 'Klakk.Windows' -ErrorAction SilentlyContinue) { throw 'Silent installation unexpectedly launched the app' }
-          Write-Host "Verified $($env:EXPECTED_ARCHITECTURE): Chocolatey installation, registry 1.4.1, native PE and 14 bundled sound packs. App not launched."
-      - name: Uninstall with the package script and verify removal
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = 'Stop'
-          $choco = Get-Content (Join-Path $env:RUNNER_TEMP 'choco-path.txt')
-          # Disabling the automatic fallback on this disposable runner proves that
-          # the candidate's explicit uninstall script removes the actual app.
-          & $choco uninstall klakk --yes --no-progress --limit-output --skip-autouninstaller
-          if ($LASTEXITCODE -ne 0) { throw 'Chocolatey uninstall failed' }
-          $app = Join-Path $env:LOCALAPPDATA 'Programs\Klakk\Klakk.Windows.exe'
-          $registryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
-          if ((Test-Path $app) -or (Test-Path $registryPath)) { throw 'Native application or registry entry remains after uninstall' }
-          Write-Host 'Explicit Chocolatey uninstall removed the app and its install registration.'
-          Write-Host 'These are QA operations, not customer downloads or installations. No app first run, license activation or payment occurred.'
+          $expectedHash = if ($env:EXPECTED_ARCHITECTURE -eq 'Arm64') { '0e7e2db9aa6cb5eb63f8ad24607ea79be35d8cddf92b262599b3c556a390f820' } else { '9d9e3c824fb02aa5e4cadf4107bb18ee4dab30dff5b827a5b533413d40d73c4d' }
+          $result = [ordered]@{
+            scenario = $env:QA_SCENARIO
+            architecture = $env:EXPECTED_ARCHITECTURE
+            package_version = $env:PACKAGE_VERSION
+            application_version = '1.4.1'
+            status = 'running'
+            old_exe_sha256 = $null
+            new_exe_sha256 = $null
+            executable_replaced = $null
+            native_pe = $null
+            sound_pack_count = $null
+            registry_version = $null
+            fixtures_preserved_through_upgrade = $null
+            fixtures_preserved_after_uninstall = $null
+            startup_off_preserved = $null
+            startup_default_registered = $null
+            explicit_uninstall_passed = $false
+            same_windows_identity = $null
+            process_trace_subscribed = $false
+            klakk_process_starts = $null
+            error = $null
+          }
+          $fixtures = @{}
+          $failure = $null
+          $traceName = 'KlakkChocolateyRevisionProcessStart'
+          function Assert-NoRunningApp {
+            if (Get-Process -Name 'Klakk.Windows' -ErrorAction SilentlyContinue) { throw 'Klakk unexpectedly running' }
+          }
+          function Assert-PackageVersion([string] $expected) {
+            $listed = @(& $choco list --exact klakk --limit-output)
+            if ($LASTEXITCODE -ne 0 -or $listed -notcontains "klakk|$expected") { throw "Installed Chocolatey package version mismatch: expected $expected" }
+          }
+          function Assert-App {
+            $entry = Get-ItemProperty $registryPath
+            if ($entry.DisplayName -ne 'Klakk version 1.4.1' -or $entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'Installed registry metadata mismatch' }
+            if (-not (Test-Path -LiteralPath $app)) { throw 'Per-user installation missing' }
+            $bytes = [IO.File]::ReadAllBytes($app)
+            $pe = [BitConverter]::ToInt32($bytes, 0x3c)
+            $machine = [BitConverter]::ToUInt16($bytes, $pe + 4)
+            if ($machine -ne $expectedMachine) { throw 'Wrong installed executable architecture' }
+            $packs = @(Get-ChildItem (Join-Path $installDirectory 'SoundPacks') -Recurse -Filter config.json).Count
+            if ($packs -ne 14) { throw "Unexpected sound pack count: $packs" }
+            Assert-NoRunningApp
+            return (Get-FileHash -LiteralPath $app -Algorithm SHA256).Hash.ToLowerInvariant()
+          }
+          function New-PreservationFixtures {
+            New-Item -ItemType Directory -Path $dataDirectory -Force | Out-Null
+            # Inert local fixtures only: no installation identity, trial clock or license.
+            [IO.File]::WriteAllText((Join-Path $dataDirectory 'preferences.json'), '{"LaunchAtLogin":false,"Enabled":false,"Volume":0.37,"OutputDeviceId":"default","Language":"en"}')
+            [IO.File]::WriteAllText((Join-Path $dataDirectory 'packaging-preservation-fixture.txt'), 'Klakk Chocolatey revision preservation fixture')
+            foreach ($name in @('preferences.json', 'packaging-preservation-fixture.txt')) {
+              $fixtures[$name] = (Get-FileHash -LiteralPath (Join-Path $dataDirectory $name) -Algorithm SHA256).Hash
+            }
+          }
+          function Assert-PreservationFixtures {
+            foreach ($name in $fixtures.Keys) {
+              $file = Join-Path $dataDirectory $name
+              if (-not (Test-Path -LiteralPath $file) -or (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash -ne $fixtures[$name]) { throw "Synthetic data fixture changed: $name" }
+            }
+          }
+          try {
+            if ($env:QA_SCENARIO -notin @('clean', 'upgrade')) { throw 'Unknown QA scenario' }
+            if ((Test-Path $installDirectory) -or (Test-Path $dataDirectory) -or (Test-Path $registryPath) -or (Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue)) { throw 'Runner is not a clean disposable Klakk installation scope' }
+            Assert-NoRunningApp
+            $existing = @(& $choco list --exact klakk --limit-output)
+            if ($LASTEXITCODE -ne 0 -or $existing -match '^klakk\|') { throw 'Runner already has a Klakk Chocolatey package' }
+            Register-CimIndicationEvent -Namespace root/cimv2 -Query "SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName='Klakk.Windows.exe'" -SourceIdentifier $traceName | Out-Null
+            $result.process_trace_subscribed = $true
+            if ($env:QA_SCENARIO -eq 'upgrade') {
+              & $choco install klakk --version $env:OLD_PACKAGE_VERSION --source 'https://community.chocolatey.org/api/v2/' --yes --no-progress --limit-output
+              if ($LASTEXITCODE -ne 0) { throw 'Approved old community-package installation failed' }
+              Assert-PackageVersion $env:OLD_PACKAGE_VERSION
+              $result.old_exe_sha256 = Assert-App
+              New-PreservationFixtures
+              # Explicit startup-off fixture, not a runtime/UI preference test.
+              Remove-ItemProperty $startupPath -Name Klakk -ErrorAction SilentlyContinue
+              & $choco upgrade klakk --version $env:PACKAGE_VERSION --source $source --yes --no-progress --limit-output
+              if ($LASTEXITCODE -ne 0) { throw 'Normal old-to-new Chocolatey upgrade failed' }
+            } else {
+              & $choco install klakk --version $env:PACKAGE_VERSION --source $source --yes --no-progress --limit-output
+              if ($LASTEXITCODE -ne 0) { throw 'New-package clean installation failed' }
+            }
+            Assert-PackageVersion $env:PACKAGE_VERSION
+            $result.new_exe_sha256 = Assert-App
+            if ($result.new_exe_sha256 -ne $expectedHash) { throw 'Installed executable differs from locked current production payload' }
+            $result.native_pe = $true
+            $result.sound_pack_count = 14
+            $result.registry_version = '1.4.1'
+            if ($env:QA_SCENARIO -eq 'upgrade') {
+              if ($result.old_exe_sha256 -eq $result.new_exe_sha256) { throw 'Package upgrade did not replace the installed executable' }
+              $result.executable_replaced = $true
+              Assert-PreservationFixtures
+              $result.fixtures_preserved_through_upgrade = $true
+              if (Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue) { throw 'Upgrade changed the pre-existing startup-off fixture' }
+              $result.startup_off_preserved = $true
+            } else {
+              $expectedStartup = '"{0}" --background' -f $app
+              if ((Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue) -ne $expectedStartup) { throw 'Fresh-install startup registration mismatch' }
+              $result.startup_default_registered = $true
+              New-PreservationFixtures
+            }
+            # Disable the automatic fallback so the existing explicit script is exercised.
+            & $choco uninstall klakk --yes --no-progress --limit-output --skip-autouninstaller
+            if ($LASTEXITCODE -ne 0) { throw 'Explicit Chocolatey uninstall failed' }
+            if ((Test-Path $app) -or (Test-Path $registryPath)) { throw 'Native app or install registration remains' }
+            if ((Test-Path $installDirectory) -and @(Get-ChildItem $installDirectory -Recurse -File).Count -gt 0) { throw 'Installed payload files remain after uninstall' }
+            if (Get-ItemPropertyValue $startupPath -Name Klakk -ErrorAction SilentlyContinue) { throw 'Owned startup registration remains after uninstall' }
+            Assert-PreservationFixtures
+            Assert-NoRunningApp
+            $result.fixtures_preserved_after_uninstall = $true
+            $result.explicit_uninstall_passed = $true
+            $remaining = @(& $choco list --exact klakk --limit-output)
+            if ($LASTEXITCODE -ne 0 -or $remaining -match '^klakk\|') { throw 'Chocolatey package remains registered after uninstall' }
+            $result.same_windows_identity = [Security.Principal.WindowsIdentity]::GetCurrent().Name -eq $initialUser
+            if (-not $result.same_windows_identity) { throw 'Windows user scope changed' }
+            $result.status = 'passed'
+          } catch {
+            $failure = $_.Exception.Message
+            $result.status = 'failed'
+            $result.error = $failure
+          } finally {
+            if ($result.process_trace_subscribed) {
+              Start-Sleep -Milliseconds 500
+              $starts = @(Get-Event -SourceIdentifier $traceName -ErrorAction SilentlyContinue)
+              $result.klakk_process_starts = $starts.Count
+              if ($starts.Count -gt 0) {
+                $result.status = 'failed'
+                if (-not $failure) { $failure = 'Klakk process start detected during installer validation'; $result.error = $failure }
+              }
+              Unregister-Event -SourceIdentifier $traceName -ErrorAction SilentlyContinue
+              Get-Event -SourceIdentifier $traceName -ErrorAction SilentlyContinue | Remove-Event -ErrorAction SilentlyContinue
+            }
+            $result | ConvertTo-Json -Depth 4 | Set-Content (Join-Path $source 'native-revision-qa.json') -Encoding utf8
+          }
+          if ($failure) { throw $failure }
+          Write-Host "Verified $($env:EXPECTED_ARCHITECTURE) $($env:QA_SCENARIO): package $($env:PACKAGE_VERSION), app1.4.1, native PE,14 packs, explicit removal and inert data preservation. No app launched."
+          Write-Host 'These are isolated packaging QA results, not customer downloads, installations, activation or payment.'
       - name: Gather diagnostics beside the candidate package
         if: always()
         shell: pwsh
@@ -124,7 +251,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: chocolatey-candidate-${{ matrix.architecture }}
+          name: chocolatey-revision-${{ matrix.architecture }}-${{ matrix.scenario }}
           path: ${{ runner.temp }}/klakk-chocolatey-package/
           retention-days: 7
           if-no-files-found: warn

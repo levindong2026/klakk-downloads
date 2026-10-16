@@ -17,8 +17,8 @@ Write-Warning 'The Klakk 1.4.1 installer is unsigned. This package checks the of
 $packageArgs = @{
     packageName    = $env:ChocolateyPackageName
     fileType       = 'exe'
-    url            = 'https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup.exe'
-    checksum       = '7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454'
+    url            = 'https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup-r20261011.1.exe'
+    checksum       = 'a8d9b20341b49ef4c8aa11c51a1c3fb0b41506ff79228f61f06ac2386799cdff'
     checksumType   = 'sha256'
     silentArgs     = '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-'
     validExitCodes = @(0)
