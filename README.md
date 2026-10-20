@@ -2,6 +2,10 @@
 
 Official downloads maintained by the Klakk developer. Klakk plays keyboard sounds while you type on your existing keyboard. It adds audio feedback; it does not change the feel or physical noise of your keys.
 
+Klakk at **tryklakk.com** and Klack at **tryklack.com** are separate products. A Klack purchase does not activate Klakk. [Compare Klakk and Klack before buying](https://tryklakk.com/en/blog/klakk-vs-klack-keyboard-sound-apps/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=product_identity_en).
+
+This identity note is maintained by Levin, Klakk's developer, with AI assistance.
+
 [日本語](README.ja.md) · [Website](https://tryklakk.com/en/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [Try the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
 Prefer a short video? [Watch the 44-second English sound preview](https://www.youtube.com/watch?v=rkSXD7r3Dy4) for edited samples of Gateron Red, Cherry MX Blue and Banana Split Stock. The browser demo lets you try all 14 sound packs.
