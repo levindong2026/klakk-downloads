@@ -1,6 +1,13 @@
 name: Validate publisher Scoop bucket
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'codex/scoop-revision-*'
+    paths:
+      - bucket/klakk.json
+      - packaging/scoop/Test-KlakkScoop.ps1
+      - .github/workflows/scoop-package-validation.yml
   pull_request:
     paths:
       - bucket/klakk.json
@@ -25,7 +32,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
-      - name: Verify actual Scoop install, reinstall, ownership guards and uninstall
+      - name: Verify Scoop revision upgrade, install, ownership guards and uninstall
         shell: pwsh
         env:
           EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
