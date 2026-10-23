@@ -1,6 +1,6 @@
 # Install Klakk with Scoop on Windows
 
-This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.1**, internal revision **2026-10-11.1**, for your native architecture. The app version remains 1.4.1; the internal revision identifies the updated release files. It supports x64 and ARM64 on Windows 10/11; 32-bit Windows and Scoop global installation are unsupported.
+This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.1**, internal revision **2026-10-11.1**, for your native architecture. Scoop package version **1.4.1.20261011.1** identifies these revised files; the app’s Windows display version remains **1.4.1**. It supports x64 and ARM64 on Windows 10/11; 32-bit Windows and Scoop global installation are unsupported.
 
 Scoop selects the **61.1 MB x64** or **58.0 MB ARM64** package instead of downloading both architectures in the 116.9 MB universal installer. These packages carry the same app version and internal revision as the current website download; only the selected architecture is downloaded. File sizes use decimal MB, not a measured download-time or installation-speed claim. The original 1.4.1 files remain available; using an older channel package does not establish that the current website download is broken.
 
@@ -21,7 +21,7 @@ Scoop downloads the architecture-specific official installer, checks its hash an
 
 ## What this app revision changes
 
-The [published revision notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1) describe launch at login enabled by default for fresh installations, with an existing off choice preserved. You can turn it off in settings. During the three-day trial, a dismissible reminder offers to open the purchase screen; Restore Purchase appears beside Check activation. These are published app changes, not a new Scoop installation or upgrade test.
+The [published revision notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1) describe launch at login enabled by default for fresh installations, with an existing off choice preserved. You can turn it off in settings. During the three-day trial, a dismissible reminder offers to open the purchase screen; Restore Purchase appears beside Check activation. These app behaviors are described by the published revision notes; the Scoop checks below cover package installation and maintenance.
 
 ## Hear the first sound
 
@@ -44,6 +44,8 @@ Uninstall invokes the official native uninstaller and removes Scoop’s applicat
 
 ## Verification and scope
 
-The [Scoop verification workflow](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml) defines separate native x64 and ARM64 checks for the official Scoop JSON schema, selected release file and size, installation, native executable architecture, 14 packs, Start shortcut, foreign-install protections, same-version forced reinstall, retained settings and uninstall cleanup. The [previous successful native run](https://github.com/levindong2026/klakk-downloads/actions/runs/38083232203) checked the original 1.4.1 architecture-specific packages. It did not open the app and does not establish this revision’s Scoop upgrade path or audible playback. Any new validation must be reported with its actual package and scenario scope. QA downloads and installations are not customer downloads or installations.
+The [Scoop verification workflow](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml) checks the official manifest schema and native x64/ARM64 package installation and maintenance. Its [successful native run on 23 October 2026](https://github.com/levindong2026/klakk-downloads/actions/runs/39960328980) tested candidate `26d789ba` using Scoop core `e6aa3b36`. Both jobs verified the normal **1.4.1 → 1.4.1.20261011.1** update, package receipts and the current-directory target. They checked the complete installer SHA-256 and size, fresh installation, native executable architecture, 14 sound packs and the Start shortcut. Foreign-install ownership guards, forced reinstall, a retained app-data marker and uninstall cleanup also passed. Cleanup checks found no startup entry pointing to the removed Scoop copy.
+
+The [previous successful native run](https://github.com/levindong2026/klakk-downloads/actions/runs/38083232203) checked the original 1.4.1 architecture-specific packages. In the new run, the app was not explicitly launched, and no Klakk process was found at the test checkpoints. These checks do not establish audible playback, complete settings retention, first-launch/trial behavior or payment. QA downloads and installations are not customer downloads or installations.
 
 Maintained by **Levin**, Klakk’s developer, with AI assistance. Application source remains private; this repository contains public distribution metadata and instructions. [日本語](README.ja.md) · [Scoop custom bucket documentation](https://github.com/ScoopInstaller/Scoop/wiki/Buckets)
