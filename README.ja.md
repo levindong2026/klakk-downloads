@@ -14,6 +14,16 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 動画で聴きたい方は、[44秒の英語版サウンドプレビュー](https://www.youtube.com/watch?v=rkSXD7r3Dy4)をご覧ください。Gateron Red、Cherry MX Blue、Banana Split Stock の編集された音サンプルを紹介します。14種類すべての音はブラウザのデモで試せます。
 
+### 7音色を80秒で聴く（英語画面）
+
+https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c
+
+同梱音源7種類を、同じ12打の順番・間隔で各8秒ずつ再生した編集プレビューです。画面は英語で、ナレーションや日本語字幕はありません。アプリの操作録画や、音の大きさをそろえた比較、遅延測定を示す映像ではありません。
+
+[14音色をブラウザーで試聴](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)して、好きな音を選べます。[Mac公式サイト版](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)と[Windows版](https://tryklakk.com/ja/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)は、初回起動から3日間、14音色を試せます。継続利用は各プラットフォームUS$4.49の買い切り＋適用税です。公式サイトMac版・Windows版・Mac App Store版は別ライセンスです。
+
+Klakk開発者Levinが管理する紹介です。説明文の作成にAIを補助として使用しました。[この動画の音源の出典とライセンス](docs/klakk-seven-included-sounds-en-NOTICE.txt)
+
 インストール後に音が出ない場合は、[Windows・Mac の確認手順](guides/klakk-no-sound.ja.md)で、有効化、出力先、権限、試用・ライセンス状態を確認できます。
 
 OBSで録画する場合は、[キーボード音の再生・音声取り込み・録音トラックを分けて確認](guides/keyboard-sounds-obs.ja.md)してください。手元で聴こえる音と、保存動画に入る音を別々に調べる手順です。
