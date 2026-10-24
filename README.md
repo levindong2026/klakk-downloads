@@ -10,7 +10,7 @@ This identity note is maintained by Levin, Klakk's developer, with AI assistance
 
 Prefer a short video? [Watch the 44-second English sound preview](https://www.youtube.com/watch?v=rkSXD7r3Dy4) for edited samples of Gateron Red, Cherry MX Blue and Banana Split Stock. The browser demo lets you try all 14 sound packs.
 
-For a longer listen, [watch seven included Klakk sound packs in 80 seconds](ROOT_WILL_INSERT_PUBLIC_MEDIA_URL). Each uses the same edited website-preview sequence; this is not live app playback or a latency test. [Read the complete copyright, MIT license and provenance notice for the seven recordings](docs/klakk-seven-included-sounds-en-NOTICE.txt). [Sequence guide and trial details](docs/seven-keyboard-sounds.md).
+For a longer listen, [watch seven included Klakk sound packs in 80 seconds](https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c). Each uses the same edited website-preview sequence; this is not live app playback or a latency test. [Read the complete copyright, MIT license and provenance notice for the seven recordings](docs/klakk-seven-included-sounds-en-NOTICE.txt). [Sequence guide and trial details](docs/seven-keyboard-sounds.md).
 
 Installed but silent? Use the [Windows and Mac no-sound checklist](guides/klakk-no-sound.md) to check playback, output, permissions and trial activation.
 

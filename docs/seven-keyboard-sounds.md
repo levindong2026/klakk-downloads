@@ -2,7 +2,7 @@
 
 Hear seven of the fourteen sound packs included in Klakk, using the same short key sequence and rhythm for each. Start at a low, comfortable volume.
 
-[Open the 80-second preview](ROOT_WILL_INSERT_PUBLIC_MEDIA_URL)
+[Open the 80-second preview](https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c)
 
 ## Sequence guide
 
