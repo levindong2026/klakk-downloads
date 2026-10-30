@@ -33,7 +33,7 @@ The Mac and Windows website editions are still **1.4.1** (Mac build **23**). Use
 
 [Current GitHub mirror and exact SHA-256 checksums](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1). Windows installers remain unsigned. The Mac application is notarized and stapled; its signed DMG container is not separately notarized. The installed app requires macOS14+ or Windows10/11 on x64/ARM64.
 
-The older files below, their checksums and package-manager pins remain unchanged. They are earlier 1.4.1 files, not this internal revision. Website sound previews and all 14 included packs remain available.
+The older direct-download files below and their checksums remain unchanged. Those files are earlier 1.4.1 builds, not this internal revision. Package-manager revisions are described separately: the [publisher Scoop bucket](packaging/scoop/README.md) now installs revision 2026-10-11.1; the approved Chocolatey 1.4.1 package described below retains its earlier installer. Website sound previews and all 14 included packs remain available.
 
 ## Earlier 1.4.1 files and installation reference
 
