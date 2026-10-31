@@ -12,6 +12,8 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 [English](README.md) · [公式サイト](https://tryklakk.com/ja/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
+各パックの試聴ボタンをクリック／タップすると、Aキーのサンプルを1回再生します。14種類を聴き比べてから、同じページのMac・Windows試用版ダウンロードへ進めます。ほかのキーは従来のキーボードデモで試せます。
+
 動画で聴きたい方は、[44秒の英語版サウンドプレビュー](https://www.youtube.com/watch?v=rkSXD7r3Dy4)をご覧ください。Gateron Red、Cherry MX Blue、Banana Split Stock の編集された音サンプルを紹介します。14種類すべての音はブラウザのデモで試せます。
 
 ### 7音色を80秒で聴く（英語画面）

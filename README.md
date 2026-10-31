@@ -8,6 +8,8 @@ This identity note is maintained by Levin, Klakk's developer, with AI assistance
 
 [日本語](README.ja.md) · [Website](https://tryklakk.com/en/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [Try the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
+Compare all 14 included packs by clicking or tapping their preview buttons. Each button previews a single A-key sample. Use the keyboard demo on the same page to explore other keys, then choose a Mac or Windows trial download below the previews.
+
 Prefer a short video? [Watch the 44-second English sound preview](https://www.youtube.com/watch?v=rkSXD7r3Dy4) for edited samples of Gateron Red, Cherry MX Blue and Banana Split Stock. The browser demo lets you try all 14 sound packs.
 
 For a longer listen, [watch seven included Klakk sound packs in 80 seconds](https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c). Each uses the same edited website-preview sequence; this is not live app playback or a latency test. [Read the complete copyright, MIT license and provenance notice for the seven recordings](docs/klakk-seven-included-sounds-en-NOTICE.txt). [Sequence guide and trial details](docs/seven-keyboard-sounds.md).
