@@ -44,6 +44,8 @@ The website license continues playback after the trial in the platform edition y
 
 The two platforms are separate purchases. The Mac App Store edition also has its own purchase and license, with the price shown in Apple's regional purchase screen. A Windows receipt does not activate the Mac edition, and an App Store purchase is not a website license. Confirm the edition before paying.
 
+Under the [website terms](https://tryklakk.com/en/terms/#license), the Mac and Windows website licenses allow personal use and everyday commercial work. Resale, sublicensing and sharing purchased access remain prohibited. This license scope was checked on November 1, 2026.
+
 Klakk's current offer is for selecting its included recordings. It has no supported user-facing custom-pack import or sound editor. If importing your recordings is essential, the [custom-pack comparison](https://tryklakk.com/en/blog/custom-keyboard-sound-packs/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) points to apps designed for that requirement. We also do not claim a verified end-to-end latency advantage or promise improved typing speed, concentration or productivity.
 
 ## Some people value it, others would rather keep the money
