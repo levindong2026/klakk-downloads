@@ -1,8 +1,8 @@
 # Install Klakk with Scoop on Windows
 
-This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.1**, internal revision **2026-10-11.1**, for your native architecture. Scoop package version **1.4.1.20261011.1** identifies these revised files; the app’s Windows display version remains **1.4.1**. It supports x64 and ARM64 on Windows 10/11; 32-bit Windows and Scoop global installation are unsupported.
+This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.2** on x64 and ARM64 with Windows 10/11. 32-bit Windows and Scoop global installation are unsupported.
 
-Scoop selects the **61.1 MB x64** or **58.0 MB ARM64** package instead of downloading both architectures in the 116.9 MB universal installer. These packages carry the same app version and internal revision as the current website download; only the selected architecture is downloaded. File sizes use decimal MB, not a measured download-time or installation-speed claim. The original 1.4.1 files remain available; using an older channel package does not establish that the current website download is broken.
+Both architectures use the same **116.9 MB** [official installer](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.2). Setup selects the native build for your PC. The previous architecture-specific 1.4.1 packages remain available in their original release.
 
 Find this bucket in [Scoop’s public app search](https://scoop.sh/#/apps?q=Klakk&o=false), with **All buckets** selected. To install, add the publisher bucket using the commands below.
 
@@ -17,17 +17,17 @@ scoop bucket add klakk https://github.com/levindong2026/klakk-downloads
 scoop install klakk/klakk
 ```
 
-Scoop downloads the architecture-specific official installer, checks its hash and runs it for the current Windows account inside Scoop’s version directory. The manifest rejects an architecture override that does not match the native Windows architecture. This is an installer-managed app, with a Windows uninstall registration, rather than a portable archive. Open **Klakk (Scoop)** in the Start menu; the app is not opened automatically during installation.
+Scoop downloads the official universal installer, checks its hash and runs it for the current Windows account inside Scoop’s version directory. The manifest rejects an architecture override that does not match the native Windows architecture. This is an installer-managed app, with a Windows uninstall registration, rather than a portable archive. Open **Klakk (Scoop)** in the Start menu; the app is not opened automatically during installation.
 
-## What this app revision changes
+## What changes in 1.4.2
 
-The [published revision notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1) describe launch at login enabled by default for fresh installations, with an existing off choice preserved. You can turn it off in settings. During the three-day trial, a dismissible reminder offers to open the purchase screen; Restore Purchase appears beside Check activation. These app behaviors are described by the published revision notes; the Scoop checks below cover package installation and maintenance.
+The [1.4.2 release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.2) uses Pancake checkout. A new Windows purchase supports up to three Windows devices. After a purchase, you can copy its recovery code from **About**.
 
 ## Hear the first sound
 
 In **General**, enable Klakk. In **Audio**, select one of the **14 sound packs**, set a comfortable volume and choose the **Output Device**. **System Default** uses the Windows default output. Type in another app to check playback. The [no-sound checklist](../../guides/klakk-no-sound.md#windows-check-playback-and-the-selected-output) covers the volume mixer, output and trial status.
 
-The website Windows edition has a **three-day trial beginning at first launch**. Continued use costs **US$4.49 once for Windows**, plus applicable tax at Creem checkout. The website Mac edition and Mac App Store edition have separate purchases and licenses. Scoop does not supply a new free license or restart an existing trial. The Windows app processes keyboard events locally for playback and also makes usage and licensing communications. Typed text and raw key events are not uploaded; see the [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
+The website Windows edition has a **three-day trial beginning at first launch**. Continued use costs **US$6.99 once for Windows**, plus applicable tax at Pancake checkout. A new Windows license supports up to three Windows devices. The website Mac edition and Mac App Store edition have separate purchases and licenses. Scoop does not supply a new free license or restart an existing trial. The Windows app processes keyboard events locally for playback and also makes usage and licensing communications. Typed text and raw key events are not uploaded; see the [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
 
 [Preview the sounds before installing](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=scoop_bucket&utm_content=install_guide_en) · [Windows details](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=scoop_bucket&utm_content=install_guide_en)
 
@@ -40,12 +40,12 @@ scoop update klakk
 scoop uninstall klakk
 ```
 
-Uninstall invokes the official native uninstaller and removes Scoop’s application shortcut and files. It retains settings and license data in `%LOCALAPPDATA%\Klakk`; removing the application is not a trial reset. If the Windows uninstall registration now belongs to a different installation, the manifest stops rather than invoking that other installation’s uninstaller.
+Uninstall invokes the official uninstaller and removes Scoop’s application shortcut and files. It retains settings and license data in `%LOCALAPPDATA%\Klakk`; removing the application is not a trial reset. If the Windows uninstall registration now belongs to a different installation, the manifest stops rather than invoking that other installation’s uninstaller.
 
 ## Verification and scope
 
-The [Scoop verification workflow](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml) checks the official manifest schema and native x64/ARM64 package installation and maintenance. Its [successful native run on 23 October 2026](https://github.com/levindong2026/klakk-downloads/actions/runs/39960328980) tested candidate `26d789ba` using Scoop core `e6aa3b36`. Both jobs verified the normal **1.4.1 → 1.4.1.20261011.1** update, package receipts and the current-directory target. They checked the complete installer SHA-256 and size, fresh installation, native executable architecture, 14 sound packs and the Start shortcut. Foreign-install ownership guards, forced reinstall, a retained app-data marker and uninstall cleanup also passed. Cleanup checks found no startup entry pointing to the removed Scoop copy.
+The [Scoop verification workflow](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml) checks the official manifest schema, an upgrade from the previous published bucket version, a clean install and uninstall on native x64 and ARM64. It checks the installer SHA-256 and size, the installed executable architecture, the 14 sound packs and Start shortcut. It also checks protections for other installations and that a test marker in the app-data directory is retained.
 
-The [previous successful native run](https://github.com/levindong2026/klakk-downloads/actions/runs/38083232203) checked the original 1.4.1 architecture-specific packages. In the new run, the app was not explicitly launched, and no Klakk process was found at the test checkpoints. These checks do not establish audible playback, complete settings retention, first-launch/trial behavior or payment. QA downloads and installations are not customer downloads or installations.
+The [23 October 2026 run](https://github.com/levindong2026/klakk-downloads/actions/runs/39960328980) tested the previous 1.4.1 revision. Scoop package tests do not establish audible playback, complete settings retention or payment.
 
 Maintained by **Levin**, Klakk’s developer, with AI assistance. Application source remains private; this repository contains public distribution metadata and instructions. [日本語](README.ja.md) · [Scoop custom bucket documentation](https://github.com/ScoopInstaller/Scoop/wiki/Buckets)

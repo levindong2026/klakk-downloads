@@ -1,8 +1,9 @@
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
-$packageVersion = '1.4.1.20261011.1'
-$legacyVersion = '1.4.1'
-$legacyCommit = '32d9bec233ab6f23ea0c1a9b96ea7239e72d9759'
+$packageVersion = '1.4.2'
+$legacyVersion = '1.4.1.20261011.1'
+$legacyDisplayVersion = '1.4.1'
+$legacyCommit = '268ffe234a1d831b5fb6c2e431406ce6c1420fa2'
 $native = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
 if ($native -ne $env:EXPECTED_ARCHITECTURE) { throw "Unexpected runner: $native" }
 $schema = Join-Path $env:RUNNER_TEMP 'scoop-schema.json'
@@ -11,10 +12,13 @@ if (-not (Get-Content './bucket/klakk.json' -Raw | Test-Json -SchemaFile $schema
 $manifest = Get-Content './bucket/klakk.json' -Raw | ConvertFrom-Json
 if ($manifest.version -ne $packageVersion) { throw 'Candidate package revision mismatch' }
 $architectureKey = if ($native -eq 'Arm64') { 'arm64' } else { '64bit' }
-$releaseArchitecture = if ($native -eq 'Arm64') { 'arm64' } else { 'x64' }
-$expectedDownloadUrl = "https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.1-r20261011.1/Klakk-1.4.1-Windows-$releaseArchitecture-Setup-r20261011.1.exe"
-if ($manifest.architecture.$architectureKey.url -ne $expectedDownloadUrl) { throw 'Scoop did not select the native release asset' }
-$expectedDownloadBytes = if ($native -eq 'Arm64') { 58015675 } else { 61060213 }
+$expectedDownloadUrl = 'https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.2/Klakk-1.4.2-Windows-Setup.exe'
+$expectedDownloadSha256 = 'f76c9717f5c8c127ae638d3826db1e890295455dedf26700dfae8f7021ed96a8'
+$expectedDownloadBytes = 116935383
+if ($manifest.architecture.$architectureKey.url -ne $expectedDownloadUrl -or
+    $manifest.architecture.$architectureKey.hash -ne $expectedDownloadSha256) {
+    throw 'Scoop did not select the verified universal release asset'
+}
 $env:SCOOP = Join-Path $env:RUNNER_TEMP 'Klakk Scoop QA'
 $bootstrap = Join-Path $env:RUNNER_TEMP 'scoop-install.ps1'
 Invoke-WebRequest 'https://raw.githubusercontent.com/ScoopInstaller/Install/1e2f334083d609986d8c8bc9e31ae8e87c39fab4/install.ps1' -OutFile $bootstrap
@@ -55,9 +59,9 @@ Write-Host "Actual Scoop core commit: $scoopCommit"
 if ((Compare-Version $legacyVersion $packageVersion) -ne 1 -or
     (Compare-Version $packageVersion $legacyVersion) -ne -1 -or
     (Compare-Version $packageVersion $packageVersion) -ne 0 -or
-    (Compare-Version $packageVersion '1.4.2') -ne 1 -or
-    (Compare-Version $packageVersion '1.4.1.20261012.1') -ne 1) { throw 'Actual Scoop version ordering failed' }
-Write-Host "Actual Scoop version ordering passed: $legacyVersion < $packageVersion < 1.4.2."
+    (Compare-Version $packageVersion '1.4.3') -ne 1 -or
+    (Compare-Version '1.4.1' $legacyVersion) -ne 1) { throw 'Actual Scoop version ordering failed' }
+Write-Host "Actual Scoop version ordering passed: $legacyVersion < $packageVersion < 1.4.3."
 Write-Host "Candidate commit: $candidate"
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
 if (Test-Path $key) { throw 'QA runner already has Klakk; refusing to touch it' }
@@ -84,7 +88,7 @@ New-Item $data -ItemType Directory -Force | Out-Null
 Set-Content $marker 'QA only; no activation or telemetry' -Encoding utf8
 
 function Assert-Installed {
-    param([string] $ExpectedPackageVersion)
+    param([string] $ExpectedPackageVersion, [string] $ExpectedDisplayVersion)
     $receipt = Join-Path $appDir 'scoop-manifest.json'
     if (-not (Test-Path $receipt)) { $receipt = Join-Path $appDir 'manifest.json' }
     if ((Get-Content $receipt -Raw | ConvertFrom-Json).version -ne $ExpectedPackageVersion) { throw 'Scoop package receipt mismatch' }
@@ -95,7 +99,7 @@ function Assert-Installed {
     if (-not (Test-Path $currentReceipt)) { $currentReceipt = Join-Path $currentPath 'manifest.json' }
     if ((Get-Content $currentReceipt -Raw | ConvertFrom-Json).version -ne $ExpectedPackageVersion) { throw 'Scoop current package receipt mismatch' }
     $entry = Get-ItemProperty $key
-    if ($entry.DisplayVersion -ne '1.4.1' -or $entry.Publisher -ne 'Klakk') { throw 'Native installer metadata mismatch' }
+    if ($entry.DisplayVersion -ne $ExpectedDisplayVersion -or $entry.Publisher -ne 'Klakk') { throw 'Native installer metadata mismatch' }
     $script:observedDisplayVersion = $entry.DisplayVersion
     if ($entry.UninstallString.Trim('"') -ne (Join-Path $appDir 'unins000.exe')) { throw 'Native install escaped Scoop directory' }
     $bytes = [IO.File]::ReadAllBytes($app)
@@ -117,18 +121,18 @@ function Assert-Installed {
 Select-BucketCommit $legacyCommit
 Set-PackagePaths $legacyVersion
 Run-Scoop -Arguments @('install', 'klakk/klakk')
-Assert-Installed $legacyVersion
+Assert-Installed $legacyVersion $legacyDisplayVersion
 Select-BucketCommit $candidate
 Set-PackagePaths $packageVersion
 Run-Scoop -Arguments @('update', 'klakk')
-Assert-Installed $packageVersion
+Assert-Installed $packageVersion $packageVersion
 if ((& git -C $bucketPath rev-parse HEAD).Trim() -ne $candidate) { throw 'Update changed the candidate bucket' }
 $cachedInstallers = @(Get-ChildItem (Join-Path $env:SCOOP 'cache') -File -Filter "klakk#$packageVersion#*.exe")
 if ($cachedInstallers.Count -ne 1 -or $cachedInstallers[0].Length -ne $expectedDownloadBytes) { throw 'Scoop downloaded an unexpected installer size' }
 $currentCacheHash = (Get-FileHash $cachedInstallers[0].FullName -Algorithm SHA256).Hash.ToLowerInvariant()
 if ($currentCacheHash -ne $manifest.architecture.$architectureKey.hash) { throw 'Current revision cache digest mismatch' }
-Write-Host "Verified normal update: $legacyVersion -> $packageVersion, App DisplayVersion remains 1.4.1."
-Write-Host "Verified native download: $expectedDownloadUrl ($expectedDownloadBytes bytes)."
+Write-Host "Verified normal update: $legacyVersion -> $packageVersion, App DisplayVersion changed from $legacyDisplayVersion to $observedDisplayVersion."
+Write-Host "Verified universal installer download: $expectedDownloadUrl ($expectedDownloadBytes bytes)."
 
 # The actual uninstall command must refuse a registration now owned elsewhere.
 $registered = (Get-ItemProperty $key).UninstallString
@@ -139,13 +143,13 @@ Set-ItemProperty $key -Name UninstallString -Value $registered
 
 # A forced reinstall exercises Scoop's uninstall/install update lifecycle.
 Run-Scoop -Arguments @('update', 'klakk', '--force')
-Assert-Installed $packageVersion
+Assert-Installed $packageVersion $packageVersion
 Run-Scoop -Arguments @('uninstall', 'klakk')
 if ((Test-Path $app) -or (Test-Path $key) -or (Test-Path $shortcut)) { throw 'Scoop uninstall left registered application files or shortcut' }
 if (-not (Test-Path $marker)) { throw 'Scoop uninstall removed retained app data' }
 # A clean current-revision install must also work after upgrade/removal.
 Run-Scoop -Arguments @('install', 'klakk/klakk')
-Assert-Installed $packageVersion
+Assert-Installed $packageVersion $packageVersion
 Run-Scoop -Arguments @('uninstall', 'klakk')
 if ((Test-Path $app) -or (Test-Path $key) -or (Test-Path $shortcut)) { throw 'Clean revision uninstall left registered application files or shortcut' }
 if (-not (Test-Path $marker)) { throw 'Clean revision uninstall removed retained app data' }
@@ -168,8 +172,8 @@ Write-Host "::notice title=Klakk Scoop QA evidence::$($qaEvidence | ConvertTo-Js
 ## Klakk publisher Scoop bucket — $native
 - Candidate: $candidate
 - Actual Scoop core: $scoopCommit
-- App 1.4.1; package $legacyVersion -> $packageVersion by normal update.
-- Native installer SHA-256 checked by Scoop.
+- App $legacyDisplayVersion -> $observedDisplayVersion; package $legacyVersion -> $packageVersion by normal update.
+- Universal installer SHA-256 checked by Scoop.
 - Installed native PE and 14 sound packs; Start shortcut checked.
 - Existing foreign registration blocked during install and uninstall.
 - Normal old-to-revision upgrade, clean current install, same-version forced reinstall and uninstall cleanup passed.
