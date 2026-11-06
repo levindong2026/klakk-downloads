@@ -2,7 +2,7 @@
 
 Maintained by the Klakk developer. Updated October 8, 2026, for Klakk 1.4.1.
 
-[日本語](klakk-no-sound.ja.md) · [Downloads and checksums](../README.md#download-klakk-141)
+[日本語](klakk-no-sound.ja.md) · [Current website downloads](https://tryklakk.com/en/download/)
 
 If Klakk is installed but typing is silent, check the app's playback, volume, output device, Background Mode and trial status. On Mac, also check Input Monitoring. The steps below help you check your setup before reinstalling.
 
@@ -46,12 +46,14 @@ If the sound remains quiet, continue with the output and license checks. If othe
 
 ## Check the trial and the purchase channel
 
+For a new website purchase, [download Klakk 1.4.2](https://tryklakk.com/en/download/) and start checkout in the app. New purchases use Pancake at US$6.99 once per platform, plus applicable tax. The table below records the original 1.4.1 purchase and restore paths.
+
 All 14 sound packs are included in the trial, which lasts **3 days from first launch**. Continued playback after the trial needs an active license for the edition you installed. Reinstalling is not a way to restart the trial.
 
-| Your edition | Purchase and activation |
+| Your edition | 1.4.1 purchase history and restore |
 | --- | --- |
-| Windows | US$4.49 once through Creem, plus applicable tax. If already purchased, open **Purchase Klakk → Check activation**. **Restore Purchase** accepts the Windows license key from your purchase email. |
-| Mac downloaded from the website or the Klakk Homebrew tap | US$4.49 once through Creem, plus applicable tax. Use the Mac website edition's purchase or restore flow. |
+| Windows | The original Creem price was US$4.49 once, plus applicable tax. For an existing purchase, open **Purchase Klakk → Check activation**. **Restore Purchase** accepts the Windows license key from your purchase email. |
+| Mac downloaded from the website or the Klakk Homebrew tap | The original Creem price was US$4.49 once, plus applicable tax. For an existing purchase, use the Mac website edition's restore flow. |
 | Mac App Store | Use Apple's purchase or restore flow. The current regional price appears in Apple's purchase screen. |
 
 Windows, the Mac website edition and the Mac App Store edition have separate licenses. A purchase for one edition does not activate the others. See the [product terms](https://tryklakk.com/en/terms/) for purchase details.
