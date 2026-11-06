@@ -1,8 +1,8 @@
 # Is a keyboard sound app worth paying for?
 
-Pay for keyboard sounds when you have found recordings you want to keep hearing and an app that fits your computer. **Klakk's website editions include all 14 sound packs in a three-day trial. Continued use is US$4.49 once per platform, plus applicable tax.** Free alternatives are worth considering too; a paid label alone does not establish better sound, lower latency or a better fit.
+Pay for keyboard sounds when you have found recordings you want to keep hearing and an app that fits your computer. **Klakk's website editions include all 14 sound packs in a three-day trial. Continued use is US$6.99 once per platform, plus applicable tax.** Free alternatives are worth considering too. A paid label alone does not establish better sound, lower latency or a better fit.
 
-I'm Levin, Klakk's developer, and prepared this article with AI assistance. These are the current website Mac and Windows 1.4.1 offers, checked on October 12, 2026. I make Klakk, so this is an explanation of our offer and its limits, rather than an independent ranking or a story about measured customer results.
+I'm Levin, Klakk's developer, and prepared this article with AI assistance. I checked the current Mac and Windows website offers for version 1.4.2 on November 6, 2026. I make Klakk, so this is an explanation of our offer and its limits, rather than an independent ranking or a story about measured customer results.
 
 [Listen to all 14 Klakk packs](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Start the Mac website trial](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1)
 
@@ -33,16 +33,16 @@ On Windows, [Keyboard Sounds Pro](https://github.com/keyboard-sounds/keyboardsou
 
 Those models make a simple price ranking unhelpful. A free recording that you enjoy costs less than a Klakk license. One optional sound purchase and a whole app license include different things. Compare the actual sounds and capability you want, rather than assuming that the offer with more packs or a higher price must be better.
 
-## What US$4.49 includes in Klakk
+## What US$6.99 includes in Klakk
 
 The website license continues playback after the trial in the platform edition you purchased. **All fourteen bundled packs are included**, rather than separate purchases for CherryMX Blue, Everglide Oreo or another included choice. You can select them in the app and use its volume and output-device controls.
 
 | Website edition | Current offer |
 | --- | --- |
-| Mac 1.4.1, build 23 | macOS 14+ on Apple silicon or Intel; 14 packs; three days from first launch; US$4.49 once plus applicable tax |
-| Windows 1.4.1 | Windows 10/11, native x64 or ARM64; 14 packs; three days from first launch; US$4.49 once plus applicable tax |
+| Mac 1.4.2, build 24 | macOS 14+ on Apple silicon or Intel. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
+| Windows 1.4.2 | Windows 10/11, native x64 or ARM64. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
 
-The two platforms are separate purchases. The Mac App Store edition also has its own purchase and license, with the price shown in Apple's regional purchase screen. A Windows receipt does not activate the Mac edition, and an App Store purchase is not a website license. Confirm the edition before paying.
+The two platforms are separate purchases. Each new website license bought through Pancake covers up to three compatible devices you personally own on the purchased platform. The Mac App Store edition also has its own purchase and license, with the price shown in Apple's regional purchase screen. A Windows receipt does not activate the Mac edition, and an App Store purchase is not a website license. Confirm the edition before paying.
 
 Under the [website terms](https://tryklakk.com/en/terms/#license), the Mac and Windows website licenses allow personal use and everyday commercial work. Resale, sublicensing and sharing purchased access remain prohibited. This license scope was checked on November 1, 2026.
 
@@ -70,7 +70,7 @@ A working download is not a reason to purchase on its own. Pay when the app has 
 
 No. The fourteen bundled packs are included in the website edition's trial and continued licensed use. Klakk currently has no user-facing custom-pack store or import editor.
 
-### Is US$4.49 one license for Mac and Windows together?
+### Does US$6.99 cover both Mac and Windows?
 
 No. Website Mac and Windows are separate platform purchases. The Mac App Store edition has a separate purchase and license too; applicable tax and the final amount appear at checkout.
 
