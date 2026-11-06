@@ -9,7 +9,7 @@ Hear seven of the fourteen sound packs included in Klakk, using the same short k
 - **0:00:** Listening note and Cherry MX recordings
 - **0:40:** Everglide recordings
 - **0:56:** NovelKeys Cream, followed by the all-14 preview invitation
-- **1:10:** Website trial, price and separate licenses
+- **1:10:** Website trial and separate licenses. The US$4.49 price shown in this video is historical.
 
 The seven recordings start at these positions:
 
@@ -31,7 +31,7 @@ Each pack has an eight-second segment with the same twelve scheduled key events:
 
 [Try Klakk for Mac](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=seven_sound_preview_en) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=seven_sound_preview_en)
 
-The website editions include all fourteen packs for **three days from first app launch**. Continued use costs **US$4.49 once per platform, plus applicable tax**. Website Mac, Windows and Mac App Store purchases have separate licenses.
+The website editions include all fourteen packs for **three days from first app launch**. Continued use costs **US$6.99 once per platform, plus applicable tax**. Website Mac, Windows and Mac App Store purchases have separate licenses.
 
 Mac requires macOS 14 or later on Apple silicon or Intel. Windows supports 64-bit Windows 10/11 on x64 or ARM64; its installer is unsigned. The browser preview plays on its own page and does not start the installed-app trial.
 
