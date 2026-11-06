@@ -1,12 +1,14 @@
 # Klakk Chocolatey package
 
+The [Chocolatey Community Repository](https://community.chocolatey.org/packages/klakk) currently lists Klakk 1.4.1. To make a new purchase, download Klakk 1.4.2 from the [official Windows page](https://tryklakk.com/en/windows/). The website edition has a three-day trial from first launch. A new Windows license costs US$6.99 once, plus applicable tax.
+
 This developer-maintained package for the Windows direct edition, version 1.4.1, was submitted to the Chocolatey Community Repository on **2026-10-09**. The [public package page](https://community.chocolatey.org/packages/klakk/1.4.1), verified on **2026-10-16**, states that a moderator approved it on **2026-10-12**. It lists `choco install klakk` as the community installation command.
 
-The approved package pins the earlier official `Klakk-1.4.1-Windows-Setup.exe`, SHA-256 `7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454`, from the [original 1.4.1 release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1). It does **not** install website revision **2026-10-11.1**. That newer revision is a [separate direct download](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1); its different installer and checksum must not be substituted for this package's pinned file.
+The approved package pins the earlier official `Klakk-1.4.1-Windows-Setup.exe`, SHA-256 `7a598cc3d3ea7236f377d7281a68a25a799c4f1772de9ce2a857d4c7658df454`, from the [original 1.4.1 release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1). It does **not** install website revision **2026-10-11.1**. That historical revision remains available as a [separate archived download](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1); its different installer and checksum must not be substituted for this package's pinned file.
 
 The package contains metadata and two PowerShell installer scripts. It downloads the official universal installer from `downloads.tryklakk.com` and verifies its pinned SHA-256. It does not contain the application source or installer binary.
 
-Klakk is proprietary software with a three-day trial from first launch. Continued use requires a Windows license, US$4.49 once plus applicable taxes. The current installer is unsigned. Installation is per Windows account; use the same account to install and uninstall. See the [product terms](https://tryklakk.com/en/terms/) and [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
+Klakk is proprietary software. The installer pinned by the approved Chocolatey package is unsigned. Installation is per Windows account; use the same account to install and uninstall. See the [product terms](https://tryklakk.com/en/terms/) and [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
 
 ## Build and test
 
