@@ -49,4 +49,4 @@ For an unresolved problem, report your OS, OBS version, keyboard-app version, th
 
 ## Klakk version scope
 
-The current website editions are **Mac 1.4.1/build 23** and **Windows 1.4.1**. Mac requires macOS 14 or later on Apple silicon or Intel; Windows supports Windows 10/11 on native x64 or ARM64. The Windows installer is unsigned. These app requirements are separate from the OBS capture-feature requirements above. [Official downloads](../README.md#download-klakk-141) and the [first-sound guide](klakk-no-sound.md) explain installation, permissions and licensing.
+The current website editions are **Mac 1.4.2 (build 24)** and **Windows 1.4.2**. Mac requires macOS 14 or later on Apple silicon or Intel; Windows supports Windows 10/11 on native x64 or ARM64. The Windows installer is unsigned. These app requirements are separate from the OBS capture-feature requirements above. The website trial lasts three days from first launch. Continued use costs US$6.99 once per platform, plus applicable tax. See [official 1.4.2 downloads and installation steps](../README.md#download-klakk-142). A [first-sound checklist](klakk-no-sound.md) covers the archived 1.4.1 release.

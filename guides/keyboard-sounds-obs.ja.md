@@ -49,8 +49,8 @@ OBSのAudio MixerからAdvanced Audio Propertiesを開き、対象ソースを�
 
 ## Klakkの対象版と次の手順
 
-現在の公式サイト版は**Mac 1.4.1 / build 23**と**Windows 1.4.1**です。MacはmacOS 14以降のAppleシリコン・Intel、WindowsはWindows 10/11のネイティブx64・ARM64に対応します。Windowsインストーラーは未署名です。App Store版は別の配布・ライセンスです。
+現在の公式サイト版は**Mac 1.4.2（build 24）**と**Windows 1.4.2**です。MacはmacOS 14以降のAppleシリコン・Intel、WindowsはWindows 10/11のネイティブx64・ARM64に対応します。Windowsインストーラーは未署名です。App Store版は別の配布・ライセンスです。
 
-14音源を再生でき、公式サイト版の試用は初回起動から3日間です。継続利用はOSごとにUS$4.49の買い切りと適用される税金です。Macの入力監視ではキーイベントや物理キーコードをローカル処理します。公式サイト版は入力文字や生のキーイベントを送信しませんが、使用・設定やライセンスの通信があります。通信の範囲は[Mac版のプライバシー説明](https://tryklakk.com/ja/privacy/)と[Windows版の説明](https://tryklakk.com/ja/windows/privacy/)で確認してください。
+14音源を再生でき、公式サイト版の試用は初回起動から3日間です。継続利用は各プラットフォームでUS$6.99の買い切りで、適用税が加わります。Macの入力監視ではキーイベントや物理キーコードをローカル処理します。公式サイト版は入力文字や生のキーイベントを送信しませんが、使用・設定やライセンスの通信があります。通信の範囲は[Mac版のプライバシー説明](https://tryklakk.com/ja/privacy/)と[Windows版の説明](https://tryklakk.com/ja/windows/privacy/)で確認してください。
 
-[公式ダウンロードとファイル確認](../README.ja.md) · [インストール後の最初の音を確認](klakk-no-sound.ja.md) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software_discovery&utm_content=obs_capture_checklist_ja)
+[公式1.4.2のダウンロードとファイル確認](../README.ja.md) · [旧版1.4.1で音が出ないときの確認](klakk-no-sound.ja.md) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software_discovery&utm_content=obs_capture_checklist_ja)
