@@ -1,6 +1,8 @@
-# Verify a Klakk Windows download before running it
+# Verify a Klakk Windows 1.4.1 download
 
-Before running a Klakk Windows installer, check where it came from, compare the saved file with the publisher's checksum, inspect its signature and read the actual security message. These checks answer different questions. A matching SHA-256 identifies a file; it does not certify that the software is safe. Klakk's current Windows 1.4.1 installers are unsigned.
+This checklist covers the archived 1.4.1 installers. For the current installer and its matching checksum, use the [current Windows verification guide](https://tryklakk.com/en/blog/verify-keyboard-sound-download-windows/).
+
+Before running a Klakk Windows installer, check where it came from, compare the saved file with the publisher's checksum, inspect its signature and read the actual security message. These checks answer different questions. A matching SHA-256 identifies a file; it does not certify that the software is safe. Klakk's Windows 1.4.1 installers were unsigned.
 
 This first-party guide is maintained by Levin, Klakk's developer, with AI assistance. The linked Microsoft documentation and official release records were checked on October 11, 2026. The commands inspect a file you already saved; we have not run a new antivirus or installation test for this guide.
 
@@ -83,4 +85,4 @@ For Klakk, use [support](https://tryklakk.com/en/support/?utm_source=github&utm_
 
 You can [preview Klakk's 14 included packs in the browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=windows-download-verification-1-4-1) without running a Windows installer. That preview works inside the page; it does not add sounds to other applications or validate the desktop installer.
 
-If you decide the website Windows edition suits your PC and trust requirements, its trial lasts three days from first launch. Continuing costs US$4.49 once for Windows, plus applicable tax. Website Mac and Mac App Store licenses are separate. Keyboard events and codes are handled locally for playback without uploading typed text or raw keystrokes; usage/settings and licensing communication still occurs. Read the [Windows privacy details](https://tryklakk.com/en/windows/privacy/) alongside the download information.
+The current Windows website edition has a three-day trial from first launch. Continuing costs US$6.99 once for Windows, plus applicable tax. Website Mac and Mac App Store licenses are separate. Keyboard events and codes are handled locally for playback without uploading typed text or raw keystrokes; usage/settings and licensing communication still occurs. Read the [Windows privacy details](https://tryklakk.com/en/windows/privacy/) alongside the download information.
