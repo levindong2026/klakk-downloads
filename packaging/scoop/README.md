@@ -46,6 +46,8 @@ Uninstall invokes the official uninstaller and removes Scoop’s application sho
 
 The [Scoop verification workflow](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml) checks the official manifest schema, an upgrade from the previous published bucket version, a clean install and uninstall on native x64 and ARM64. It checks the installer SHA-256 and size, the installed executable architecture, the 14 sound packs and Start shortcut. It also checks protections for other installations and that a test marker in the app-data directory is retained.
 
+The [5 November 2026 run](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) verified a normal upgrade from the previous Scoop revision, a clean install, a forced reinstall and an uninstall for 1.4.2 on native x64 and ARM64 without launching Klakk or making a payment.
+
 The [23 October 2026 run](https://github.com/levindong2026/klakk-downloads/actions/runs/39960328980) tested the previous 1.4.1 revision. Scoop package tests do not establish audible playback, complete settings retention or payment.
 
 Maintained by **Levin**, Klakk’s developer, with AI assistance. Application source remains private; this repository contains public distribution metadata and instructions. [日本語](README.ja.md) · [Scoop custom bucket documentation](https://github.com/ScoopInstaller/Scoop/wiki/Buckets)
