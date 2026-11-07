@@ -29,7 +29,7 @@ There are several ways to get keyboard effects, and “free download” does not
 
 On Windows, [Keyboard Sounds Pro](https://github.com/keyboard-sounds/keyboardsounds-pro/blob/desktop/v0.3.2/README.md) is a free, open-source example with profile editing and audio effects. If its sounds and controls fit, there is no need to pay Klakk merely to add keyboard audio. Read the [Windows app comparison](https://tryklakk.com/en/blog/windows-keyboard-sound-apps/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) for its checked release and other options.
 
-[KeyEcho](https://keyecho.app/terms) separates a free app and free packs from optional **US$3.99 Crafted Packs** and a **US$9.99 All Sounds Forever** purchase. Buying a paid pack is optional. Check the selected pack and current checkout rather than treating either “free app” or “paid sounds” as the complete price of every possible choice.
+[KeyEcho](https://keyecho.app/packs) separates a free app and free packs from optional **US$3.99 Crafted Packs** and a **US$9.99 All Sounds Forever** purchase. Buying a paid pack is optional. Check the selected pack and current checkout rather than treating either “free app” or “paid sounds” as the complete price of every possible choice.
 
 Those models make a simple price ranking unhelpful. A free recording that you enjoy costs less than a Klakk license. One optional sound purchase and a whole app license include different things. Compare the actual sounds and capability you want, rather than assuming that the offer with more packs or a higher price must be better.
 
