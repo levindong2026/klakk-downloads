@@ -1,9 +1,9 @@
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
-$packageVersion = '1.4.2'
-$legacyVersion = '1.4.1.20261011.1'
-$legacyDisplayVersion = '1.4.1'
-$legacyCommit = '268ffe234a1d831b5fb6c2e431406ce6c1420fa2'
+$packageVersion = '1.4.3'
+$legacyVersion = '1.4.2'
+$legacyDisplayVersion = '1.4.2'
+$legacyCommit = '651c5903f17dff2499d2cfd9d2a3eebf87a5047b'
 $native = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
 if ($native -ne $env:EXPECTED_ARCHITECTURE) { throw "Unexpected runner: $native" }
 $schema = Join-Path $env:RUNNER_TEMP 'scoop-schema.json'
@@ -12,9 +12,9 @@ if (-not (Get-Content './bucket/klakk.json' -Raw | Test-Json -SchemaFile $schema
 $manifest = Get-Content './bucket/klakk.json' -Raw | ConvertFrom-Json
 if ($manifest.version -ne $packageVersion) { throw 'Candidate package revision mismatch' }
 $architectureKey = if ($native -eq 'Arm64') { 'arm64' } else { '64bit' }
-$expectedDownloadUrl = 'https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.2/Klakk-1.4.2-Windows-Setup.exe'
-$expectedDownloadSha256 = 'f76c9717f5c8c127ae638d3826db1e890295455dedf26700dfae8f7021ed96a8'
-$expectedDownloadBytes = 116935383
+$expectedDownloadUrl = 'https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-Windows-Setup.exe'
+$expectedDownloadSha256 = '64c48a69da1f35e6aa0d875d60a3f5bc75b7727fb8fd3097dd5efbac4949f05e'
+$expectedDownloadBytes = 116927758
 if ($manifest.architecture.$architectureKey.url -ne $expectedDownloadUrl -or
     $manifest.architecture.$architectureKey.hash -ne $expectedDownloadSha256) {
     throw 'Scoop did not select the verified universal release asset'
@@ -59,9 +59,9 @@ Write-Host "Actual Scoop core commit: $scoopCommit"
 if ((Compare-Version $legacyVersion $packageVersion) -ne 1 -or
     (Compare-Version $packageVersion $legacyVersion) -ne -1 -or
     (Compare-Version $packageVersion $packageVersion) -ne 0 -or
-    (Compare-Version $packageVersion '1.4.3') -ne 1 -or
+    (Compare-Version $packageVersion '1.4.4') -ne 1 -or
     (Compare-Version '1.4.1' $legacyVersion) -ne 1) { throw 'Actual Scoop version ordering failed' }
-Write-Host "Actual Scoop version ordering passed: $legacyVersion < $packageVersion < 1.4.3."
+Write-Host "Actual Scoop version ordering passed: $legacyVersion < $packageVersion < 1.4.4."
 Write-Host "Candidate commit: $candidate"
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
 if (Test-Path $key) { throw 'QA runner already has Klakk; refusing to touch it' }

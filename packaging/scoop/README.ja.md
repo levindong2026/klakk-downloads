@@ -1,8 +1,8 @@
 # WindowsでKlakkをScoopからインストール
 
-これは**Klakk開発者が管理する独自のScoopバケット**です。Scoopのmain・Extras公式カタログへの収録を意味しません。Windows 10/11のx64・ARM64に対応した公式アプリ**1.4.2**を導入できます。32ビットWindowsとScoopのグローバルインストールには非対応です。
+これは**Klakk開発者が管理する独自のScoopバケット**です。Scoopのmain・Extras公式カタログへの収録を意味しません。Windows 10/11のx64・ARM64に対応した公式アプリ**1.4.3**を導入できます。32ビットWindowsとScoopのグローバルインストールには非対応です。
 
-両方のアーキテクチャで同じ**116.9 MB**の[公式インストーラー](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.2)を使います。セットアップがPCに合うネイティブ版を選びます。1.4.1のアーキテクチャ別パッケージは、元のリリースから引き続き入手できます。
+両方のアーキテクチャで同じ**116.9 MB**の[公式インストーラー](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3)を使います。セットアップがPCに合うネイティブ版を選びます。1.4.1のアーキテクチャ別パッケージは、元のリリースから引き続き入手できます。
 
 このバケットは、**All buckets** を選んだ [Scoopの公開アプリ検索](https://scoop.sh/#/apps?q=Klakk&o=false)でも見つけられます。導入には、以下のコマンドで開発者のバケットを追加してください。
 
@@ -19,9 +19,9 @@ scoop install klakk/klakk
 
 Scoopは共通の公式インストーラーのハッシュを検証し、現在のWindowsアカウントでScoopのバージョンフォルダーへインストールします。マニフェストはWindowsのネイティブアーキテクチャに合わない指定を拒否します。Windowsのアンインストール登録を持つ方式で、ポータブル版ではありません。スタートメニューの **Klakk (Scoop)** から起動します。インストールだけではアプリは自動起動しません。
 
-## 1.4.2の変更点
+## 1.4.3の変更点
 
-[1.4.2](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.2)では、決済にPancakeを利用します。新規購入のWindows版ライセンスはWindows端末3台まで利用できます。購入後は**About**からリカバリーコードをコピーできます。
+[1.4.3](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3)では、tryklakk.com経由でCreemの決済画面を開き、購入後はKlakkに戻って有効化します。既存のPancake・Creemライセンスも引き続き利用できます。新規購入のWindows版ライセンスはWindows端末3台まで利用できます。
 
 ## 最初の音を確認
 
@@ -45,6 +45,8 @@ scoop uninstall klakk
 ## 検証範囲
 
 [Scoop検証ワークフロー](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml)では、Scoop公式スキーマ、公開済みの旧版からの更新、新規導入と削除をネイティブx64・ARM64環境で確認します。インストーラーの容量とSHA-256、導入後の実行ファイルのアーキテクチャ、14音源とスタートメニューも確認します。別のインストール先を保護する動作と、アプリデータ内のテスト用マーカーが残ることも確認します。
+
+このメタデータ更新だけでは、1.4.3のScoop経由でのインストールや更新は検証されていません。
 
 [2026年11月5日の検証](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872)では、ネイティブのx64とARM64で旧Scoop版から1.4.2への通常の更新、新規インストール、強制再インストール、アンインストールを確認し、Klakkの起動や決済は行っていません。
 
