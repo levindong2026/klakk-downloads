@@ -2,7 +2,7 @@
 
 Pay for keyboard sounds when you have found recordings you want to keep hearing and an app that fits your computer. **Klakk's website editions include all 14 sound packs in a three-day trial. Continued use is US$6.99 once per platform, plus applicable tax.** Free alternatives are worth considering too. A paid label alone does not establish better sound, lower latency or a better fit.
 
-I'm Levin, Klakk's developer, and prepared this article with AI assistance. I checked the current Mac and Windows website offers for version 1.4.2 on November 6, 2026. I make Klakk, so this is an explanation of our offer and its limits, rather than an independent ranking or a story about measured customer results.
+I'm Levin, Klakk's developer, and prepared this article with AI assistance. I checked the Mac and Windows website offers on November 6, 2026, and updated Klakk's release and checkout details on November 12, 2026. I make Klakk, so this is an explanation of our offer and its limits, rather than an independent ranking or a story about measured customer results.
 
 [Listen to all 14 Klakk packs](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Start the Mac website trial](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1)
 
@@ -39,10 +39,10 @@ The website license continues playback after the trial in the platform edition y
 
 | Website edition | Current offer |
 | --- | --- |
-| Mac 1.4.2, build 24 | macOS 14+ on Apple silicon or Intel. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
-| Windows 1.4.2 | Windows 10/11, native x64 or ARM64. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
+| Mac 1.4.3, build 25 | macOS 14+ on Apple silicon or Intel. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
+| Windows 1.4.3 | Windows 10/11, native x64 or ARM64. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
 
-The two platforms are separate purchases. Each new website license bought through Pancake covers up to three compatible devices you personally own on the purchased platform. The Mac App Store edition also has its own purchase and license, with the price shown in Apple's regional purchase screen. A Windows receipt does not activate the Mac edition, and an App Store purchase is not a website license. Confirm the edition before paying.
+The two platforms are separate purchases. Each new website license covers up to three compatible devices you personally own on the purchased platform. New website purchases currently use Creem. The Mac App Store edition also has its own purchase and license, with the price shown in Apple's regional purchase screen. A Windows receipt does not activate the Mac edition, and an App Store purchase is not a website license. Confirm the edition before paying.
 
 Under the [website terms](https://tryklakk.com/en/terms/#license), the Mac and Windows website licenses allow personal use and everyday commercial work. Resale, sublicensing and sharing purchased access remain prohibited. This license scope was checked on November 1, 2026.
 
