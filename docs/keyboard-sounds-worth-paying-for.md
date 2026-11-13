@@ -33,6 +33,12 @@ On Windows, [Keyboard Sounds Pro](https://github.com/keyboard-sounds/keyboardsou
 
 Those models make a simple price ranking unhelpful. A free recording that you enjoy costs less than a Klakk license. One optional sound purchase and a whole app license include different things. Compare the actual sounds and capability you want, rather than assuming that the offer with more packs or a higher price must be better.
 
+### Compare a paid Mac offer on trial time and device rights
+
+Checked on **November 12, 2026**, [Keyslam's homepage](https://keyslam.com/) advertises **US$3.99 once**, macOS 13+ on Apple silicon and Intel, and browser previews of thirteen keyboard recordings and two typewriters. Its [pricing page](https://keyslam.com/pricing/), dated November 2, says the fully unlocked **seven-day trial starts at first launch**, without an account, email or payment card. It describes a personal license for **all the Macs you own**, with no activation count limit. These are the publisher's conditions; we have not installed Keyslam or verified its delivered build, signing or final checkout taxes.
+
+By those terms, Keyslam has a lower listed app price, a longer trial and a broader personal-Mac allowance than Klakk's website Mac offer: **US$6.99 plus applicable tax, three days from first launch and up to three compatible Macs you personally own**. That can make Keyslam the better fit for those requirements. Klakk's reason to stay on your shortlist is whether you prefer its included recordings and its license fits your needs. [Hear all fourteen Klakk packs](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1), then [try them in your Mac apps](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) before paying. Neither price nor recording count proves a sound-quality advantage.
+
 ## What US$6.99 includes in Klakk
 
 The website license continues playback after the trial in the platform edition you purchased. **All fourteen bundled packs are included**, rather than separate purchases for CherryMX Blue, Everglide Oreo or another included choice. You can select them in the app and use its volume and output-device controls.
