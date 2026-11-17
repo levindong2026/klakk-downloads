@@ -8,15 +8,15 @@ This identity note is maintained by Levin, Klakk's developer, with AI assistance
 
 [日本語](README.ja.md) · [Website](https://tryklakk.com/en/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [Try the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
-## Download Klakk 1.4.3
+## Download Klakk
 
 | Platform | Requirements | Official file | GitHub mirror |
 | --- | --- | --- | --- |
-| Windows | Windows 10 or 11, native x64 or ARM64 | [Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.3-Windows-Setup.exe) · 116.9 MB | [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-Windows-Setup.exe) |
-| Mac | macOS 14 or later, Apple silicon or Intel | [Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.3-25.dmg) · 38.8 MB | [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.dmg) |
-| Mac ZIP | Same Mac website edition, build 25 | [Mac ZIP](https://downloads.tryklakk.com/Klakk-1.4.3-25.zip) · 36.7 MB | [Mac ZIP](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.zip) |
+| Windows 1.4.4 | Windows 10 or 11, native x64 or ARM64 | [Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
+| Mac 1.4.3 | macOS 14 or later, Apple silicon or Intel | [Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.3-25.dmg) · 38.8 MB | [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.dmg) |
+| Mac 1.4.3 ZIP | Same Mac website edition, build 25 | [Mac ZIP](https://downloads.tryklakk.com/Klakk-1.4.3-25.zip) · 36.7 MB | [Mac ZIP](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.zip) |
 
-[Release notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [1.4.3 SHA-256 checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/SHA256SUMS.txt) · [Website download guide](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
+[Windows 1.4.4 release notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4) · [Windows 1.4.4 checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.3 release notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [Mac 1.4.3 checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/SHA256SUMS.txt) · [Website download guide](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
 The full-featured trial lasts **3 days from first launch**. The Mac and Windows website editions are separate one-time purchases at **US$6.99 each, plus applicable tax**. New website-edition purchases use Creem checkout in the app. Existing Pancake and Creem licenses remain supported. Each new Creem license covers up to **3 devices on the same platform**. The Mac App Store edition uses Apple's purchase flow and has a separate license.
 
@@ -38,14 +38,18 @@ Want to understand the preview levels? Read the [original preview-file measureme
 
 ## Install on Windows
 
-1. Download `Klakk-1.4.3-Windows-Setup.exe`. One installer chooses the native ARM64 or x64 version automatically and includes its runtime.
+1. Download `Klakk-1.4.4-Windows-Setup.exe`. One installer chooses the native ARM64 or x64 version automatically and includes its runtime.
 2. The current Windows installer is **unsigned**. Review any Windows security warning and decide whether you trust the download before running it. The checksums below let you compare the file with this release; they do not substitute for publisher signing.
 3. Run the installer and open Klakk. In **General**, turn on **Enable Klakk**. In **Audio**, choose a sound pack, set a comfortable volume and select your **Output Device**. **System Default** uses the Windows default output.
 4. Type in another app to check playback. If you hear nothing, check the Windows volume mixer and the trial or license status, then follow the setup guide below.
 
 [Windows setup and troubleshooting](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
-Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) installs website version 1.4.3 from the same universal installer. [Package checks for 1.4.2](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) passed on native x64 and ARM64 Windows. This custom source is separate from Scoop’s main and Extras catalogs.
+If the purchase service requires an update, Klakk 1.4.4 shows a **Download Update** button that opens the official Windows download page. Existing Pancake and Creem licenses remain supported.
+
+For an update from Windows 1.4.3, run the 1.4.4 installer over your existing installation; you do not need to uninstall first.
+
+Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) currently installs website version 1.4.3 from that version's universal installer. [Package checks for 1.4.2](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) passed on native x64 and ARM64 Windows. This custom source is separate from Scoop’s main and Extras catalogs.
 
 ## Install on Mac
 
@@ -78,11 +82,11 @@ Both platforms include:
 
 Check the saved file against the row for the installer you chose. Compare its byte count and the entire SHA-256 value before opening it. A completed download or a matching filename alone does not perform this comparison.
 
-The [Windows 1.4.1 verification checklist](docs/windows-download-verification.md) is an older reference. For 1.4.3, use the current checksums and commands below.
+The [Windows 1.4.1 verification checklist](docs/windows-download-verification.md) is an older reference. For Windows 1.4.4 and Mac 1.4.3, use the matching current file row and commands below.
 
 | File | Bytes | SHA-256 |
 | --- | ---: | --- |
-| `Klakk-1.4.3-Windows-Setup.exe` | 116927758 | `64c48a69da1f35e6aa0d875d60a3f5bc75b7727fb8fd3097dd5efbac4949f05e` |
+| `Klakk-1.4.4-Windows-Setup.exe` | 116945602 | `65413b1048ff189186cfc683ed00feb6bc7e39f711930bb24e5a0a1eff54e406` |
 | `Klakk-1.4.3-25.dmg` | 38834387 | `f5d61c55d4a8992fde0a5bfa3a4ac3ca1fbebbdaf7fc09fde09b9a5f0a8eb8cc` |
 | `Klakk-1.4.3-25.zip` | 36740323 | `01ecb129a8dd182a789eaa7c53d94fa65e6eb1e1b358a54db42e34d612ce73d6` |
 
@@ -91,8 +95,8 @@ On Windows, use PowerShell:
 Open it in the folder where you saved the installer. These commands read the file and print its byte count and hash; they do not run the installer.
 
 ```powershell
-(Get-Item -LiteralPath '.\Klakk-1.4.3-Windows-Setup.exe').Length
-Get-FileHash -LiteralPath '.\Klakk-1.4.3-Windows-Setup.exe' -Algorithm SHA256 | Format-List Algorithm,Hash
+(Get-Item -LiteralPath '.\Klakk-1.4.4-Windows-Setup.exe').Length
+Get-FileHash -LiteralPath '.\Klakk-1.4.4-Windows-Setup.exe' -Algorithm SHA256 | Format-List Algorithm,Hash
 ```
 
 The first command prints the byte count. The second prints the complete hash. If your browser renamed the installer, use the filename it saved and compare the result with the matching row above. Renaming a file does not change its hash.
@@ -114,11 +118,11 @@ The first Mac command prints the byte count; the second prints the SHA-256 and f
 
 This repository contains public download documentation, candidate package manifests and installer validation workflows. The application source remains private. GitHub's automatically generated “Source code” ZIP and tar.gz files contain repository files, not an installable app. To install Klakk, choose the named `.exe`, `.dmg` or Mac app `.zip` release asset instead. Klakk remains subject to its product terms; publishing installers here does not grant an open-source license.
 
-The WinGet community repository now contains the [1.4.3 manifest](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.3). The [1.4.3 update](https://github.com/microsoft/winget-pkgs/pull/478539) was merged on 12 November 2026 at 15:45 UTC ([defc6390](https://github.com/microsoft/winget-pkgs/commit/defc63905563ef53c464886a2750eff46d4dfcab)), with `Moderator-Approved` and `Publish-Pipeline-Succeeded` labels. Its x64 and ARM64 manifests reference the same official 1.4.3 universal installer and release checksum. WinGet client search, installation and upgrade for this update have not been independently verified. The linked [Chocolatey package](https://community.chocolatey.org/packages/klakk/1.4.1) is Windows 1.4.1. For Windows 1.4.3 use the direct download or the Klakk-maintained Scoop bucket above.
+The WinGet community repository now contains the [1.4.3 manifest](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.3). The [1.4.3 update](https://github.com/microsoft/winget-pkgs/pull/478539) was merged on 12 November 2026 at 15:45 UTC ([defc6390](https://github.com/microsoft/winget-pkgs/commit/defc63905563ef53c464886a2750eff46d4dfcab)), with `Moderator-Approved` and `Publish-Pipeline-Succeeded` labels. Its x64 and ARM64 manifests reference the same official 1.4.3 universal installer and release checksum. WinGet client search, installation and upgrade for this update have not been independently verified. The linked [Chocolatey package](https://community.chocolatey.org/packages/klakk/1.4.1) is Windows 1.4.1. For Windows 1.4.4, use the direct download above. The Klakk-maintained Scoop bucket currently remains at 1.4.3.
 
 ## Download Klakk 1.4.1
 
-These files are historical. For a new installation or update, use 1.4.3 above.
+These files are historical. For a new installation or update, use the current Windows or Mac file listed above.
 
 The later 1.4.1 website revision (2026-10-11.1) and its exact file hashes are listed in the [revision archive](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1-r20261011.1). The files below are the earlier 1.4.1 release.
 
