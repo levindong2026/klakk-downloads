@@ -12,13 +12,13 @@ if ($windowsVersion.CurrentMajorVersionNumber -lt 10) {
     throw 'Klakk requires Windows 10 or later.'
 }
 
-Write-Warning 'The Klakk 1.4.1 installer is unsigned. This package checks the official download SHA-256 before installing.'
+Write-Warning 'The Klakk 1.4.4 installer is unsigned. This package checks the official download SHA-256 before installing.'
 
 $packageArgs = @{
     packageName    = $env:ChocolateyPackageName
     fileType       = 'exe'
-    url            = 'https://downloads.tryklakk.com/Klakk-1.4.1-Windows-Setup-r20261011.1.exe'
-    checksum       = 'a8d9b20341b49ef4c8aa11c51a1c3fb0b41506ff79228f61f06ac2386799cdff'
+    url            = 'https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe'
+    checksum       = '65413b1048ff189186cfc683ed00feb6bc7e39f711930bb24e5a0a1eff54e406'
     checksumType   = 'sha256'
     silentArgs     = '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-'
     validExitCodes = @(0)

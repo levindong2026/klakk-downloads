@@ -1,6 +1,6 @@
 # Klakk Chocolatey package
 
-The [Chocolatey Community Repository](https://community.chocolatey.org/packages/klakk) currently lists Klakk 1.4.1. To make a new purchase, download Klakk 1.4.2 from the [official Windows page](https://tryklakk.com/en/windows/). The website edition has a three-day trial from first launch. A new Windows license costs US$6.99 once, plus applicable tax.
+The last confirmed approved Klakk package in the [Chocolatey Community Repository](https://community.chocolatey.org/packages/klakk) is **1.4.1**. To make a new purchase, download Klakk 1.4.4 from the [official Windows page](https://tryklakk.com/en/windows/). The website edition has a three-day trial from first launch. A new Windows license costs US$6.99 once, plus applicable tax.
 
 This developer-maintained package for the Windows direct edition, version 1.4.1, was submitted to the Chocolatey Community Repository on **2026-10-09**. The [public package page](https://community.chocolatey.org/packages/klakk/1.4.1), verified on **2026-10-16**, states that a moderator approved it on **2026-10-12**. It lists `choco install klakk` as the community installation command.
 
@@ -14,17 +14,19 @@ Klakk is proprietary software. The installer pinned by the approved Chocolatey p
 
 Use a disposable Windows test machine with the official free Chocolatey CLI. From `packaging/chocolatey/klakk`:
 
-Current source prepares candidate package **1.4.1.20261016** for website revision **2026-10-11.1**; the application version remains **1.4.1**. An authorized upload attempt on 2026-10-16 returned HTTP 403 without an acceptance receipt; the candidate is **not confirmed submitted and is not approved**. On 2026-10-16, [run 38885819724](https://github.com/levindong2026/klakk-downloads/actions/runs/38885819724) passed clean installation and normal upgrade from the approved 1.4.1 package on native x64 and ARM64 Windows runners with Chocolatey CLI 2.7.4. It checked the current installed executable hashes, native architecture, 14 sound packs, synthetic data preservation, startup registration choices and explicit uninstall; its process observer recorded no Klakk starts. These are hosted-runner packaging tests, not customer downloads or installations. The approved **1.4.1** package described above remains unchanged.
+This source prepares candidate package **1.4.4** for the public Windows **1.4.4** universal installer. The metadata package was packed on **2026-11-17** with the official Chocolatey CLI **2.7.5**. Its package contents, CRCs, metadata and scripts were verified against the reviewed source. This 1.4.4 package has not been tested through Chocolatey installation, upgrade or removal, or submitted to the community repository; the installer’s separate acceptance does not establish package acceptance.
+
+The earlier candidate package **1.4.1.20261016** targeted website revision **2026-10-11.1**; its application version remained **1.4.1**. An authorized upload attempt on 2026-10-16 returned HTTP 403 without an acceptance receipt; the candidate is **not confirmed submitted and is not approved**. On 2026-10-16, [run 38885819724](https://github.com/levindong2026/klakk-downloads/actions/runs/38885819724) passed clean installation and normal upgrade from the approved 1.4.1 package on native x64 and ARM64 Windows runners with Chocolatey CLI 2.7.4. It checked the current installed executable hashes, native architecture, 14 sound packs, synthetic data preservation, startup registration choices and explicit uninstall; its process observer recorded no Klakk starts. These are hosted-runner packaging tests, not customer downloads or installations. The approved **1.4.1** package described above remains unchanged.
 
 ```powershell
 choco pack .\klakk.nuspec
-choco install klakk --version 1.4.1.20261016 --source . --yes
+choco install klakk --version 1.4.4 --source . --yes
 choco uninstall klakk --yes --skip-autouninstaller
 ```
 
 The uninstall command disables Chocolatey's automatic fallback for this test so that the package's own removal script is exercised. Silent installation does not start Klakk. These are QA operations, not customer growth.
 
-The manual [candidate validation workflow](../../.github/workflows/chocolatey-package-validation.yml) builds and inspects the package, then tests installation and explicit uninstall on native x64 and ARM64 Windows runners. No upload to the community repository is performed by the workflow. Build success and installation tests do not establish community approval, real users or completed customer downloads.
+The existing manual [candidate validation workflow](../../.github/workflows/chocolatey-package-validation.yml) still pins the earlier **1.4.1.20261016** candidate. Do not run it as 1.4.4 validation without first updating and reviewing its version, installer and expected-result bindings. Its earlier native x64 and ARM64 packaging checks did not upload a package to the community repository. Build success and installation tests do not establish community approval, real users or completed customer downloads.
 
 On 2026-10-08, [run 37859312707](https://github.com/levindong2026/klakk-downloads/actions/runs/37859312707) passed on both architectures with Chocolatey CLI 2.7.4. It verified the package contents, official installer checksum, per-user registry version 1.4.1, native executable architecture, 14 sound packs, no running app after silent installation, and removal through the explicit uninstall script. The tested package was retained as a workflow artifact. This was hosted-runner QA, not a physical playback test or community approval.
 
