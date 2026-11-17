@@ -49,7 +49,7 @@ If the purchase service requires an update, Klakk 1.4.4 shows a **Download Updat
 
 For an update from Windows 1.4.3, run the 1.4.4 installer over your existing installation; you do not need to uninstall first.
 
-Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) currently installs website version 1.4.3 from that version's universal installer. [Package checks for 1.4.2](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) passed on native x64 and ARM64 Windows. This custom source is separate from Scoop’s main and Extras catalogs.
+Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) currently installs website version 1.4.4 from that version's universal installer. [Package checks for 1.4.2](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) passed on native x64 and ARM64 Windows. This custom source is separate from Scoop’s main and Extras catalogs.
 
 ## Install on Mac
 
@@ -118,7 +118,7 @@ The first Mac command prints the byte count; the second prints the SHA-256 and f
 
 This repository contains public download documentation, candidate package manifests and installer validation workflows. The application source remains private. GitHub's automatically generated “Source code” ZIP and tar.gz files contain repository files, not an installable app. To install Klakk, choose the named `.exe`, `.dmg` or Mac app `.zip` release asset instead. Klakk remains subject to its product terms; publishing installers here does not grant an open-source license.
 
-The WinGet community repository now contains the [1.4.3 manifest](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.3). The [1.4.3 update](https://github.com/microsoft/winget-pkgs/pull/478539) was merged on 12 November 2026 at 15:45 UTC ([defc6390](https://github.com/microsoft/winget-pkgs/commit/defc63905563ef53c464886a2750eff46d4dfcab)), with `Moderator-Approved` and `Publish-Pipeline-Succeeded` labels. Its x64 and ARM64 manifests reference the same official 1.4.3 universal installer and release checksum. WinGet client search, installation and upgrade for this update have not been independently verified. The linked [Chocolatey package](https://community.chocolatey.org/packages/klakk/1.4.1) is Windows 1.4.1. For Windows 1.4.4, use the direct download above. The Klakk-maintained Scoop bucket currently remains at 1.4.3.
+The WinGet community repository now contains the [1.4.3 manifest](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.3). The [1.4.3 update](https://github.com/microsoft/winget-pkgs/pull/478539) was merged on 12 November 2026 at 15:45 UTC ([defc6390](https://github.com/microsoft/winget-pkgs/commit/defc63905563ef53c464886a2750eff46d4dfcab)), with `Moderator-Approved` and `Publish-Pipeline-Succeeded` labels. Its x64 and ARM64 manifests reference the same official 1.4.3 universal installer and release checksum. WinGet client search, installation and upgrade for this update have not been independently verified. The linked [Chocolatey package](https://community.chocolatey.org/packages/klakk/1.4.1) is Windows 1.4.1. For Windows 1.4.4, use the direct download above. The Klakk-maintained Scoop bucket is now on 1.4.4.
 
 ## Download Klakk 1.4.1
 

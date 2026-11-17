@@ -49,7 +49,7 @@ OBSで録画する場合は、[キーボード音の再生・音声取り込み�
 
 Windows版1.4.3からの更新では、既存のインストール先に1.4.4のインストーラーを実行します。先に旧版をアンインストールする必要はありません。
 
-Scoopをすでに利用している場合は、[Klakk開発者が管理するWindowsバケット](packaging/scoop/README.ja.md)から、1.4.3の共通インストーラーで同版を導入できます。[1.4.2 のパッケージ検証](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872)はネイティブ x64・ARM64 の両方で通過しました。Scoopのmain・Extras公式カタログへの収録とは別の独自配布元です。
+Scoopをすでに利用している場合は、[Klakk開発者が管理するWindowsバケット](packaging/scoop/README.ja.md)から、1.4.4の共通インストーラーで同版を導入できます。[1.4.2 のパッケージ検証](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872)はネイティブ x64・ARM64 の両方で通過しました。Scoopのmain・Extras公式カタログへの収録とは別の独自配布元です。
 
 ## Macでのインストール
 
@@ -110,7 +110,7 @@ shasum -a 256 'Klakk-1.4.3-25.dmg'
 
 このリポジトリには公開ダウンロード案内を置いています。アプリのソースコードは含みません。GitHubが自動生成する「Source code」のZIP・tar.gzには配布案内、マニフェストと検証スクリプトが入ります。インストールには、リリース欄にある `.exe`、`.dmg`、または Mac アプリの `.zip` を選んでください。公開配布によってアプリがオープンソースになるわけではなく、製品の利用規約が適用されます。
 
-WinGet コミュニティリポジトリの [1.4.3 マニフェスト](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.3)は、[更新申請](https://github.com/microsoft/winget-pkgs/pull/478539)のモデレーター承認を経て、2026年11月12日（UTC）に公式リポジトリへマージされました。公式リポジトリでの公開は確認しましたが、実際のWindowsクライアントでの検索・インストール・アップグレードは、この更新では独立に検証していません。リンク先の [Chocolatey パッケージ](https://community.chocolatey.org/packages/klakk/1.4.1)は Windows 1.4.1 です。Windows 1.4.4は、上の公式ダウンロードから入手できます。Klakk開発者のScoopバケットは、現在1.4.3のままです。
+WinGet コミュニティリポジトリの [1.4.3 マニフェスト](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.3)は、[更新申請](https://github.com/microsoft/winget-pkgs/pull/478539)のモデレーター承認を経て、2026年11月12日（UTC）に公式リポジトリへマージされました。公式リポジトリでの公開は確認しましたが、実際のWindowsクライアントでの検索・インストール・アップグレードは、この更新では独立に検証していません。リンク先の [Chocolatey パッケージ](https://community.chocolatey.org/packages/klakk/1.4.1)は Windows 1.4.1 です。Windows 1.4.4は、上の公式ダウンロードから入手できます。Klakk開発者のScoopバケットは、現在1.4.4です。
 
 ## 旧版 Klakk 1.4.1 の配布記録
 
