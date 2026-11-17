@@ -1,8 +1,8 @@
 # Install Klakk with Scoop on Windows
 
-This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.3** on x64 and ARM64 with Windows 10/11. 32-bit Windows and Scoop global installation are unsupported.
+This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.4** on x64 and ARM64 with Windows 10/11. 32-bit Windows and Scoop global installation are unsupported.
 
-Both architectures use the same **116.9 MB** [official installer](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3). Setup selects the native build for your PC. The previous architecture-specific 1.4.1 packages remain available in their original release.
+Both architectures use the same **116.9 MB** [official installer](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4). Setup selects the native build for your PC. The previous architecture-specific 1.4.1 packages remain available in their original release.
 
 Find this bucket in [Scoop’s public app search](https://scoop.sh/#/apps?q=Klakk&o=false), with **All buckets** selected. To install, add the publisher bucket using the commands below.
 
@@ -19,15 +19,15 @@ scoop install klakk/klakk
 
 Scoop downloads the official universal installer, checks its hash and runs it for the current Windows account inside Scoop’s version directory. The manifest rejects an architecture override that does not match the native Windows architecture. This is an installer-managed app, with a Windows uninstall registration, rather than a portable archive. Open **Klakk (Scoop)** in the Start menu; the app is not opened automatically during installation.
 
-## What changes in 1.4.3
+## Purchases and updates in 1.4.4
 
-The [1.4.3 release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) opens Creem checkout through tryklakk.com and returns to Klakk for activation. Existing Pancake and Creem licenses remain supported. A new Windows purchase supports up to three Windows devices.
+In [1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4), an update-required purchase response provides a **Download Update** button to the official Windows page. For this Scoop-managed copy, use the Scoop update command below rather than running a separate installer. New purchases still open Creem checkout through tryklakk.com and return to Klakk for activation. Existing Pancake and Creem licenses remain supported. A new Windows purchase supports up to three Windows devices.
 
 ## Hear the first sound
 
 In **General**, enable Klakk. In **Audio**, select one of the **14 sound packs**, set a comfortable volume and choose the **Output Device**. **System Default** uses the Windows default output. Type in another app to check playback. The [no-sound checklist](../../guides/klakk-no-sound.md#windows-check-playback-and-the-selected-output) covers the volume mixer, output and trial status.
 
-The website Windows edition has a **three-day trial beginning at first launch**. Continued use costs **US$6.99 once for Windows**, plus applicable tax at Pancake checkout. A new Windows license supports up to three Windows devices. The website Mac edition and Mac App Store edition have separate purchases and licenses. Scoop does not supply a new free license or restart an existing trial. The Windows app processes keyboard events locally for playback and also makes usage and licensing communications. Typed text and raw key events are not uploaded; see the [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
+The website Windows edition has a **three-day trial beginning at first launch**. Continued use costs **US$6.99 once for Windows**, plus applicable tax at Creem checkout. A new Windows license supports up to three Windows devices. The website Mac edition and Mac App Store edition have separate purchases and licenses. Scoop does not supply a new free license or restart an existing trial. The Windows app processes keyboard events locally for playback and also makes usage and licensing communications. Typed text and raw key events are not uploaded; see the [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
 
 [Preview the sounds before installing](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=scoop_bucket&utm_content=install_guide_en) · [Windows details](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=scoop_bucket&utm_content=install_guide_en)
 
@@ -46,7 +46,7 @@ Uninstall invokes the official uninstaller and removes Scoop’s application sho
 
 The [Scoop verification workflow](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml) checks the official manifest schema, an upgrade from the previous published bucket version, a clean install and uninstall on native x64 and ARM64. It checks the installer SHA-256 and size, the installed executable architecture, the 14 sound packs and Start shortcut. It also checks protections for other installations and that a test marker in the app-data directory is retained.
 
-Scoop installation and upgrade of 1.4.3 have not been validated by this metadata update.
+Scoop installation and upgrade of 1.4.4 have not been validated by this metadata preparation.
 
 The [5 November 2026 run](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) verified a normal upgrade from the previous Scoop revision, a clean install, a forced reinstall and an uninstall for 1.4.2 on native x64 and ARM64 without launching Klakk or making a payment.
 
