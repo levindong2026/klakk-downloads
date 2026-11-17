@@ -46,7 +46,7 @@ The website license continues playback after the trial in the platform edition y
 | Website edition | Current offer |
 | --- | --- |
 | Mac 1.4.3, build 25 | macOS 14+ on Apple silicon or Intel. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
-| Windows 1.4.3 | Windows 10/11, native x64 or ARM64. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
+| Windows 1.4.4 | Windows 10/11, native x64 or ARM64. Includes 14 packs and a three-day trial from first launch. US$6.99 once plus applicable tax. |
 
 The two platforms are separate purchases. Each new website license covers up to three compatible devices you personally own on the purchased platform. New website purchases currently use Creem. The Mac App Store edition also has its own purchase and license, with the price shown in Apple's regional purchase screen. A Windows receipt does not activate the Mac edition, and an App Store purchase is not a website license. Confirm the edition before paying.
 

@@ -46,7 +46,7 @@ If the sound remains quiet, continue with the output and license checks. If othe
 
 ## Check the trial and the purchase channel
 
-For a new website purchase, [download Klakk 1.4.2](https://tryklakk.com/en/download/) and start checkout in the app. New purchases use Pancake at US$6.99 once per platform, plus applicable tax. The table below records the original 1.4.1 purchase and restore paths.
+For a new website purchase, [download the Mac 1.4.3 or Windows 1.4.4 website edition](https://tryklakk.com/en/download/) and start checkout in the app. New purchases use Creem at US$6.99 once per platform, plus applicable tax. The table below records the original 1.4.1 purchase and restore paths.
 
 All 14 sound packs are included in the trial, which lasts **3 days from first launch**. Continued playback after the trial needs an active license for the edition you installed. Reinstalling is not a way to restart the trial.
 
