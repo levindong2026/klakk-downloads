@@ -12,7 +12,7 @@ Use the same headphones or speakers for both tests. Type a short sample in a loc
 
 | What you observe | What to check next |
 | --- | --- |
-| The keyboard app is silent in both places. | Check app playback, volume, output device, permissions and trial or activation status. Klakk users can follow the [Windows and Mac first-sound checks](klakk-no-sound.md). |
+| The keyboard app is silent in both places. | Check app playback, volume, output device, permissions and trial or activation status. Klakk users can follow the [first-sound steps for the current Windows and Mac website editions](https://tryklakk.com/en/download/#first-sound). |
 | Effects play in the editor but stop while typing inside OBS. | Record the two app versions and the exact focused window. Investigate input or playback first; capture settings alone do not establish why the app stops producing sound. |
 | You hear effects locally, but the corresponding OBS capture-source meter does not respond. | Check which application or output device the source captures, and the source's mute, volume and routing settings. Continue with the platform-specific section below. |
 | The corresponding source meter responds, but the saved video seems silent. | Check the source's mute state, recording-track assignment, enabled output tracks and the track selected in your player. Continue with section 3. |
