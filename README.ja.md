@@ -110,7 +110,7 @@ shasum -a 256 'Klakk-1.4.3-25.dmg'
 
 このリポジトリには公開ダウンロード案内を置いています。アプリのソースコードは含みません。GitHubが自動生成する「Source code」のZIP・tar.gzには配布案内、マニフェストと検証スクリプトが入ります。インストールには、リリース欄にある `.exe`、`.dmg`、または Mac アプリの `.zip` を選んでください。公開配布によってアプリがオープンソースになるわけではなく、製品の利用規約が適用されます。
 
-WinGet コミュニティリポジトリの [1.4.3 マニフェスト](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.3)は、[更新申請](https://github.com/microsoft/winget-pkgs/pull/478539)のモデレーター承認を経て、2026年11月12日（UTC）に公式リポジトリへマージされました。公式リポジトリでの公開は確認しましたが、実際のWindowsクライアントでの検索・インストール・アップグレードは、この更新では独立に検証していません。リンク先の [Chocolatey パッケージ](https://community.chocolatey.org/packages/klakk/1.4.1)は Windows 1.4.1 です。Windows 1.4.4は、上の公式ダウンロードから入手できます。Klakk開発者のScoopバケットは、現在1.4.4です。
+WinGet コミュニティリポジトリには、[2026年11月17日の更新](https://github.com/microsoft/winget-pkgs/pull/481998)で [Klakk 1.4.4](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.4) が登録されました。[Chocolatey の 1.4.4 パッケージ](https://community.chocolatey.org/packages/klakk/1.4.4) は2026年11月19日に承認されました。Klakk 開発者の Scoop バケットでも 1.4.4 をインストールできます。公式インストーラーは上の直接ダウンロードから入手できます。
 
 ## 旧版 Klakk 1.4.1 の配布記録
 
