@@ -25,7 +25,7 @@ In [1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4)
 
 ## Hear the first sound
 
-In **General**, enable Klakk. In **Audio**, select one of the **14 sound packs**, set a comfortable volume and choose the **Output Device**. **System Default** uses the Windows default output. Type in another app to check playback. The [no-sound checklist](../../guides/klakk-no-sound.md#windows-check-playback-and-the-selected-output) covers the volume mixer, output and trial status.
+In **General**, enable Klakk. In **Audio**, select one of the **14 sound packs**, set a comfortable volume and choose the **Output Device**. **System Default** uses the Windows default output. Type in another app to check playback. The [no-sound checklist](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/#if-klakk-has-no-sound) covers the volume mixer, output and trial status.
 
 The website Windows edition has a **three-day trial beginning at first launch**. Continued use costs **US$6.99 once for Windows**, plus applicable tax at Creem checkout. A new Windows license supports up to three Windows devices. The website Mac edition and Mac App Store edition have separate purchases and licenses. Scoop does not supply a new free license or restart an existing trial. The Windows app processes keyboard events locally for playback and also makes usage and licensing communications. Typed text and raw key events are not uploaded; see the [Windows privacy policy](https://tryklakk.com/en/windows/privacy/).
 

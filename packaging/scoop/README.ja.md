@@ -25,7 +25,7 @@ Scoopは共通の公式インストーラーのハッシュを検証し、現在
 
 ## 最初の音を確認
 
-**General**でKlakkを有効にし、**Audio**で**14種類のサウンドパック**から選び、音量と**Output Device**を確認します。**System Default**はWindowsの既定の出力を使います。ほかのアプリで入力して確認してください。[音が出ないときのチェックリスト](../../guides/klakk-no-sound.ja.md)も参照できます。
+**General**でKlakkを有効にし、**Audio**で**14種類のサウンドパック**から選び、音量と**Output Device**を確認します。**System Default**はWindowsの既定の出力を使います。ほかのアプリで入力して確認してください。[音が出ないときのチェックリスト](https://tryklakk.com/ja/blog/windows-keyboard-sounds-arm64-x64-setup/#klakk-%E3%81%AE%E9%9F%B3%E3%81%8C%E8%81%9E%E3%81%93%E3%81%88%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D)も参照できます。
 
 公式サイトのWindows版は**初回起動から3日間試用**できます。継続利用は**Windows版をUS$6.99で買い切り**、Creemの決済画面で適用される税額が加算されます。新規購入のWindows版ライセンスはWindows端末3台まで利用できます。公式サイトのMac版とMac App Store版は別購入・別ライセンスです。Scoopから導入しても無料の新ライセンスは付かず、既存の試用期間もリセットされません。Windows版はキーイベントをローカルで処理して再生し、入力した文章や生のキーイベントは送信しません。仮名化した利用イベント、ライセンス確認と更新確認の通信は行います。設定はPC内に保存します。[Windows版のプライバシーポリシー](https://tryklakk.com/ja/windows/privacy/)をご確認ください。
 
