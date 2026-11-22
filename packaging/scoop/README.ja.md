@@ -21,7 +21,7 @@ Scoopは共通の公式インストーラーのハッシュを検証し、現在
 
 ## 1.4.4の購入と更新
 
-[1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4)では、購入の続行に更新が必要な場合、更新用ダウンロードのボタンから公式Windowsページへ進めます。Scoopから導入したコピーは下のScoop更新コマンドで管理し、別のインストーラーを重ねて実行しないでください。新規購入は引き続きtryklakk.com経由でCreemの決済画面を開き、購入後はKlakkに戻って有効化します。既存のPancake・Creemライセンスも引き続き利用できます。新規購入のWindows版ライセンスはWindows端末3台まで利用できます。
+[1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4)では、購入の続行に更新が必要な場合、更新用ダウンロードのボタンから公式Windowsページへ進めます。Scoopから導入した場合は、下記の手順で更新してください。新規購入は引き続きtryklakk.com経由でCreemの決済画面を開き、購入後はKlakkに戻って有効化します。既存のPancake・Creemライセンスも引き続き利用できます。新規購入のWindows版ライセンスはWindows端末3台まで利用できます。
 
 ## 最初の音を確認
 
@@ -33,10 +33,18 @@ Scoopは共通の公式インストーラーのハッシュを検証し、現在
 
 ## 更新・削除
 
-操作前にKlakkを終了し、Scoopで導入したコピーはScoopで管理します。別のインストーラーを重ねて実行しないでください。
+更新や削除の前にKlakkを終了してください。Scoopで導入したKlakkは、そのままScoopで管理してください。
+
+Klakkを更新するには、まずScoopとバケットの情報を更新し、その後でKlakkを更新します。
 
 ```powershell
+scoop update
 scoop update klakk
+```
+
+Klakkを削除するときは、次のコマンドを別に実行してください。
+
+```powershell
 scoop uninstall klakk
 ```
 

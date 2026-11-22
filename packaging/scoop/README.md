@@ -21,7 +21,7 @@ Scoop downloads the official universal installer, checks its hash and runs it fo
 
 ## Purchases and updates in 1.4.4
 
-In [1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4), an update-required purchase response provides a **Download Update** button to the official Windows page. For this Scoop-managed copy, use the Scoop update command below rather than running a separate installer. New purchases still open Creem checkout through tryklakk.com and return to Klakk for activation. Existing Pancake and Creem licenses remain supported. A new Windows purchase supports up to three Windows devices.
+In [1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4), an update-required purchase response provides a **Download Update** button to the official Windows page. For this Scoop-managed copy, follow the Scoop update steps below. New purchases still open Creem checkout through tryklakk.com and return to Klakk for activation. Existing Pancake and Creem licenses remain supported. A new Windows purchase supports up to three Windows devices.
 
 ## Hear the first sound
 
@@ -33,10 +33,18 @@ The website Windows edition has a **three-day trial beginning at first launch**.
 
 ## Update or remove
 
-Exit Klakk before either command. Keep one installation method; use Scoop to manage this copy rather than installing another copy over it.
+Exit Klakk before updating or removing it. Continue to manage this copy through Scoop.
+
+To update Klakk, refresh Scoop and its bucket definitions first, then update the app.
 
 ```powershell
+scoop update
 scoop update klakk
+```
+
+To remove Klakk, run this command separately.
+
+```powershell
 scoop uninstall klakk
 ```
 
