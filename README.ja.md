@@ -68,7 +68,7 @@ DMGにはDeveloper ID署名とAppleの公証を受けたKlakk 1.4.3（ビルド 
 
 [Mac版のインストールガイド](https://tryklakk.com/ja/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
-すでに Homebrew を利用している場合は、[Klakk 開発者の tap](https://github.com/levindong2026/homebrew-klakk)から同じ公式サイト版を導入できます。[1.4.2 の Homebrew 検証](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789)は Apple シリコンと Intel Mac の両方で通過しました。この tap は開発者管理で、Homebrew の公式カタログとは別です。
+すでに Homebrew を利用している場合は、[Klakk 開発者の tap](https://github.com/levindong2026/homebrew-klakk)から同じ公式サイト版を導入できます。[1.4.3（ビルド 25）の Homebrew インストール検証](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779)は、GitHub のテスト環境（Apple シリコンの macOS 26 と Intel の macOS 15）で通過しました。[旧版 1.4.2 の検証記録](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789)も参照できます。この tap は開発者管理で、Homebrew の公式カタログとは別です。
 
 ## 14種類のサウンドパック
 

@@ -68,7 +68,7 @@ The DMG contains Klakk 1.4.3, build 25, signed with Developer ID and notarized b
 
 [Mac installation and troubleshooting](https://tryklakk.com/en/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
-Already use Homebrew? The [Klakk-maintained Mac tap](https://github.com/levindong2026/homebrew-klakk) installs the same signed and notarized website edition. [Homebrew checks for 1.4.2](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789) passed on Apple silicon and Intel Macs. This is a publisher-maintained tap, separate from Homebrew's official cask catalog.
+Already use Homebrew? The [Klakk-maintained Mac tap](https://github.com/levindong2026/homebrew-klakk) installs the same signed and notarized website edition. [Homebrew installation checks for 1.4.3, build 25](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779) passed on GitHub-hosted macOS 26 (Apple silicon) and macOS 15 (Intel). See the [earlier 1.4.2 checks](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789) for that release. This is a publisher-maintained tap, separate from Homebrew's official cask catalog.
 
 ## Compare the 14 included sound packs
 
