@@ -28,7 +28,7 @@ Prefer a short video? [Watch the 44-second English sound preview](https://www.yo
 
 For a longer listen, [watch seven included Klakk sound packs in 80 seconds](https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c). Each uses the same edited website-preview sequence; this is not live app playback or a latency test. [Read the complete copyright, MIT license and provenance notice for the seven recordings](docs/klakk-seven-included-sounds-en-NOTICE.txt). [Sequence guide and trial details](docs/seven-keyboard-sounds.md).
 
-Installed but silent? The [Windows and Mac no-sound checklist for 1.4.1](guides/klakk-no-sound.md) covers playback, output, permissions and trial activation.
+Installed but silent? Follow the [current Mac and Windows first-sound steps](https://tryklakk.com/en/download/#first-sound). The [1.4.1 no-sound checklist](guides/klakk-no-sound.md) remains available for older installations.
 
 Recording with OBS? Use the [playback, capture and recording-track checklist](guides/keyboard-sounds-obs.md) to find where keyboard sounds stop.
 

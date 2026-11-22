@@ -32,7 +32,7 @@ https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c
 
 Klakk開発者Levinが管理する紹介です。説明文の作成にAIを補助として使用しました。[この動画の音源の出典とライセンス](docs/klakk-seven-included-sounds-en-NOTICE.txt)
 
-インストール後に音が出ない場合は、[Windows・Mac 版 1.4.1 の確認手順](guides/klakk-no-sound.ja.md)で、有効化、出力先、権限、試用・ライセンス状態を確認できます。
+インストール後に音が出ない場合は、[現行のMac版・Windows版で最初に音を鳴らす手順](https://tryklakk.com/ja/download/#first-sound)を確認してください。旧版をお使いの場合は、[1.4.1の確認手順](guides/klakk-no-sound.ja.md)も参照できます。
 
 OBSで録画する場合は、[キーボード音の再生・音声取り込み・録音トラックを分けて確認](guides/keyboard-sounds-obs.ja.md)してください。手元で聴こえる音と、保存動画に入る音を別々に調べる手順です。
 
