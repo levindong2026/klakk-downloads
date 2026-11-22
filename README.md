@@ -82,6 +82,8 @@ Both platforms include:
 
 Check the saved file against the row for the installer you chose. Compare its byte count and the entire SHA-256 value before opening it. A completed download or a matching filename alone does not perform this comparison.
 
+To check a saved Mac DMG or Windows EXE without opening it, use the [browser file checker](https://tryklakk.com/en/verify-installer/). The browser reads the file on your device. For the Mac ZIP, use the commands below.
+
 The [Windows 1.4.1 verification checklist](docs/windows-download-verification.md) is an older reference. For Windows 1.4.4 and Mac 1.4.3, use the matching current file row and commands below.
 
 | File | Bytes | SHA-256 |
