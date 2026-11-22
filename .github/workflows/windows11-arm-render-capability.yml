@@ -1,0 +1,98 @@
+name: Check Windows 11 ARM64 render endpoint availability
+on:
+  push:
+    branches: [codex/windows11-arm-render-capability]
+    paths: [.github/workflows/windows11-arm-render-capability.yml]
+permissions: {}
+jobs:
+  render-capability:
+    if: >-
+      github.repository == 'levindong2026/klakk-downloads' &&
+      !github.event.repository.private &&
+      github.event.created && github.run_attempt == 1
+    runs-on: windows-11-arm
+    timeout-minutes: 3
+    steps:
+      - name: Read the existing Windows multimedia render capability
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:RUNNER_ENVIRONMENT -ne 'github-hosted' -or $env:RUNNER_ARCH -ne 'ARM64') {
+            throw 'Expected standard ARM64 hosted runner'
+          }
+          $arch = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
+          $processArch = [Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture.ToString()
+          $os = Get-CimInstance -ClassName Win32_OperatingSystem
+          $build = [int]$os.BuildNumber
+          if ($arch -ne 'Arm64' -or $processArch -ne 'Arm64' -or $build -lt 22000 -or $os.ProductType -ne 1) {
+            throw "Unexpected OS or process type: $arch / $processArch / $build / $($os.ProductType)"
+          }
+          Add-Type -TypeDefinition @'
+          using System;
+          using System.Runtime.InteropServices;
+
+          [ComImport, Guid("A95664D2-9614-4F35-A746-DE8DB63617E6"),
+           InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+          interface DeviceEnumerator
+          {
+              [PreserveSig] int EnumAudioEndpoints(int flow, uint stateMask, out DeviceCollection result);
+              [PreserveSig] int GetDefaultAudioEndpoint(int flow, int role, out Endpoint result);
+          }
+
+          [ComImport, Guid("0BD7A1BE-7A1A-44DB-8397-CC5392387B5E"),
+           InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+          interface DeviceCollection
+          {
+              [PreserveSig] int GetCount(out uint count);
+          }
+
+          [ComImport, Guid("D666063F-1587-4E43-81F1-B948E807363F"),
+           InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+          interface Endpoint {}
+
+          public static class RenderInventory
+          {
+              public static object Read()
+              {
+                  const int render = 0;
+                  const uint active = 1;
+                  const int multimedia = 1;
+                  var enumerator = (DeviceEnumerator)Activator.CreateInstance(
+                      Type.GetTypeFromCLSID(new Guid("BCDE0395-E52F-467C-8E3D-C4579291692E"), true));
+                  DeviceCollection collection = null;
+                  Endpoint endpoint = null;
+                  uint count = 0;
+                  try
+                  {
+                      int enumeration = enumerator.EnumAudioEndpoints(render, active, out collection);
+                      int? countResult = enumeration == 0 && collection != null ? collection.GetCount(out count) : (int?)null;
+                      int result = enumerator.GetDefaultAudioEndpoint(render, multimedia, out endpoint);
+                      return new
+                      {
+                          enumeration_hresult = "0x" + enumeration.ToString("X8"),
+                          count_hresult = countResult.HasValue ? "0x" + countResult.Value.ToString("X8") : null,
+                          active_render_count = countResult == 0 ? (uint?)count : null,
+                          multimedia_hresult = "0x" + result.ToString("X8"),
+                          has_default_multimedia_render = result == 0 && endpoint != null
+                      };
+                  }
+                  finally
+                  {
+                      if (endpoint != null) Marshal.ReleaseComObject(endpoint);
+                      if (collection != null) Marshal.ReleaseComObject(collection);
+                      Marshal.ReleaseComObject(enumerator);
+                  }
+              }
+          }
+          '@
+          $result = [ordered]@{
+            os_architecture = $arch
+            process_architecture = $processArch
+            build = $build
+            windows_client = $true
+            audio_service = (Get-Service Audiosrv).Status.ToString()
+            endpoint_builder = (Get-Service AudioEndpointBuilder).Status.ToString()
+            observed = [RenderInventory]::Read()
+            stream_created = $false
+          }
+          Write-Host ('RENDER_CAPABILITY ' + ($result | ConvertTo-Json -Depth 4 -Compress))
