@@ -1,0 +1,235 @@
+name: Validate WinGet 1.4.4 community source
+on:
+  push:
+    branches: [codex/winget-144-community-validation-exit]
+    paths: [.github/workflows/winget-community-144-validation.yml]
+permissions: {}
+concurrency:
+  group: klakk-winget-community-144
+  cancel-in-progress: false
+jobs:
+  community:
+    if: >-
+      github.repository == 'levindong2026/klakk-downloads' &&
+      !github.event.repository.private &&
+      github.ref == 'refs/heads/codex/winget-144-community-validation-exit' &&
+      github.event.created && github.run_attempt == 1
+    name: WinGet community ${{ matrix.architecture }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            architecture: X64
+          - runner: windows-11-arm
+            architecture: Arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
+    steps:
+      - name: Verify published lookup, clean install and removal
+        shell: powershell
+        env:
+          EXPECTED_ARCHITECTURE: ${{ matrix.architecture }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $id = 'Klakk.Klakk'
+          $version = '1.4.4'
+          $installerUrl = 'https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe'
+          $installerHash = '65413b1048ff189186cfc683ed00feb6bc7e39f711930bb24e5a0a1eff54e406'
+          $appId = '{398236E7-8E2E-4998-934F-5E54AFA110E1}_is1'
+          $suffix = "Software\Microsoft\Windows\CurrentVersion\Uninstall\$appId"
+          $userEntry = "HKCU:\$suffix"
+          $machineEntries = @("HKLM:\$suffix", "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\$appId")
+          $appDir = Join-Path $env:LOCALAPPDATA 'Programs\Klakk'
+          $app = Join-Path $appDir 'Klakk.Windows.exe'
+          $klakkDataDir = Join-Path $env:LOCALAPPDATA 'Klakk'
+          $architecture = $env:EXPECTED_ARCHITECTURE
+          $temp = Join-Path $env:RUNNER_TEMP ('klakk-winget-community-' + [guid]::NewGuid().ToString('N'))
+
+          function Assert-NoKlakkProcess {
+            if (Get-Process -Name 'Klakk.Windows' -ErrorAction SilentlyContinue) { throw 'Klakk process present at a QA checkpoint' }
+          }
+
+          function Assert-NoMachineRegistration {
+            foreach ($entry in $machineEntries) {
+              if (Test-Path -LiteralPath $entry) { throw 'Unexpected machine-wide Klakk registration' }
+            }
+          }
+
+          function Get-AppInstallerClient {
+            $packages = @(Get-AppxPackage -Name Microsoft.DesktopAppInstaller | Where-Object {
+              $_.PackageFamilyName -eq 'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe' -and
+              $_.Publisher -match '(?i)^CN=Microsoft Corporation(?:,|$)' -and
+              $_.Architecture -eq $architecture -and $_.Status -eq 'Ok'
+            } | Sort-Object Version -Descending)
+            if ($packages.Count -eq 0) { return }
+            $path = Join-Path $packages[0].InstallLocation 'winget.exe'
+            if (Test-Path -LiteralPath $path -PathType Leaf) { return $path }
+          }
+
+          function Install-OfficialArm64Client {
+            $files = @{
+              'DesktopAppInstaller_Dependencies.zip' = 'BA875AFE9D190F61218985AC0292A99D1DB710BF93E13C68944CA9D89F0D82D1'
+              'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle' = '65DEA9C01CE08EE7B763366B27C0E651F97DB857C11CA9B9C301826C10092F2E'
+            }
+            foreach ($file in $files.Keys) {
+              $destination = Join-Path $temp $file
+              Invoke-WebRequest -UseBasicParsing -TimeoutSec 90 -Uri "https://github.com/microsoft/winget-cli/releases/download/v1.29.380/$file" -OutFile $destination
+              if ((Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash -cne $files[$file]) {
+                throw "Pinned Microsoft bootstrap hash mismatch for $file"
+              }
+            }
+            $dependencies = Join-Path $temp 'dependencies'
+            Expand-Archive -LiteralPath (Join-Path $temp 'DesktopAppInstaller_Dependencies.zip') -DestinationPath $dependencies
+            $frameworks = @(Get-ChildItem -LiteralPath (Join-Path $dependencies 'arm64') -Filter '*.appx' -File)
+            if ($frameworks.Count -lt 3) { throw 'Microsoft ARM64 bootstrap frameworks unavailable' }
+            Add-Type -AssemblyName System.IO.Compression.FileSystem
+            foreach ($framework in $frameworks) {
+              $archive = [IO.Compression.ZipFile]::OpenRead($framework.FullName)
+              try {
+                $reader = [IO.StreamReader]::new($archive.GetEntry('AppxManifest.xml').Open())
+                try { [xml]$manifest = $reader.ReadToEnd() } finally { $reader.Dispose() }
+              } finally { $archive.Dispose() }
+              $identity = $manifest.Package.Identity
+              if ($identity.ProcessorArchitecture -cne 'arm64') { throw 'Wrong framework architecture in Microsoft bundle' }
+              $installed = @(Get-AppxPackage -Name $identity.Name | Where-Object {
+                $_.Architecture -eq 'Arm64' -and [version]$_.Version -ge [version]$identity.Version
+              })
+              if ($installed.Count -eq 0) { Add-AppxPackage -Path $framework.FullName -ErrorAction Stop }
+            }
+            Add-AppxPackage -Path (Join-Path $temp 'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle') -ErrorAction Stop
+          }
+
+          function Invoke-NativeCapture([string]$executable, [string]$commandLine, [string]$phase, [int]$timeoutMs) {
+            $info = New-Object System.Diagnostics.ProcessStartInfo
+            $info.FileName = $executable
+            $info.Arguments = $commandLine
+            $info.UseShellExecute = $false
+            $info.CreateNoWindow = $true
+            $info.RedirectStandardOutput = $true
+            $info.RedirectStandardError = $true
+            $process = New-Object System.Diagnostics.Process
+            $process.StartInfo = $info
+            $clock = [Diagnostics.Stopwatch]::StartNew()
+            try {
+              if (!$process.Start()) { throw "Native process did not start for $phase" }
+              $handle = $process.Handle
+              if ($handle -eq [IntPtr]::Zero) { throw "Native process handle is unavailable for $phase" }
+              $stdout = $process.StandardOutput.ReadToEndAsync()
+              $stderr = $process.StandardError.ReadToEndAsync()
+              $remaining = [Math]::Max(0, $timeoutMs - [int]$clock.ElapsedMilliseconds)
+              if (!$process.WaitForExit($remaining)) { throw "Native process $phase exceeded its time limit" }
+              $remaining = [Math]::Max(0, $timeoutMs - [int]$clock.ElapsedMilliseconds)
+              if (![Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($stdout, $stderr), $remaining)) {
+                throw "Native process $phase output exceeded its time limit"
+              }
+              $code = $process.ExitCode
+              if ($code -isnot [int]) { throw "Native process did not report an integer exit code for $phase" }
+              return [pscustomobject]@{ Exit = $code; Stdout = $stdout.Result; Stderr = $stderr.Result }
+            } finally { $process.Dispose() }
+          }
+
+          function Invoke-Client([string]$phase, [string[]]$arguments, [int]$timeoutMs) {
+            if ($arguments | Where-Object { $_ -cnotmatch '\A[A-Za-z0-9._-]+\z' }) { throw "Unexpected WinGet argument in $phase" }
+            $result = Invoke-NativeCapture $client ([string]::Join(' ', $arguments)) $phase $timeoutMs
+            if ($result.Exit -ne 0) {
+              if (($result.Stdout + $result.Stderr) -match '(?i)(source|package) agreement') {
+                throw "WinGet $phase requires an agreement or access change (exit $($result.Exit))"
+              }
+              throw "WinGet $phase failed (exit $($result.Exit))"
+            }
+            $escape = [regex]::Escape([string][char]27)
+            return [regex]::Replace($result.Stdout, $escape + '\[[0-?]*[ -/]*[@-~]', '').Replace("`r", '')
+          }
+
+          function Get-PeMachine([string]$path) {
+            $stream = [IO.File]::OpenRead($path)
+            try {
+              $reader = [IO.BinaryReader]::new($stream)
+              if ($reader.ReadUInt16() -ne 0x5A4D) { throw 'Installed executable is missing its MZ header' }
+              $stream.Position = 0x3C
+              $offset = $reader.ReadInt32()
+              if ($offset -lt 0x40 -or $offset -gt ($stream.Length - 6)) { throw 'Installed executable has an invalid PE offset' }
+              $stream.Position = $offset
+              if ($reader.ReadUInt32() -ne 0x4550) { throw 'Installed executable is missing its PE signature' }
+              return $reader.ReadUInt16()
+            } finally { $stream.Dispose() }
+          }
+
+          if ($env:RUNNER_ENVIRONMENT -cne 'github-hosted' -or $env:RUNNER_ARCH -ne $architecture) {
+            throw 'Unexpected hosted runner context'
+          }
+          $hostCodes = @(Get-CimInstance -ClassName Win32_Processor | Select-Object -ExpandProperty Architecture -Unique)
+          $hostCode = if ($architecture -eq 'Arm64') { 12 } else { 9 }
+          $machine = if ($architecture -eq 'Arm64') { 0xAA64 } else { 0x8664 }
+          if ($hostCodes.Count -ne 1 -or $hostCodes[0] -ne $hostCode) { throw 'Unexpected native host architecture' }
+          $build = [int](Get-CimInstance -ClassName Win32_OperatingSystem).BuildNumber
+          if ($build -lt 22000 -or (Get-UICulture).Name -ne 'en-US') { throw 'Unexpected hosted OS build or CLI output language' }
+          Assert-NoMachineRegistration
+          Assert-NoKlakkProcess
+          if ((Test-Path -LiteralPath $userEntry) -or (Test-Path -LiteralPath $appDir) -or (Test-Path -LiteralPath $klakkDataDir)) {
+            throw 'Klakk is already present on the runner; clean install cannot be tested'
+          }
+          New-Item -Path $temp -ItemType Directory | Out-Null
+
+          $systemCommand = Join-Path ([Environment]::SystemDirectory) 'cmd.exe'
+          $negative = Invoke-NativeCapture $systemCommand '/d /c exit 23' 'exit-code control' 10000
+          if ($negative.Exit -ne 23) { throw 'Native capture did not return the expected nonzero exit code' }
+          Write-Host 'client wrapper: native exit-code control 23 verified'
+
+          $clientMode = 'preinstalled'
+          $client = Get-AppInstallerClient
+          if (!$client -and $architecture -eq 'Arm64') {
+            Write-Host 'bootstrap: using official Microsoft ARM64 App Installer'
+            Install-OfficialArm64Client
+            $clientMode = 'microsoft-arm64-pinned-bootstrap'
+            $client = Get-AppInstallerClient
+          }
+          if (!$client) { throw 'Microsoft App Installer CLI unavailable; no Klakk package request made' }
+          $clientVersion = (Invoke-Client 'client-version' @('--version') 20000).Trim()
+          if ($clientVersion -notmatch '^v?\d+\.\d+\.\d+(?:\.\d+)?(?:-[A-Za-z0-9.-]+)?$') { throw 'Could not identify Microsoft WinGet version' }
+
+          $sourceJson = Invoke-Client 'source-identity' @('source', 'export', 'winget', '--disable-interactivity') 20000
+          try { $source = $sourceJson | ConvertFrom-Json } catch { throw 'Could not read Microsoft community-source identity' }
+          if ($source.Name -cne 'winget' -or $source.Arg -cne 'https://cdn.winget.microsoft.com/cache' -or
+              $source.Type -cne 'Microsoft.PreIndexed.Package' -or $source.Identifier -cne 'Microsoft.Winget.Source_8wekyb3d8bbwe' -or
+              'Trusted' -cnotin $source.TrustLevel -or 'StoreOrigin' -cnotin $source.TrustLevel) {
+            throw 'Configured source does not match the trusted Microsoft community source'
+          }
+
+          $selector = @('--id', $id, '--exact', '--source', 'winget')
+          $lookup = Invoke-Client 'lookup' (@('show') + $selector + '--disable-interactivity') 60000
+          $expectedFields = @{
+            'Version' = $version
+            'Installer Url' = $installerUrl
+            'Installer SHA256' = $installerHash
+          }
+          if ($lookup -notmatch '\[Klakk\.Klakk\]') { throw 'Public source did not return exact package ID' }
+          foreach ($field in $expectedFields.Keys) {
+            $match = [regex]::Matches($lookup, ('(?im)^[ \t]*' + [regex]::Escape($field) + ':[ \t]*([^\n]+)$'))
+            if ($match.Count -ne 1 -or $match[0].Groups[1].Value.Trim() -ne $expectedFields[$field]) {
+              throw "Unexpected public-source metadata for $field; install was not attempted"
+            }
+          }
+          Write-Host 'lookup: exact community ID, version, publisher installer URL and SHA-256 matched'
+
+          $qaFlags = @('--silent', '--disable-interactivity')
+          $null = Invoke-Client 'install' (@('install') + $selector + @('--version', $version) + $qaFlags) 180000
+          Assert-NoMachineRegistration
+          Assert-NoKlakkProcess
+          $record = Get-ItemProperty -LiteralPath $userEntry
+          if ($record.DisplayVersion -cne $version -or $record.Publisher -cne 'Klakk') { throw 'Installed per-user Klakk identity differs from expected release' }
+          if (!(Test-Path -LiteralPath $app -PathType Leaf) -or (Get-PeMachine $app) -ne $machine) { throw 'Official installed executable is missing or is not the expected native architecture' }
+          Write-Host 'install: expected per-user registration and native Klakk executable verified without starting the app'
+
+          $null = Invoke-Client 'uninstall' (@('uninstall') + $selector + $qaFlags) 120000
+          Assert-NoMachineRegistration
+          Assert-NoKlakkProcess
+          if ((Test-Path -LiteralPath $userEntry) -or (Test-Path -LiteralPath $app)) { throw 'WinGet did not remove the verified Klakk registration and executable' }
+          $summary = [ordered]@{
+            architecture = $architecture; os_build = $build; client_version = $clientVersion; client_mode = $clientMode;
+            source = $source.Arg; package_id = $id; version = $version; installer_url = $installerUrl; installer_sha256 = $installerHash;
+            native_pe_machine = ('0x{0:X4}' -f $machine); user_scope = $true; clean_install = $true; uninstall = $true;
+            app_absent_at_checkpoints = $true; app_invoked_by_harness = $false; customer_growth = $false
+          }
+          Write-Host ('::notice::' + ($summary | ConvertTo-Json -Compress))
