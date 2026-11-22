@@ -54,7 +54,7 @@ scoop uninstall klakk
 
 [Scoop検証ワークフロー](https://github.com/levindong2026/klakk-downloads/actions/workflows/scoop-package-validation.yml)では、Scoop公式スキーマ、公開済みの旧版からの更新、新規導入と削除をネイティブx64・ARM64環境で確認します。インストーラーの容量とSHA-256、導入後の実行ファイルのアーキテクチャ、14音源とスタートメニューも確認します。別のインストール先を保護する動作と、アプリデータ内のテスト用マーカーが残ることも確認します。
 
-このメタデータ準備だけでは、1.4.4のScoop経由でのインストールや更新は検証されていません。
+[2026年11月22日の検証](https://github.com/levindong2026/klakk-downloads/actions/runs/45019558379)では、ネイティブのWindows x64・ARM64環境で、Scoopによる1.4.3から1.4.4への更新、新規インストール、強制再インストール、アンインストールを確認しました。Klakkは起動せず、アプリデータ内のテスト用マーカーが残ることと、アンインストール後のクリーンアップも確認しました。
 
 [2026年11月5日の検証](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872)では、ネイティブのx64とARM64で旧Scoop版から1.4.2への通常の更新、新規インストール、強制再インストール、アンインストールを確認し、Klakkの起動や決済は行っていません。
 

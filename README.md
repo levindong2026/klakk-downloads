@@ -55,7 +55,7 @@ If you already use WinGet, use the command below for a new Klakk installation. T
 winget install --id Klakk.Klakk --exact --source winget
 ```
 
-Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) currently installs website version 1.4.4 from that version's universal installer. [Package checks for 1.4.2](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) passed on native x64 and ARM64 Windows. This custom source is separate from Scoop’s main and Extras catalogs.
+Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) currently installs website version 1.4.4 from that version's universal installer. [Package checks for 1.4.4](https://github.com/levindong2026/klakk-downloads/actions/runs/45019558379) passed on native x64 and ARM64 Windows. This custom source is separate from Scoop’s main and Extras catalogs.
 
 ## Install on Mac
 
