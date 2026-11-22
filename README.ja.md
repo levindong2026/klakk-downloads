@@ -49,6 +49,12 @@ OBSで録画する場合は、[キーボード音の再生・音声取り込み�
 
 Windows版1.4.3からの更新では、既存のインストール先に1.4.4のインストーラーを実行します。先に旧版をアンインストールする必要はありません。
 
+WinGet をお使いの方は、次のコマンドで Klakk を新規インストールできます。WinGet のコミュニティ ソースでは、上記と同じ未署名の Windows インストーラーを使用します。
+
+```powershell
+winget install --id Klakk.Klakk --exact --source winget
+```
+
 Scoopをすでに利用している場合は、[Klakk開発者が管理するWindowsバケット](packaging/scoop/README.ja.md)から、1.4.4の共通インストーラーで同版を導入できます。[1.4.2 のパッケージ検証](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872)はネイティブ x64・ARM64 の両方で通過しました。Scoopのmain・Extras公式カタログへの収録とは別の独自配布元です。
 
 ## Macでのインストール

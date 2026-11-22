@@ -49,6 +49,12 @@ If the purchase service requires an update, Klakk 1.4.4 shows a **Download Updat
 
 For an update from Windows 1.4.3, run the 1.4.4 installer over your existing installation; you do not need to uninstall first.
 
+If you already use WinGet, use the command below for a new Klakk installation. The WinGet community source uses the same unsigned Windows installer.
+
+```powershell
+winget install --id Klakk.Klakk --exact --source winget
+```
+
 Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.md) currently installs website version 1.4.4 from that version's universal installer. [Package checks for 1.4.2](https://github.com/levindong2026/klakk-downloads/actions/runs/42089446872) passed on native x64 and ARM64 Windows. This custom source is separate from Scoop’s main and Extras catalogs.
 
 ## Install on Mac
