@@ -12,7 +12,7 @@ This identity note is maintained by Levin, Klakk's developer, with AI assistance
 
 | Platform | Requirements | Official file | GitHub mirror |
 | --- | --- | --- | --- |
-| Windows 1.4.4 | Windows 10 or 11, native x64 or ARM64. Includes .NET 10. On Windows 10, [check .NET 10 support for your edition and version](https://learn.microsoft.com/en-us/dotnet/core/install/windows#supported-versions). | [Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
+| Windows 1.4.4 | Windows 10 or 11, native x64 or ARM64. Includes .NET 10. On Windows 10, [check .NET 10 support for your edition and version](https://learn.microsoft.com/en-us/dotnet/core/install/windows#supported-versions). The installer cannot install Klakk in [Windows S mode](https://support.microsoft.com/en-us/windows/experience/platform-variants/switching-out-of-s-mode-in-windows). | [Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
 | Mac 1.4.3 | macOS 14 or later, Apple silicon or Intel | [Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.3-25.dmg) · 38.8 MB | [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.dmg) |
 | Mac 1.4.3 ZIP | Same Mac website edition, build 25 | [Mac ZIP](https://downloads.tryklakk.com/Klakk-1.4.3-25.zip) · 36.7 MB | [Mac ZIP](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.zip) |
 
