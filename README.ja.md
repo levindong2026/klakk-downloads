@@ -2,7 +2,7 @@
 
 Klakk開発者が管理する公式ダウンロードページです。普段のキーボードで文字を入力すると、Klakkが打鍵音を再生します。キーの感触や、キーボード自体が出す物理的な音は変わりません。
 
-[English](README.md) · [公式サイト](https://tryklakk.com/ja/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
+[English](README.md) · [公式サイト](https://tryklakk.com/ja/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [14音色をクリック・タップで試聴](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=github_readme_sound_samples_ja#sound-preview-samples)
 
 ## Klakk をダウンロード
 

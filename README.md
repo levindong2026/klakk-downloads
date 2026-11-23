@@ -6,7 +6,7 @@ Klakk at **tryklakk.com** and Klack at **tryklack.com** are separate products. A
 
 This identity note is maintained by Levin, Klakk's developer, with AI assistance.
 
-[日本語](README.ja.md) · [Website](https://tryklakk.com/en/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [Try the sounds in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
+[日本語](README.ja.md) · [Website](https://tryklakk.com/en/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads) · [Play the 14 sound samples](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=github_readme_sound_samples_en#sound-preview-samples)
 
 ## Download Klakk
 
