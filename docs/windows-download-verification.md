@@ -24,7 +24,7 @@ Use **Settings → System → About → System type** if you are unsure of the P
 
 ## Compare your saved file with its exact checksum
 
-Open the [official verification table](https://github.com/levindong2026/klakk-downloads#verify-the-download). Choose the row for the release asset you downloaded. It lists the filename, byte count and full SHA-256 for each installer; the release also provides checksum text files.
+For an archived 1.4.1 installer, match its exact filename, byte count and SHA-256 in the [1.4.1 checksum table](https://github.com/levindong2026/klakk-downloads/blob/7f29623534cd3b2edc2aea22ab73ac9e8a8f165c/README.md#earlier-141-checksums). The [original 1.4.1 release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.1) also lists the two checksum files, `SHA256SUMS.txt` and `SHA256SUMS-windows-native.txt`.
 
 For the common 1.4.1 installer, open PowerShell in the folder where you saved it and run:
 
