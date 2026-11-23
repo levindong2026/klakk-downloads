@@ -9,10 +9,9 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 | OS | 動作環境 | 公式配布ファイル | GitHub ミラー |
 | --- | --- | --- | --- |
 | Windows 1.4.4 | Windows 10 / 11、ネイティブ x64 または ARM64。.NET 10 を同梱。Windows 10 の場合は、[お使いのエディションとバージョンが .NET 10 のサポート対象か確認](https://learn.microsoft.com/ja-jp/dotnet/core/install/windows#supported-versions)してください。 [Windows の S モード](https://support.microsoft.com/ja-jp/windows/experience/platform-variants/switching-out-of-s-mode-in-windows) では、このインストーラーで Klakk をインストールできません。 | [Windows インストーラー](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows インストーラー](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
-| Mac 1.4.3 | macOS 14 以降、Apple シリコンまたは Intel Mac | [Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.3-25.dmg) · 38.8 MB | [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.dmg) |
-| Mac 1.4.3 ZIP | 同じ Mac 公式サイト版、ビルド 25 | [Mac ZIP](https://downloads.tryklakk.com/Klakk-1.4.3-25.zip) · 36.7 MB | [Mac ZIP](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.zip) |
+| Mac 1.4.4（ビルド 26） | macOS 14 以降、Apple シリコンまたは Intel Mac | [Mac DMG](https://tryklakk.com/download/klakk.dmg) · 38.9 MB | — |
 
-[Windows 1.4.4のリリース情報](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4) · [Windows 1.4.4のチェックサム](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.3のリリース情報](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [Mac 1.4.3のチェックサム](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/SHA256SUMS.txt) · [公式サイトのダウンロード案内](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
+[Windows 1.4.4のリリース情報](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4) · [Windows 1.4.4のチェックサム](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.4のファイル照合](https://tryklakk.com/ja/verify-installer/) · [旧版Mac 1.4.3のリリースと配布ファイル](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [公式サイトのダウンロード案内](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
 初回起動から **3 日間**、全機能を無料で試せます。Mac 公式サイト版と Windows 版は別売りで、どちらも **US$6.99 の買い切り（適用される税は別途）**です。公式サイト版はアプリから Creem で購入できます。既存の Pancake・Creem ライセンスも引き続き利用できます。Creem で新しく購入したライセンス 1 件につき、**同じ OS の端末を最大 3 台**まで使えます。Mac App Store 版は Apple の購入手続きを利用し、ライセンスは別です。
 
@@ -59,16 +58,16 @@ Scoopをすでに利用している場合は、[Klakk開発者が管理するWin
 
 ## Macでのインストール
 
-1. `Klakk-1.4.3-25.dmg`をダウンロードして開きます。
+1. [公式サイトからMac用DMGをダウンロード](https://tryklakk.com/download/klakk.dmg)し、`Klakk-1.4.4-26.dmg`を開きます。
 2. Klakkを「アプリケーション」にドラッグし、そこにコピーしたアプリを開きます。
 3. Klakkの案内に従い、「システム設定 → プライバシーとセキュリティ → 入力監視」でKlakkを許可します。macOSが求めた場合はアプリを終了して開き直します。
 4. サウンドパックと音量を選び、普段使うアプリで入力します。
 
-DMGにはDeveloper ID署名とAppleの公証を受けたKlakk 1.4.3（ビルド 25）が入っています。入力監視は、ほかのアプリでのキー入力に合わせて音を再生するために使います。権限を許可する前に[Mac版のプライバシーポリシー](https://tryklakk.com/ja/privacy/)をご確認ください。
+現在のDMGにはKlakk 1.4.4（ビルド 26）が入っています。アプリとDMGはDeveloper IDで署名され、Appleの公証を受けています。入力監視は、ほかのアプリでのキー入力に合わせて音を再生するために使います。権限を許可する前に[Mac版のプライバシーポリシー](https://tryklakk.com/ja/privacy/)をご確認ください。
 
 [Mac版のインストールガイド](https://tryklakk.com/ja/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
-すでに Homebrew を利用している場合は、[Klakk 開発者の tap](https://github.com/levindong2026/homebrew-klakk)から同じ公式サイト版を導入できます。[1.4.3（ビルド 25）の Homebrew インストール検証](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779)は、GitHub のテスト環境（Apple シリコンの macOS 26 と Intel の macOS 15）で通過しました。[旧版 1.4.2 の検証記録](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789)も参照できます。この tap は開発者管理で、Homebrew の公式カタログとは別です。
+すでに Homebrew を利用している場合は、[Klakk 開発者の tap](https://github.com/levindong2026/homebrew-klakk)から導入できるのは、現時点では公式サイト版の1.4.3（ビルド 25）です。[1.4.3（ビルド 25）の Homebrew インストール検証](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779)は、GitHub のテスト環境（Apple シリコンの macOS 26 と Intel の macOS 15）で通過しました。[旧版 1.4.2 の検証記録](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789)も参照できます。この tap は開発者管理で、Homebrew の公式カタログとは別です。
 
 ## 14種類のサウンドパック
 
@@ -80,13 +79,21 @@ DMGにはDeveloper ID署名とAppleの公証を受けたKlakk 1.4.3（ビルド 
 
 保存したファイルを、選んだインストーラーの行と照合します。開く前に、バイト数とSHA-256の全桁を確認してください。ダウンロード完了の表示やファイル名の一致だけでは、この照合はできません。以下はKlakk開発者のLevinが管理する確認手順で、文章作成にはAIを補助的に使用しています。
 
-保存した Mac の DMG や Windows の EXE は、開く前に[ブラウザーで照合](https://tryklakk.com/ja/verify-installer/)できます。ファイルは端末内で読み込みます。Mac の ZIP は下のコマンドで確認してください。
+保存した Mac の DMG や Windows の EXE は、開く前に[ブラウザーで照合](https://tryklakk.com/ja/verify-installer/)できます。ファイルは端末内で読み込みます。旧版のMac用DMGとZIPは、下のコマンドのファイル名を置き換えて照合できます。
 
-### 現在の公式ファイル：Windows 1.4.4／Mac 1.4.3
+### 現在の公式ファイル：Windows 1.4.4／Mac 1.4.4
 
 | ファイル | バイト数 | SHA-256 |
 | --- | ---: | --- |
 | `Klakk-1.4.4-Windows-Setup.exe` | 116945602 | `65413b1048ff189186cfc683ed00feb6bc7e39f711930bb24e5a0a1eff54e406` |
+| `Klakk-1.4.4-26.dmg` | 38885808 | `8dc69ccda0687967c93f9ed05ea4fe39db3b4f303308598cdecf9ea0da5d6729` |
+
+### 旧版Mac 1.4.3（ビルド 25）
+
+当時のDMGとZIPは[旧版のリリース](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3)から入手できます。[公開チェックサム](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/SHA256SUMS.txt)も確認できます。
+
+| ファイル | バイト数 | SHA-256 |
+| --- | ---: | --- |
 | `Klakk-1.4.3-25.dmg` | 38834387 | `f5d61c55d4a8992fde0a5bfa3a4ac3ca1fbebbdaf7fc09fde09b9a5f0a8eb8cc` |
 | `Klakk-1.4.3-25.zip` | 36740323 | `01ecb129a8dd182a789eaa7c53d94fa65e6eb1e1b358a54db42e34d612ce73d6` |
 
@@ -103,20 +110,20 @@ Get-FileHash -LiteralPath '.\Klakk-1.4.4-Windows-Setup.exe' -Algorithm SHA256 | 
 
 ### Mac：ターミナルで確認
 
-DMG を保存したフォルダーで実行します。Mac ZIP を確認する場合は ZIP のファイル名に置き換え、表の該当行と比べてください。
+DMG を保存したフォルダーで実行します。旧版のMac用DMGやZIPを確認する場合は、保存したファイル名に置き換え、旧版の表の該当行と比べてください。
 
 ```sh
-stat -f '%z' 'Klakk-1.4.3-25.dmg'
-shasum -a 256 'Klakk-1.4.3-25.dmg'
+stat -f '%z' 'Klakk-1.4.4-26.dmg'
+shasum -a 256 'Klakk-1.4.4-26.dmg'
 ```
 
-1行目にバイト数、2行目にSHA-256とファイル名が表示されます。ハッシュの英字は大文字・小文字を区別せず、全桁を照合します。バイト数またはSHA-256が一致しないときは、開く前に選んだ版とファイル名を確認し、[Windows 1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4)または[Mac 1.4.3](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3)の、該当する公式リリースから取り直してください。チェックサムの一致は、開発者署名の代わりにはなりません。現在のWindowsインストーラーは未署名です。
+1行目にバイト数、2行目にSHA-256とファイル名が表示されます。ハッシュの英字は大文字・小文字を区別せず、全桁を照合します。バイト数またはSHA-256が一致しないときは、開く前に選んだ版とファイル名を確認し、[Windows 1.4.4](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4)または[Macの公式ダウンロード](https://tryklakk.com/download/klakk.dmg)で該当するファイルを取り直してください。旧版は配布記録を確認してください。チェックサムの一致は、開発者署名の代わりにはなりません。現在のWindowsインストーラーは未署名です。
 
-[MicrosoftのGet-FileHash説明](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1) · [Windows 1.4.4のSHA256SUMS.txt](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.3のSHA256SUMS.txt](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/SHA256SUMS.txt)
+[MicrosoftのGet-FileHash説明](https://learn.microsoft.com/ja-jp/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1) · [Windows 1.4.4のSHA256SUMS.txt](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [現行Mac用DMGの照合方法](https://tryklakk.com/ja/verify-installer/)
 
 [サポート](https://tryklakk.com/ja/support/) · [利用規約](https://tryklakk.com/ja/terms/) · [Windows版のプライバシー](https://tryklakk.com/ja/windows/privacy/)
 
-このリポジトリには公開ダウンロード案内を置いています。アプリのソースコードは含みません。GitHubが自動生成する「Source code」のZIP・tar.gzには配布案内、マニフェストと検証スクリプトが入ります。インストールには、リリース欄にある `.exe`、`.dmg`、または Mac アプリの `.zip` を選んでください。公開配布によってアプリがオープンソースになるわけではなく、製品の利用規約が適用されます。
+このリポジトリには公開ダウンロード案内を置いています。アプリのソースコードは含みません。GitHubが自動生成する「Source code」のZIP・tar.gzには配布案内、マニフェストと検証スクリプトが入ります。新しくインストールする場合は、[Mac用の公式DMG](https://tryklakk.com/download/klakk.dmg)か、上のWindows用 `.exe` を選んでください。旧版のMac用 `.dmg` と `.zip` は配布記録から入手できます。公開配布によってアプリがオープンソースになるわけではなく、製品の利用規約が適用されます。
 
 WinGet コミュニティリポジトリには、[2026年11月17日の更新](https://github.com/microsoft/winget-pkgs/pull/481998)で [Klakk 1.4.4](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.4) が登録されました。[Chocolatey の 1.4.4 パッケージ](https://community.chocolatey.org/packages/klakk/1.4.4) は2026年11月19日に承認されました。Klakk 開発者の Scoop バケットでも 1.4.4 をインストールできます。公式インストーラーは上の直接ダウンロードから入手できます。
 

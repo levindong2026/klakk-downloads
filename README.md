@@ -13,10 +13,9 @@ This identity note is maintained by Levin, Klakk's developer, with AI assistance
 | Platform | Requirements | Official file | GitHub mirror |
 | --- | --- | --- | --- |
 | Windows 1.4.4 | Windows 10 or 11, native x64 or ARM64. Includes .NET 10. On Windows 10, [check .NET 10 support for your edition and version](https://learn.microsoft.com/en-us/dotnet/core/install/windows#supported-versions). The installer cannot install Klakk in [Windows S mode](https://support.microsoft.com/en-us/windows/experience/platform-variants/switching-out-of-s-mode-in-windows). | [Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
-| Mac 1.4.3 | macOS 14 or later, Apple silicon or Intel | [Mac DMG](https://downloads.tryklakk.com/Klakk-1.4.3-25.dmg) · 38.8 MB | [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.dmg) |
-| Mac 1.4.3 ZIP | Same Mac website edition, build 25 | [Mac ZIP](https://downloads.tryklakk.com/Klakk-1.4.3-25.zip) · 36.7 MB | [Mac ZIP](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/Klakk-1.4.3-25.zip) |
+| Mac 1.4.4 (build 26) | macOS 14 or later, Apple silicon or Intel | [Mac DMG](https://tryklakk.com/download/klakk.dmg) · 38.9 MB | — |
 
-[Windows 1.4.4 release notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4) · [Windows 1.4.4 checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.3 release notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [Mac 1.4.3 checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/SHA256SUMS.txt) · [Website download guide](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
+[Windows 1.4.4 release notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4) · [Windows 1.4.4 checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.4 file verification](https://tryklakk.com/en/verify-installer/) · [Archived Mac 1.4.3 release and files](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [Website download guide](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
 The full-featured trial lasts **3 days from first launch**. The Mac and Windows website editions are separate one-time purchases at **US$6.99 each, plus applicable tax**. New website-edition purchases use Creem checkout in the app. Existing Pancake and Creem licenses remain supported. Each new Creem license covers up to **3 devices on the same platform**. The Mac App Store edition uses Apple's purchase flow and has a separate license.
 
@@ -59,16 +58,16 @@ Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.
 
 ## Install on Mac
 
-1. Download and open `Klakk-1.4.3-25.dmg`.
+1. [Download the official Mac DMG](https://tryklakk.com/download/klakk.dmg) and open `Klakk-1.4.4-26.dmg`.
 2. Drag Klakk into Applications, then open the copy in Applications.
 3. Follow Klakk's prompt to enable **System Settings → Privacy & Security → Input Monitoring**. Quit and reopen Klakk if macOS requests it.
 4. Choose a sound pack and volume, then type in your usual writing app.
 
-The DMG contains Klakk 1.4.3, build 25, signed with Developer ID and notarized by Apple. Input Monitoring lets the app react to keyboard events while you type in other apps. Read the [Mac privacy policy](https://tryklakk.com/en/privacy/) before granting access.
+The current DMG contains Klakk 1.4.4, build 26. The app and disk image are signed with Developer ID and notarized by Apple. Input Monitoring lets the app react to keyboard events while you type in other apps. Read the [Mac privacy policy](https://tryklakk.com/en/privacy/) before granting access.
 
 [Mac installation and troubleshooting](https://tryklakk.com/en/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
 
-Already use Homebrew? The [Klakk-maintained Mac tap](https://github.com/levindong2026/homebrew-klakk) installs the same signed and notarized website edition. [Homebrew installation checks for 1.4.3, build 25](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779) passed on GitHub-hosted macOS 26 (Apple silicon) and macOS 15 (Intel). See the [earlier 1.4.2 checks](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789) for that release. This is a publisher-maintained tap, separate from Homebrew's official cask catalog.
+Already use Homebrew? The [Klakk-maintained Mac tap](https://github.com/levindong2026/homebrew-klakk) currently installs the signed and notarized website edition 1.4.3, build 25. [Homebrew installation checks for 1.4.3, build 25](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779) passed on GitHub-hosted macOS 26 (Apple silicon) and macOS 15 (Intel). See the [earlier 1.4.2 checks](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789) for that release. This is a publisher-maintained tap, separate from Homebrew's official cask catalog.
 
 ## Compare the 14 included sound packs
 
@@ -88,15 +87,25 @@ Both platforms include:
 
 Check the saved file against the row for the installer you chose. Compare its byte count and the entire SHA-256 value before opening it. A completed download or a matching filename alone does not perform this comparison.
 
-To check a saved Mac DMG or Windows EXE without opening it, use the [browser file checker](https://tryklakk.com/en/verify-installer/). The browser reads the file on your device. For the Mac ZIP, use the commands below.
+To check a saved Mac DMG or Windows EXE without opening it, use the [browser file checker](https://tryklakk.com/en/verify-installer/). The browser reads the file on your device. For an archived Mac file, use the commands below and substitute its filename.
 
-The [Windows 1.4.1 verification checklist](docs/windows-download-verification.md) is an older reference. For Windows 1.4.4 and Mac 1.4.3, use the matching current file row and commands below.
+The [Windows 1.4.1 verification checklist](docs/windows-download-verification.md) is an older reference. Use the current file rows and commands below for Windows 1.4.4 and Mac 1.4.4.
 
 | File | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `Klakk-1.4.4-Windows-Setup.exe` | 116945602 | `65413b1048ff189186cfc683ed00feb6bc7e39f711930bb24e5a0a1eff54e406` |
+| `Klakk-1.4.4-26.dmg` | 38885808 | `8dc69ccda0687967c93f9ed05ea4fe39db3b4f303308598cdecf9ea0da5d6729` |
+
+### Archived Mac 1.4.3 (build 25)
+
+See the [archived Mac release](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) for the original DMG and ZIP files and its [published checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.3/SHA256SUMS.txt).
+
+| File | Bytes | SHA-256 |
+| --- | ---: | --- |
 | `Klakk-1.4.3-25.dmg` | 38834387 | `f5d61c55d4a8992fde0a5bfa3a4ac3ca1fbebbdaf7fc09fde09b9a5f0a8eb8cc` |
 | `Klakk-1.4.3-25.zip` | 36740323 | `01ecb129a8dd182a789eaa7c53d94fa65e6eb1e1b358a54db42e34d612ce73d6` |
+
+### Verify with PowerShell or Terminal
 
 On Windows, use PowerShell:
 
@@ -111,20 +120,20 @@ The first command prints the byte count. The second prints the complete hash. If
 
 On Mac, use Terminal:
 
-Run these commands in the folder where you saved the DMG. For the Mac ZIP, substitute its filename and compare against the ZIP row.
+Run these commands in the folder where you saved the DMG. For an archived Mac DMG or ZIP, substitute its filename and compare against the archive row.
 
 ```sh
-stat -f '%z' 'Klakk-1.4.3-25.dmg'
-shasum -a 256 'Klakk-1.4.3-25.dmg'
+stat -f '%z' 'Klakk-1.4.4-26.dmg'
+shasum -a 256 'Klakk-1.4.4-26.dmg'
 ```
 
-The first Mac command prints the byte count; the second prints the SHA-256 and filename. Compare the byte count and the entire hash with the matching row in the table. Uppercase and lowercase hexadecimal letters represent the same hash. If it differs, obtain the file again from the official release before running it. A matching checksum does not replace publisher signing. See Microsoft's [Get-FileHash documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1). These verification instructions are maintained by Levin, the Klakk developer, with AI-assisted writing.
+The first Mac command prints the byte count. The second prints the SHA-256 and filename. Compare the byte count and the entire hash with the matching row in the table. Uppercase and lowercase hexadecimal letters represent the same hash. If it differs, get a fresh copy from the [official Mac download](https://tryklakk.com/download/klakk.dmg) or the matching archival release before opening it. A matching checksum does not replace publisher signing. See Microsoft's [Get-FileHash documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1). These verification instructions are maintained by Levin, the Klakk developer, with AI-assisted writing.
 
 ## Support and repository contents
 
 [Support](https://tryklakk.com/en/support/) · [Terms](https://tryklakk.com/en/terms/) · [Windows privacy](https://tryklakk.com/en/windows/privacy/)
 
-This repository contains public download documentation, candidate package manifests and installer validation workflows. The application source remains private. GitHub's automatically generated “Source code” ZIP and tar.gz files contain repository files, not an installable app. To install Klakk, choose the named `.exe`, `.dmg` or Mac app `.zip` release asset instead. Klakk remains subject to its product terms; publishing installers here does not grant an open-source license.
+This repository contains public download documentation, candidate package manifests and installer validation workflows. The application source remains private. GitHub's automatically generated “Source code” ZIP and tar.gz files contain repository files, not an installable app. For a new Mac installation, use the [official Mac DMG](https://tryklakk.com/download/klakk.dmg). For Windows, choose the named `.exe` above. The older Mac `.dmg` and `.zip` files remain in their release archives. Klakk remains subject to its product terms; publishing installers here does not grant an open-source license.
 
 The WinGet community repository lists [Klakk 1.4.4](https://github.com/microsoft/winget-pkgs/tree/master/manifests/k/Klakk/Klakk/1.4.4) after [the November 17 update](https://github.com/microsoft/winget-pkgs/pull/481998). The [Chocolatey 1.4.4 package](https://community.chocolatey.org/packages/klakk/1.4.4) was approved on November 19, 2026. The Klakk-maintained Scoop bucket also installs 1.4.4. The direct download above provides the official Windows installer.
 
