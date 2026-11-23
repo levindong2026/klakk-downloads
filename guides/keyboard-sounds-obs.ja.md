@@ -53,4 +53,4 @@ OBSのAudio MixerからAdvanced Audio Propertiesを開き、対象ソースを�
 
 14音源を再生でき、公式サイト版の試用は初回起動から3日間です。継続利用は各プラットフォームでUS$6.99の買い切りで、適用税が加わります。Macの入力監視ではキーイベントや物理キーコードをローカル処理します。公式サイト版は入力文字や生のキーイベントを送信しませんが、使用・設定やライセンスの通信があります。通信の範囲は[Mac版のプライバシー説明](https://tryklakk.com/ja/privacy/)と[Windows版の説明](https://tryklakk.com/ja/windows/privacy/)で確認してください。
 
-[現在の公式サイト版のダウンロードとファイル確認](../README.ja.md) · [旧版1.4.1で音が出ないときの確認](klakk-no-sound.ja.md) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software_discovery&utm_content=obs_capture_checklist_ja)
+[Mac・Windowsの公式サイト版をダウンロード](https://tryklakk.com/ja/download/) · [保存したファイルを照合](https://tryklakk.com/ja/verify-installer/) · [旧版1.4.1で音が出ないときの確認](klakk-no-sound.ja.md) · [ブラウザで音を試す](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software_discovery&utm_content=obs_capture_checklist_ja)
