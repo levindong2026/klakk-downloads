@@ -25,7 +25,7 @@ Compare all 14 included packs by clicking or tapping their preview buttons. Each
 
 Prefer a short video? [Watch the 44-second English sound preview](https://www.youtube.com/watch?v=rkSXD7r3Dy4) for edited samples of Gateron Red, Cherry MX Blue and Banana Split Stock. The browser demo lets you try all 14 sound packs.
 
-For a longer listen, [watch seven included Klakk sound packs in 80 seconds](https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c). Each uses the same edited website-preview sequence; this is not live app playback or a latency test. [Read the complete copyright, MIT license and provenance notice for the seven recordings](docs/klakk-seven-included-sounds-en-NOTICE.txt). [Sequence guide and trial details](docs/seven-keyboard-sounds.md).
+The seven-pack video shows the earlier US$4.49 price. The website editions now cost US$6.99 once per platform, plus applicable tax. For a longer listen, [watch seven included Klakk sound packs in 80 seconds](https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c). Each uses the same edited website-preview sequence; this is not live app playback or a latency test. [Read the complete copyright, MIT license and provenance notice for the seven recordings](docs/klakk-seven-included-sounds-en-NOTICE.txt). [Sequence guide and trial details](docs/seven-keyboard-sounds.md).
 
 Installed but silent? Follow the [current Mac and Windows first-sound steps](https://tryklakk.com/en/download/#first-sound). The [1.4.1 no-sound checklist](guides/klakk-no-sound.md) remains available for older installations.
 
