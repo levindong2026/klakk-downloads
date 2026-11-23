@@ -1,6 +1,8 @@
 # Windows packaging candidates — not a public release
 
-The official Windows 1.4.1 installer contains both native architectures and is 202,233,968 bytes. This experiment checks whether optional, smaller x64 and ARM64 installers can carry **exactly the same application files**. The existing universal download, its checksum and every package-manager manifest remain unchanged.
+For the current Windows release, use the [official Windows download page](https://tryklakk.com/en/windows/) and its [installer verification guide](https://tryklakk.com/en/blog/verify-keyboard-sound-download-windows/).
+
+This packaging experiment used the official Windows 1.4.1 universal installer, which contained both native architectures and was 202,233,968 bytes. It checked whether optional, smaller x64 and ARM64 installers could carry **exactly the same application files**. The experiment kept the universal download, its checksum and every package-manager manifest unchanged.
 
 The workflow installs the SHA-256-pinned official universal package on fresh native x64 and ARM64 runners, copies every payload file except the root installer-generated uninstaller files, then uninstalls it. It does not rebuild the application or use the older `*-candidate.zip` archives. The application source is not in this repository.
 
@@ -17,4 +19,4 @@ Before any public release, each native runner must verify:
 
 The scripts never launch Klakk or send a licensing, first-run or purchase request. CI file transfers and installations are QA, not customers or growth. A passing result would establish packaging correctness and file-size reduction within these runners; it would not prove physical-hardware behavior, a higher conversion rate, customer downloads or customer installations.
 
-Actions artifacts are temporary **candidates**. No release upload or website modification is automated by this workflow. The report retains `publicly_released: false` until a separately verified release is made. Current public instructions continue to use the existing universal installer.
+Actions artifacts are temporary **candidates**. No release upload or website modification is automated by this workflow. The report retains `publicly_released: false` until a separately verified release is made.
