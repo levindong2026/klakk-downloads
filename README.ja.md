@@ -69,7 +69,7 @@ Scoopをすでに利用している場合は、[Klakk開発者が管理するWin
 
 [Mac版のインストールガイド](https://tryklakk.com/ja/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
 
-すでに Homebrew を利用している場合は、[Klakk 開発者の tap](https://github.com/levindong2026/homebrew-klakk)でMac公式サイト版の現行バージョンとインストール手順を確認できます。[1.4.3（ビルド 25）の Homebrew インストール検証](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779)は、GitHub のテスト環境（Apple シリコンの macOS 26 と Intel の macOS 15）で通過しました。[旧版 1.4.2 の検証記録](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789)も参照できます。この tap は開発者管理で、Homebrew の公式カタログとは別です。
+すでに Homebrew を利用している場合は、[Klakk 開発者の tap](https://github.com/levindong2026/homebrew-klakk)から Mac 公式サイト版を導入できます。[現行 1.4.4（ビルド 26）の検証](https://github.com/levindong2026/homebrew-klakk/actions/runs/45142049391)では、GitHub の Apple シリコン（macOS 26）と Intel（macOS 15）の両環境で、新規インストールとアンインストールを確認しました。アプリの起動は検証の範囲外です。[Homebrew の Mac 動作環境](https://docs.brew.sh/Installation#macos-requirements)では、現在 Apple シリコン搭載の macOS 15 以降がサポート対象です。Klakk が動作する Mac のうち、macOS 14 や Intel Mac は Homebrew の [Tier 3](https://docs.brew.sh/Support-Tiers#tier-3) に当たります。Homebrew が使えない場合は、[公式 DMG](https://tryklakk.com/download/klakk.dmg)を利用できます。[旧版 1.4.3（ビルド 25）](https://github.com/levindong2026/homebrew-klakk/actions/runs/45024474779)と[旧版 1.4.2](https://github.com/levindong2026/homebrew-klakk/actions/runs/42089541789)の検証記録も参照できます。この tap は開発者が管理しており、Homebrew の公式 cask カタログとは別です。
 
 ## 14種類のサウンドパック
 
