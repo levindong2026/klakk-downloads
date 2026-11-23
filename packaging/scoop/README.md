@@ -1,6 +1,8 @@
 # Install Klakk with Scoop on Windows
 
-This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.4** on x64 and ARM64 with Windows 10/11. 32-bit Windows and Scoop global installation are unsupported.
+This is a **Klakk-maintained custom Scoop bucket**, separate from Scoop’s main and Extras catalogs. It installs the official Windows app version **1.4.4** on supported Windows 10 and 11 PCs with native x64 or ARM64. 32-bit Windows and Scoop global installation are unsupported.
+
+The installer includes .NET 10. On Windows 10, [check .NET 10 support for your edition and version](https://learn.microsoft.com/en-us/dotnet/core/install/windows#supported-versions) before installing. The installer cannot install Klakk in [Windows S mode](https://support.microsoft.com/en-us/windows/experience/platform-variants/switching-out-of-s-mode-in-windows).
 
 Both architectures use the same **116.9 MB** [official installer](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4). Setup selects the native build for your PC. The previous architecture-specific 1.4.1 packages remain available in their original release.
 
