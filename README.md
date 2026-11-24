@@ -39,7 +39,7 @@ Want to understand the preview levels? Read the [original preview-file measureme
 
 1. Download `Klakk-1.4.4-Windows-Setup.exe`. One installer chooses the native ARM64 or x64 version automatically and includes its runtime.
 2. The current Windows installer is **unsigned**. Review any Windows security warning and decide whether you trust the download before running it. The checksums below let you compare the file with this release; they do not substitute for publisher signing.
-3. Run the installer and open Klakk. In **General**, turn on **Enable Klakk**. In **Audio**, choose a sound pack, set a comfortable volume and select your **Output Device**. **System Default** uses the Windows default output.
+3. Run the installer. If the final screen shows **Launch Klakk**, leave it selected and click **Finish**. If the app did not open, open **Klakk** from the Windows Start menu. In **General**, turn on **Enable Klakk**. In **Audio**, choose a sound pack, set a comfortable volume and select your **Output Device**. **System Default** uses the Windows default output.
 4. Use a physical keyboard to type a sentence in Notepad. If you hear nothing, check the Windows volume mixer and the trial or license status, then follow the setup guide below.
 
 [Windows setup and troubleshooting](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).
