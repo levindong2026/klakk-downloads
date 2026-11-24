@@ -29,7 +29,7 @@ https://github.com/user-attachments/assets/e095b634-fb1b-476f-81ec-f9c5aa0a7c3c
 
 同梱音源7種類を、同じ12打の順番・間隔で各8秒ずつ再生した編集プレビューです。画面は英語で、ナレーションや日本語字幕はありません。アプリの操作録画や、音の大きさをそろえた比較、遅延測定を示す映像ではありません。
 
-[14音色をブラウザーで試聴](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)して、好きな音を選べます。[Mac公式サイト版](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)と[Windows版](https://tryklakk.com/ja/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)は、初回起動から3日間、14音色を試せます。継続利用は各プラットフォームUS$6.99の買い切り＋適用税です。公式サイトMac版・Windows版・Mac App Store版は別ライセンスです。
+[14音色をブラウザーで試聴](https://tryklakk.com/ja/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)して、好きな音を選べます。[Mac公式サイト版](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads#website-mac)と[Windows版](https://tryklakk.com/ja/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)は、初回起動から3日間、14音色を試せます。継続利用は各プラットフォームUS$6.99の買い切り＋適用税です。公式サイトMac版・Windows版・Mac App Store版は別ライセンスです。
 
 Klakk開発者Levinが管理する紹介です。説明文の作成にAIを補助として使用しました。[この動画の音源の出典とライセンス](docs/klakk-seven-included-sounds-en-NOTICE.txt)
 
