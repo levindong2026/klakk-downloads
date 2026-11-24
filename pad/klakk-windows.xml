@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<XML_DIZ_INFO>
+  <MASTER_PAD_VERSION_INFO>
+    <MASTER_PAD_VERSION>4.0</MASTER_PAD_VERSION>
+    <MASTER_PAD_EDITOR>Klakk publisher-maintained XML</MASTER_PAD_EDITOR>
+    <MASTER_PAD_INFO>Uncertified publisher metadata. Unavailable personal details and AppVisor IDs are omitted.</MASTER_PAD_INFO>
+    <CERTIFIED>N</CERTIFIED>
+  </MASTER_PAD_VERSION_INFO>
+  <Company_Info>
+    <Company_Name>Klakk</Company_Name>
+    <Company_WebSite_URL>https://tryklakk.com/</Company_WebSite_URL>
+    <Contact_Info>
+      <Contact_Email>support@tryklakk.com</Contact_Email>
+    </Contact_Info>
+    <Support_Info>
+      <Support_Email>support@tryklakk.com</Support_Email>
+    </Support_Info>
+  </Company_Info>
+  <Program_Info>
+    <Program_Name>Klakk for Windows</Program_Name>
+    <Program_Version>1.4.4</Program_Version>
+    <Program_Release_Month>11</Program_Release_Month>
+    <Program_Release_Day>17</Program_Release_Day>
+    <Program_Release_Year>2026</Program_Release_Year>
+    <Program_Cost_Dollars>6.99</Program_Cost_Dollars>
+    <Program_Type>Shareware</Program_Type>
+    <Program_Release_Status>Minor Update</Program_Release_Status>
+    <Program_Install_Support>Install and Uninstall</Program_Install_Support>
+    <Program_OS_Support>WinOther</Program_OS_Support>
+    <Program_Target_Platform>Windows</Program_Target_Platform>
+    <Program_Language>English</Program_Language>
+    <File_Info>
+      <File_Size_Bytes>116945602</File_Size_Bytes>
+      <File_Size_K>114204.69</File_Size_K>
+      <File_Size_MB>111.53</File_Size_MB>
+    </File_Info>
+    <Expire_Info>
+      <Has_Expire_Info>Y</Has_Expire_Info>
+      <Expire_Count>3</Expire_Count>
+      <Expire_Based_On>Days</Expire_Based_On>
+      <Expire_Other_Info>The 3-day trial starts on first launch. Continued use requires a Windows license.</Expire_Other_Info>
+    </Expire_Info>
+    <Program_Category_Class>Desktop::Other</Program_Category_Class>
+    <Program_Specific_Category>Utilities</Program_Specific_Category>
+    <Program_System_Requirements>Windows 10/11 (x64 or ARM64), outside S mode. Check .NET 10 support for your version and edition.</Program_System_Requirements>
+  </Program_Info>
+  <Program_Descriptions>
+    <English>
+      <Keywords>keyboard sounds,typing sounds,mechanical keyboard sounds,Windows,ARM64,x64,Klakk</Keywords>
+      <Char_Desc_45>Keyboard sounds while typing on Windows</Char_Desc_45>
+      <Char_Desc_80>Play 14 keyboard sound packs while typing on Windows 10 or 11. 3-day trial.</Char_Desc_80>
+      <Char_Desc_250>Klakk adds keyboard audio as you type on Windows 10 or 11, with 14 sound packs, volume and output selection. Supports ARM64 and x64. Try it for 3 days from first launch; continued use costs US$6.99 once for Windows, plus applicable tax.</Char_Desc_250>
+      <Char_Desc_450>Klakk plays keyboard sounds while you type in other Windows apps. Choose from 14 included sound packs, set the volume and select an output device. Windows 10 or 11 on ARM64 or x64 is required. The full-featured trial lasts 3 days from first launch; continued use costs US$6.99 once for Windows, plus applicable tax. Mac is a separate purchase. The current Windows installer is unsigned. Preview sounds on the official website before installing.</Char_Desc_450>
+      <Char_Desc_2000>Website version 1.4.4, internal revision 1.4.4.0, published 17 November 2026. Klakk adds keyboard audio while you type on your existing Windows keyboard. It changes the software audio, not the keyboard hardware, feel or physical noise.
+
+The Windows edition includes 14 sound packs, volume adjustment and output-device selection. The installer targets Windows 10/11 on ARM64 or Intel/AMD x64 and cannot run in S mode. It selects the native architecture and includes .NET 10. On Windows 10 or 11, check your edition and version against the Microsoft support table linked from https://tryklakk.com/en/windows/ before installing. 32-bit Windows is unsupported.
+
+The full-featured trial lasts 3 days from first launch. Continued use costs US$6.99 once for the Windows edition, with applicable tax shown at checkout. A new Windows license supports up to three Windows devices. Mac and Windows are separate purchases. Mac App Store and website Mac licenses are also separate.
+
+Listen to the sound packs in the official browser preview at https://tryklakk.com/en/keyboard-sounds/ before installing. The preview plays only on that webpage; the desktop app adds sounds while typing in other apps.
+
+The current Windows installer is unsigned. Review Windows security prompts yourself before deciding whether to run it. SHA-256 for Klakk-1.4.4-Windows-Setup.exe: 65413b1048ff189186cfc683ed00feb6bc7e39f711930bb24e5a0a1eff54e406. A matching checksum does not substitute for publisher signing.
+
+Klakk does not save typed text or upload raw key events. It uses key codes locally for playback and shortcuts, and sends pseudonymous usage milestones and license information as described at https://tryklakk.com/en/windows/privacy/ . Product terms: https://tryklakk.com/en/terms/ . Support: https://tryklakk.com/en/support/ . Application source remains private.</Char_Desc_2000>
+    </English>
+  </Program_Descriptions>
+  <Web_Info>
+    <Application_URLs>
+      <Application_Info_URL>https://tryklakk.com/en/windows/</Application_Info_URL>
+      <Application_Icon_URL>https://tryklakk.com/assets/images/windows/klakk-icon-32.png</Application_Icon_URL>
+      <Application_XML_File_URL>https://raw.githubusercontent.com/levindong2026/klakk-downloads/refs/heads/main/pad/klakk-windows.xml</Application_XML_File_URL>
+    </Application_URLs>
+    <Download_URLs>
+      <Primary_Download_URL>https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe</Primary_Download_URL>
+    </Download_URLs>
+  </Web_Info>
+  <ASP>
+    <ASP_Member>N</ASP_Member>
+  </ASP>
+</XML_DIZ_INFO>
