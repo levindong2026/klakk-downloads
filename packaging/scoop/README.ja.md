@@ -2,7 +2,7 @@
 
 これは**Klakk開発者が管理する独自のScoopバケット**です。Scoopのmain・Extras公式カタログへの収録を意味しません。対応するWindows 10・11のネイティブx64・ARM64環境に、公式アプリ**1.4.4**を導入できます。32ビットWindowsとScoopのグローバルインストールには非対応です。
 
-インストーラーには.NET 10が含まれています。Windows 10では、インストール前に[お使いのエディションとバージョンが.NET 10のサポート対象か確認](https://learn.microsoft.com/ja-jp/dotnet/core/install/windows#supported-versions)してください。[WindowsのSモード](https://support.microsoft.com/ja-jp/windows/experience/platform-variants/switching-out-of-s-mode-in-windows)では、このインストーラーでKlakkをインストールできません。
+インストーラーには.NET 10が含まれています。Windows 10または11では、インストール前に[お使いのエディションとバージョンが.NET 10のサポート対象か確認](https://learn.microsoft.com/ja-jp/dotnet/core/install/windows#supported-versions)してください。[WindowsのSモード](https://support.microsoft.com/ja-jp/windows/experience/platform-variants/switching-out-of-s-mode-in-windows)では、このインストーラーでKlakkをインストールできません。
 
 両方のアーキテクチャで同じ**116.9 MB**の[公式インストーラー](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4)を使います。セットアップがPCに合うネイティブ版を選びます。1.4.1のアーキテクチャ別パッケージは、元のリリースから引き続き入手できます。
 
