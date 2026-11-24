@@ -72,6 +72,7 @@ Klakk does not save typed text or upload raw key events. It uses key codes local
     </Application_URLs>
     <Download_URLs>
       <Primary_Download_URL>https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe</Primary_Download_URL>
+      <Secondary_Download_URL>https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe</Secondary_Download_URL>
     </Download_URLs>
   </Web_Info>
   <ASP>
