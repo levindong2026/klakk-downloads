@@ -12,6 +12,8 @@ If you already use Chocolatey with the Community Repository enabled, install Kla
 choco install klakk
 ```
 
+Open Klakk from Start in the same Windows account that ran setup. If you entered another account’s credentials to elevate Chocolatey, the shortcut may be in that account’s Start menu. If your device policy permits it, use the [official Windows installer](https://tryklakk.com/en/windows/#website-windows) from the account that will use Klakk.
+
 ## Historical packages
 
 This developer-maintained package for the Windows direct edition, version 1.4.1, was submitted to the Chocolatey Community Repository on **2026-10-09**. The [public package page](https://community.chocolatey.org/packages/klakk/1.4.1), verified on **2026-10-16**, states that a moderator approved it on **2026-10-12**.
