@@ -6,6 +6,8 @@ The current package pins the official `Klakk-1.4.4-Windows-Setup.exe` from the [
 
 ## Install from the Chocolatey Community Repository
 
+Before installing, check that your x64 or ARM64 PC runs Windows 10 or 11 outside S mode and that Microsoft supports .NET 10 on your Windows edition and version. The installer includes .NET 10. [Check the Windows installer requirements](https://tryklakk.com/en/blog/windows-keyboard-sounds-arm64-x64-setup/#download-the-windows-installer).
+
 If you already use Chocolatey with the Community Repository enabled, install Klakk with the command shown on the [approved package page](https://community.chocolatey.org/packages/klakk/1.4.4):
 
 ```powershell
