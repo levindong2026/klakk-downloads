@@ -49,7 +49,7 @@ OBSのAudio MixerからAdvanced Audio Propertiesを開き、対象ソースを�
 
 ## Klakkの対象版と次の手順
 
-公式サイト版には**Mac版**と**Windows版**があります。MacはmacOS 14以降のAppleシリコン・Intel、WindowsはWindows 10/11のネイティブx64・ARM64に対応します。Windowsインストーラーは未署名です。App Store版は別の配布・ライセンスです。
+公式サイト版には**Mac版**と**Windows版**があります。MacはmacOS 14以降のAppleシリコンとIntelに対応します。公式サイトのWindowsインストーラーを使うには、SモードではないWindows 10/11が必要です。インストーラーはPCに合ったネイティブx64版またはARM64版を選びます。ダウンロード前に[Windows版の動作環境](https://tryklakk.com/ja/windows/#website-windows)を確認してください。Windowsインストーラーは未署名です。App Store版は別の配布・ライセンスです。
 
 14音源を再生でき、公式サイト版の試用は初回起動から3日間です。継続利用は各プラットフォームでUS$6.99の買い切りで、適用税が加わります。Macの入力監視ではキーイベントや物理キーコードをローカル処理します。公式サイト版は入力文字や生のキーイベントを送信しませんが、使用・設定やライセンスの通信があります。通信の範囲は[Mac版のプライバシー説明](https://tryklakk.com/ja/privacy/)と[Windows版の説明](https://tryklakk.com/ja/windows/privacy/)で確認してください。
 
