@@ -46,7 +46,7 @@ Want to understand the preview levels? Read the [original preview-file measureme
 
 If the purchase service requires an update, Klakk 1.4.4 shows a **Download Update** button that opens the official Windows download page. Existing Pancake and Creem licenses remain supported.
 
-For an update from Windows 1.4.3, run the 1.4.4 installer over your existing installation; you do not need to uninstall first.
+To upgrade a manual Klakk 1.4.3 installation, quit Klakk and run the Windows 1.4.4 installer in the same location. The installer replaces the previous version in place. For a Scoop installation, quit Klakk and follow the [Scoop update steps](packaging/scoop/README.md#update-or-remove).
 
 If you already use WinGet, use the command below for a new Klakk installation. The WinGet community source uses the same unsigned Windows installer.
 
