@@ -1,0 +1,108 @@
+name: Validate Klakk 1.4.4 WinGet setup note
+on:
+  push:
+    branches: [codex/winget-installation-notes-144-check]
+    paths: ['.github/workflows/winget-installation-notes-check.yml', 'packaging/winget-installation-notes-check/**']
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    if: github.repository == 'levindong2026/klakk-downloads'
+    runs-on: windows-11-arm
+    timeout-minutes: 4
+    steps:
+      - name: Check out validation fixtures
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        env:
+          GIT_CONFIG_COUNT: '2'
+          GIT_CONFIG_KEY_0: core.autocrlf
+          GIT_CONFIG_VALUE_0: 'false'
+          GIT_CONFIG_KEY_1: core.eol
+          GIT_CONFIG_VALUE_1: lf
+        with:
+          persist-credentials: false
+      - name: Verify the six manifest bytes and run WinGet validate
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $manifest = Join-Path $env:GITHUB_WORKSPACE 'packaging/winget-installation-notes-check/1.4.4'
+          $expected = @{
+            'Klakk.Klakk.installer.yaml' = '0000721dd22bd3111bafe5dbd1100fdf88695c9e6aba54e0fd11e26add0bf502'
+            'Klakk.Klakk.locale.en-US.yaml' = '10edfc0a76a533059727926759107366f18f6c2a5a239cebfc97e6124a2ba0cf'
+            'Klakk.Klakk.locale.ja-JP.yaml' = 'c2811250d635099b971d07595744196dfd5d03711a10c37d8c40eba1fcbb98cf'
+            'Klakk.Klakk.locale.ko-KR.yaml' = '94cac54c84651166940f3de9d0de600d1981b994725d3f1a7e0cead51d2c7b94'
+            'Klakk.Klakk.locale.zh-CN.yaml' = '0ce426b57ce0af2ad78ccecbd2ed96a279daac53a8c8c4efcfab96032c639d99'
+            'Klakk.Klakk.yaml' = '2135e4213b4d3124b4f58f29074a72ed9ba2bb12c4652cf3314dfa10885264c7'
+          }
+          $files = @(Get-ChildItem -LiteralPath $manifest)
+          if ($files.Count -ne $expected.Count) { throw 'Unexpected manifest file count' }
+          foreach ($file in $files) {
+            if ($file.PSIsContainer -or -not $expected.ContainsKey($file.Name)) {
+              throw "Unexpected manifest member: $($file.Name)"
+            }
+            $fingerprint = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($fingerprint -cne $expected[$file.Name]) { throw "Changed manifest member: $($file.Name)" }
+            Write-Output "$($file.Name) $fingerprint"
+          }
+          if ([Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString() -cne 'Arm64') {
+            throw 'The validator requires the standard hosted ARM64 image'
+          }
+          $appInstaller = Get-AppxPackage -Name Microsoft.DesktopAppInstaller | Select-Object -First 1
+          if (-not $appInstaller -or [version]$appInstaller.Version -lt [version]'1.28.0.0') {
+            $bootstrap = Join-Path $env:RUNNER_TEMP 'winget-bootstrap'
+            New-Item -ItemType Directory -Path $bootstrap | Out-Null
+            $assets = @{
+              'DesktopAppInstaller_Dependencies.zip' = 'ba875afe9d190f61218985ac0292a99d1db710bf93e13c68944ca9d89f0d82d1'
+              'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle' = '65dea9c01ce08ee7b763366b27c0e651f97db857c11ca9b9c301826c10092f2e'
+            }
+            foreach ($name in $assets.Keys) {
+              $file = Join-Path $bootstrap $name
+              Invoke-WebRequest "https://github.com/microsoft/winget-cli/releases/download/v1.29.380/$name" -OutFile $file
+              if ((Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -cne $assets[$name]) {
+                throw "Microsoft client asset hash mismatch: $name"
+              }
+            }
+            Expand-Archive (Join-Path $bootstrap 'DesktopAppInstaller_Dependencies.zip') (Join-Path $bootstrap 'dependencies')
+            $deployment = @'
+          param([string]$Root)
+          $ErrorActionPreference = 'Stop'
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $packages = @(Get-ChildItem (Join-Path $Root 'dependencies/arm64') -Filter '*.appx')
+          if ($packages.Count -lt 3) { throw 'Official ARM64 frameworks missing' }
+          foreach ($package in $packages) {
+            $archive = [IO.Compression.ZipFile]::OpenRead($package.FullName)
+            try {
+              $reader = New-Object IO.StreamReader($archive.GetEntry('AppxManifest.xml').Open())
+              try { [xml]$manifest = $reader.ReadToEnd() } finally { $reader.Dispose() }
+            } finally { $archive.Dispose() }
+            $identity = $manifest.Package.Identity
+            if ($identity.ProcessorArchitecture -ne 'arm64') { throw 'Unexpected framework architecture' }
+            $existing = Get-AppxPackage -Name $identity.Name | Where-Object {
+              $_.Architecture -eq 'Arm64' -and [version]$_.Version -ge [version]$identity.Version
+            }
+            if (-not $existing) { Add-AppxPackage -Path $package.FullName -ErrorAction Stop }
+          }
+          Add-AppxPackage -Path (Join-Path $Root 'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle') -ErrorAction Stop
+          '@
+            $deploymentPath = Join-Path $bootstrap 'deploy.ps1'
+            Set-Content -LiteralPath $deploymentPath -Value $deployment
+            & powershell.exe -NoProfile -NonInteractive -File $deploymentPath -Root $bootstrap
+            if ($LASTEXITCODE -ne 0) { throw 'Microsoft App Installer deployment failed' }
+            $appInstaller = Get-AppxPackage -Name Microsoft.DesktopAppInstaller | Select-Object -First 1
+          }
+          if (-not $appInstaller) { throw 'App Installer is unavailable' }
+          $winget = Join-Path $appInstaller.InstallLocation 'winget.exe'
+          $client = (& $winget --version | Out-String).Trim()
+          $versionExit = $LASTEXITCODE
+          $parsedVersion = [regex]::Match($client, '^v?(\d+\.\d+\.\d+)$')
+          if ($versionExit -ne 0 -or -not $parsedVersion.Success) {
+            throw "Unexpected WinGet version: $client ($versionExit)"
+          }
+          if ([version]$parsedVersion.Groups[1].Value -lt [version]'1.28.0') { throw "WinGet must support schema 1.28.0: $client" }
+          Write-Output "WinGet=$client"
+          & $winget validate --manifest $manifest --disable-interactivity
+          $validationExit = $LASTEXITCODE
+          Write-Output "ValidateExit=$validationExit"
+          if ($validationExit -ne 0) { exit $validationExit }
