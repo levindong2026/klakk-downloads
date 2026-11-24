@@ -12,7 +12,7 @@ This identity note is maintained by Levin, Klakk's developer, with AI assistance
 
 | Platform | Requirements | Official file | GitHub mirror |
 | --- | --- | --- | --- |
-| Windows 1.4.4 | Windows 10 or 11, native x64 or ARM64. Includes .NET 10. On Windows 10, [check .NET 10 support for your edition and version](https://learn.microsoft.com/en-us/dotnet/core/install/windows#supported-versions). The installer cannot install Klakk in [Windows S mode](https://support.microsoft.com/en-us/windows/experience/platform-variants/switching-out-of-s-mode-in-windows). | [Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
+| Windows 1.4.4 | Windows 10 or 11, native x64 or ARM64. Includes .NET 10. On Windows 10 or 11, [check .NET 10 support for your edition and version](https://learn.microsoft.com/en-us/dotnet/core/install/windows#supported-versions). The installer cannot install Klakk in [Windows S mode](https://support.microsoft.com/en-us/windows/experience/platform-variants/switching-out-of-s-mode-in-windows). | [Windows Setup](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows Setup](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
 | Mac 1.4.4 (build 26) | macOS 14 or later, Apple silicon or Intel | [Mac DMG](https://tryklakk.com/download/klakk.dmg) · 38.9 MB | [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-26.dmg) |
 
 [Windows 1.4.4 release notes](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4) · [Windows 1.4.4 checksums](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.4 file verification](https://tryklakk.com/en/verify-installer/) · [Archived Mac 1.4.3 release and files](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [Website download guide](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
@@ -61,7 +61,7 @@ Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.
 1. [Download the official Mac DMG](https://tryklakk.com/download/klakk.dmg) and open `Klakk-1.4.4-26.dmg`.
 2. Drag Klakk into Applications, then open the copy in Applications.
 3. Follow Klakk's prompt to enable **System Settings → Privacy & Security → Input Monitoring**. Quit and reopen Klakk if macOS requests it.
-4. Choose a sound pack and volume, then type in your usual writing app.
+4. Click the Klakk icon in the menu bar and make sure **Enable Klakk** is on. In **Settings... → Audio**, choose a sound pack and adjust its volume, then type in your usual writing app.
 
 The current DMG contains Klakk 1.4.4, build 26. The app and disk image are signed with Developer ID and notarized by Apple. Input Monitoring lets the app react to keyboard events while you type in other apps. Read the [Mac privacy policy](https://tryklakk.com/en/privacy/) before granting access.
 

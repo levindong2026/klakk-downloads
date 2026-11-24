@@ -8,7 +8,7 @@ Klakk開発者が管理する公式ダウンロードページです。普段の
 
 | OS | 動作環境 | 公式配布ファイル | GitHub ミラー |
 | --- | --- | --- | --- |
-| Windows 1.4.4 | Windows 10 / 11、ネイティブ x64 または ARM64。.NET 10 を同梱。Windows 10 の場合は、[お使いのエディションとバージョンが .NET 10 のサポート対象か確認](https://learn.microsoft.com/ja-jp/dotnet/core/install/windows#supported-versions)してください。 [Windows の S モード](https://support.microsoft.com/ja-jp/windows/experience/platform-variants/switching-out-of-s-mode-in-windows) では、このインストーラーで Klakk をインストールできません。 | [Windows インストーラー](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows インストーラー](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
+| Windows 1.4.4 | Windows 10 / 11、ネイティブ x64 または ARM64。.NET 10 を同梱。Windows 10 / 11 のいずれも、[お使いのエディションとバージョンが .NET 10 のサポート対象か確認](https://learn.microsoft.com/ja-jp/dotnet/core/install/windows#supported-versions)してください。 [Windows の S モード](https://support.microsoft.com/ja-jp/windows/experience/platform-variants/switching-out-of-s-mode-in-windows) では、このインストーラーで Klakk をインストールできません。 | [Windows インストーラー](https://downloads.tryklakk.com/Klakk-1.4.4-Windows-Setup.exe) · 116.9 MB | [Windows インストーラー](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-Windows-Setup.exe) |
 | Mac 1.4.4（ビルド 26） | macOS 14 以降、Apple シリコンまたは Intel Mac | [Mac DMG](https://tryklakk.com/download/klakk.dmg) · 38.9 MB | [Mac DMG](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/Klakk-1.4.4-26.dmg) |
 
 [Windows 1.4.4のリリース情報](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.4) · [Windows 1.4.4のチェックサム](https://github.com/levindong2026/klakk-downloads/releases/download/v1.4.4/SHA256SUMS.txt) · [Mac 1.4.4のファイル照合](https://tryklakk.com/ja/verify-installer/) · [旧版Mac 1.4.3のリリースと配布ファイル](https://github.com/levindong2026/klakk-downloads/releases/tag/v1.4.3) · [公式サイトのダウンロード案内](https://tryklakk.com/ja/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
@@ -63,7 +63,7 @@ Scoopをすでに利用している場合は、[Klakk開発者が管理するWin
 1. [公式サイトからMac用DMGをダウンロード](https://tryklakk.com/download/klakk.dmg)し、`Klakk-1.4.4-26.dmg`を開きます。
 2. Klakkを「アプリケーション」にドラッグし、そこにコピーしたアプリを開きます。
 3. Klakkの案内に従い、「システム設定 → プライバシーとセキュリティ → 入力監視」でKlakkを許可します。macOSが求めた場合はアプリを終了して開き直します。
-4. サウンドパックと音量を選び、普段使うアプリで入力します。
+4. メニューバーのKlakkアイコンをクリックし、「Klakkを有効にする」がオンか確認します。「設定...」から「オーディオ」を開き、サウンドパックを選んで音量を調整し、普段使うアプリで入力します。
 
 現在のDMGにはKlakk 1.4.4（ビルド 26）が入っています。アプリとDMGはDeveloper IDで署名され、Appleの公証を受けています。入力監視は、ほかのアプリでのキー入力に合わせて音を再生するために使います。権限を許可する前に[Mac版のプライバシーポリシー](https://tryklakk.com/ja/privacy/)をご確認ください。
 
