@@ -56,6 +56,8 @@ WinGet をお使いの方は、次のコマンドで Klakk を新規インスト
 winget install --id Klakk.Klakk --exact --source winget
 ```
 
+WinGet でのインストールが完了したら、試すときに Windows のスタート メニューから **Klakk** を開き、[最初の打鍵音を鳴らす手順](https://tryklakk.com/ja/blog/windows-keyboard-sounds-arm64-x64-setup/#%E6%9C%80%E5%88%9D%E3%81%AE%E6%89%93%E9%8D%B5%E9%9F%B3%E3%82%92%E9%B3%B4%E3%82%89%E3%81%99)に進んでください。
+
 Scoopをすでに利用している場合は、[Klakk開発者が管理するWindowsバケット](packaging/scoop/README.ja.md)から、1.4.4の共通インストーラーで同版を導入できます。[1.4.4 のパッケージ検証](https://github.com/levindong2026/klakk-downloads/actions/runs/45019558379)はネイティブ x64・ARM64 の両方で通過しました。Scoopのmain・Extras公式カタログへの収録とは別の独自配布元です。
 
 ## Macでのインストール
