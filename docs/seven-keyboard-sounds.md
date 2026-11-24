@@ -29,7 +29,7 @@ Each pack has an eight-second segment with the same twelve scheduled key events:
 
 [Try all 14 sound packs in your browser](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=seven_sound_preview_en), then try your choice while typing in your everyday apps.
 
-[Try Klakk for Mac](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=seven_sound_preview_en#website-mac) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=seven_sound_preview_en)
+[Try Klakk for Mac](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=seven_sound_preview_en#website-mac) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=seven_sound_preview_en#website-windows)
 
 The website editions include all fourteen packs for **three days from first app launch**. Continued use costs **US$6.99 once per platform, plus applicable tax**. Website Mac, Windows and Mac App Store purchases have separate licenses.
 

@@ -4,7 +4,7 @@ Pay for keyboard sounds when you have found recordings you want to keep hearing 
 
 I'm Levin, Klakk's developer, and prepared this article with AI assistance. I checked the Mac and Windows website offers on November 6, 2026, and updated Klakk's release and checkout details on November 12, 2026. I make Klakk, so this is an explanation of our offer and its limits, rather than an independent ranking or a story about measured customer results.
 
-[Listen to all 14 Klakk packs](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Start the Mac website trial](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1#website-mac) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1)
+[Listen to all 14 Klakk packs](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Start the Mac website trial](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1#website-mac) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1#website-windows)
 
 ## The sound has to be one you want to keep
 
@@ -90,4 +90,4 @@ Choose the app that fits. Downloading or starting a Klakk trial does not obligat
 
 ## Hear it before deciding
 
-[Preview all 14 sounds](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Try the Mac website edition](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1#website-mac) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1)
+[Preview all 14 sounds](https://tryklakk.com/en/keyboard-sounds/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1) · [Try the Mac website edition](https://tryklakk.com/en/download/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1#website-mac) · [Try Klakk for Windows](https://tryklakk.com/en/windows/?utm_source=github&utm_medium=referral&utm_campaign=software-discovery&utm_content=keyboard-sound-purchase-value-1-4-1#website-windows)
