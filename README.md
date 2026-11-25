@@ -65,6 +65,8 @@ Already use Scoop? The [Klakk-maintained Windows bucket](packaging/scoop/README.
 3. Follow Klakk's prompt to enable **System Settings → Privacy & Security → Input Monitoring**. Quit and reopen Klakk if macOS requests it.
 4. Click the Klakk icon in the menu bar and make sure **Enable Klakk** is on. In **Settings... → Audio**, choose a sound pack and adjust its volume, then type in your usual writing app.
 
+If you chose **Later** at first launch and Input Monitoring is still off, click the Klakk icon in the menu bar, choose **⚠️ Grant Input Monitoring Permission**, then click **Open Settings**. Allow Klakk in **Input Monitoring**. Quit and reopen Klakk if macOS asks you to.
+
 The current DMG contains Klakk 1.4.4, build 26. The app and disk image are signed with Developer ID and notarized by Apple. Input Monitoring lets the app react to keyboard events while you type in other apps. Read the [Mac privacy policy](https://tryklakk.com/en/privacy/) before granting access.
 
 [Mac installation and troubleshooting](https://tryklakk.com/en/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads).

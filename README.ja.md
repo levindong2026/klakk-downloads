@@ -67,6 +67,8 @@ Scoopをすでに利用している場合は、[Klakk開発者が管理するWin
 3. Klakkの案内に従い、「システム設定 → プライバシーとセキュリティ → 入力監視」でKlakkを許可します。macOSが求めた場合はアプリを終了して開き直します。
 4. メニューバーのKlakkアイコンをクリックし、「Klakkを有効にする」がオンか確認します。「設定...」から「オーディオ」を開き、サウンドパックを選んで音量を調整し、普段使うアプリで入力します。
 
+初回起動時の案内で **Later** を選び、まだ入力監視を許可していない場合は、メニューバーの Klakk アイコンから **⚠️ Grant Input Monitoring Permission** を選びます。案内が表示されたら **Open Settings** を押し、「入力監視」で Klakk を許可します。macOS に求められた場合は、Klakk を終了して開き直してください。
+
 現在のDMGにはKlakk 1.4.4（ビルド 26）が入っています。アプリとDMGはDeveloper IDで署名され、Appleの公証を受けています。入力監視は、ほかのアプリでのキー入力に合わせて音を再生するために使います。権限を許可する前に[Mac版のプライバシーポリシー](https://tryklakk.com/ja/privacy/)をご確認ください。
 
 [Mac版のインストールガイド](https://tryklakk.com/ja/blog/mac-direct-download-install-guide/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads)
