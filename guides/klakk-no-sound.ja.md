@@ -2,7 +2,7 @@
 
 Klakk 開発者による公式案内です。2026年10月8日更新、Klakk 1.4.1 向け。
 
-[English](klakk-no-sound.md) · [現在の公式サイト版をダウンロード](https://tryklakk.com/ja/download/)
+[English](klakk-no-sound.md) · [現在の公式サイト版をダウンロード](https://tryklakk.com/ja/download/) · [現行版で最初に音を鳴らす手順](https://tryklakk.com/ja/download/#first-sound)
 
 インストール後に入力音が鳴らない場合は、アプリの有効化、音量、出力先、バックグラウンドモード、試用・ライセンス状態を確認します。Mac では「入力監視」の許可も必要です。再インストールの前に、次の手順で設定を見直してください。
 

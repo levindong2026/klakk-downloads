@@ -2,7 +2,7 @@
 
 Maintained by the Klakk developer. Updated October 8, 2026, for Klakk 1.4.1.
 
-[日本語](klakk-no-sound.ja.md) · [Current website downloads](https://tryklakk.com/en/download/)
+[日本語](klakk-no-sound.ja.md) · [Current website downloads](https://tryklakk.com/en/download/) · [Current first-sound steps](https://tryklakk.com/en/download/#first-sound)
 
 If Klakk is installed but typing is silent, check the app's playback, volume, output device, Background Mode and trial status. On Mac, also check Input Monitoring. The steps below help you check your setup before reinstalling.
 
