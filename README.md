@@ -31,7 +31,7 @@ Installed but silent? Follow the [current Mac and Windows first-sound steps](htt
 
 Recording with OBS? Use the [playback, capture and recording-track checklist](guides/keyboard-sounds-obs.md) to find where keyboard sounds stop.
 
-Deciding whether to buy? Read [what free apps, optional paid packs and Klakk’s platform license include](docs/keyboard-sounds-worth-paying-for.md), then listen before choosing.
+Deciding whether to buy? Read [what free apps, optional paid packs and Klakk’s platform license include](docs/keyboard-sounds-worth-paying-for.md), then listen before choosing. On Windows, [compare free apps and trial options](https://tryklakk.com/en/blog/windows-keyboard-sound-apps/?utm_source=github&utm_medium=referral&utm_campaign=official_downloads&utm_content=windows_comparison_en#compare-the-download-and-payment-conditions).
 
 Want to understand the preview levels? Read the [original preview-file measurements and reproducible method](docs/keyboard-sound-preview-measurements.md), including the limits of comparing sounds at the same system volume.
 
